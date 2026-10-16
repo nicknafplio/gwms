@@ -84,7 +84,7 @@ def header(current, section=None):
 
     return f'''<header class="site-header">
   <div class="site-header__bar container">
-    <a class="brand" href="/"><img src="/img/logo-gwms.png" width="752" height="164" alt="Global Wealth Management Solutions — home"></a>
+    <a class="brand" href="/"><img src="/img/logo-gwms.svg" width="376" height="89" alt="Global Wealth Management Solutions — home"></a>
     <button type="button" class="nav-toggle" aria-expanded="false" aria-controls="site-nav"><span>Menu</span><span class="nav-toggle__icon" aria-hidden="true"></span></button>
     <nav id="site-nav" class="site-nav" aria-label="Main">
       <ul class="site-nav__list">
@@ -103,7 +103,7 @@ def header(current, section=None):
 
 FOOTER = f'''<footer class="site-footer on-dark">
   <div class="container site-footer__inner">
-    <img class="site-footer__mark" src="/img/gw-icon.png" width="171" height="171" alt="">
+    <img class="site-footer__mark" src="/img/gw-icon.svg" width="78" height="83" alt="">
     <p class="site-footer__reg">{e(REG)}</p>
     <ul class="site-footer__links" aria-label="Legal">
       <li><a href="/privacy-notice">Privacy Notice</a></li>
