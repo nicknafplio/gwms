@@ -1,0 +1,245 @@
+[
+ {
+  "path": "/",
+  "slug": "home",
+  "status": 200,
+  "type": "text/html",
+  "loc": null,
+  "title": "Home page",
+  "bytes": 25986
+ },
+ {
+  "path": "/about-gwms",
+  "slug": "about-gwms",
+  "status": 200,
+  "type": "text/html",
+  "loc": null,
+  "title": "Exceptional wealth management solutions",
+  "bytes": 28011
+ },
+ {
+  "path": "/meet-the-team",
+  "slug": "meet-the-team",
+  "status": 200,
+  "type": "text/html",
+  "loc": null,
+  "title": "Meet the Team",
+  "bytes": 30293
+ },
+ {
+  "path": "/investment-notification-form",
+  "slug": "investment-notification-form",
+  "status": 200,
+  "type": "text/html",
+  "loc": null,
+  "title": "Investment Notification",
+  "bytes": 28266
+ },
+ {
+  "path": "/contact",
+  "slug": "contact",
+  "status": 200,
+  "type": "text/html",
+  "loc": null,
+  "title": "Contact",
+  "bytes": 27390
+ },
+ {
+  "path": "/platforms",
+  "slug": "platforms",
+  "status": 200,
+  "type": "text/html",
+  "loc": null,
+  "title": "Platforms",
+  "bytes": 27441
+ },
+ {
+  "path": "/1oak-multi-asset-funds-guided-by-blackrock",
+  "slug": "1oak-multi-asset-funds-guided-by-blackrock",
+  "status": 200,
+  "type": "text/html",
+  "loc": null,
+  "title": "1OAK Multi Asset (MA80) Fund",
+  "bytes": 27742
+ },
+ {
+  "path": "/epic-investment-partners",
+  "slug": "epic-investment-partners",
+  "status": 200,
+  "type": "text/html",
+  "loc": null,
+  "title": "EPIC Investment Partners",
+  "bytes": 29300
+ },
+ {
+  "path": "/levendi-thornbridge-defined-return-fund",
+  "slug": "levendi-thornbridge-defined-return-fund",
+  "status": 200,
+  "type": "text/html",
+  "loc": null,
+  "title": "Levendi Thornbridge Defined Return Fund",
+  "bytes": 28785
+ },
+ {
+  "path": "/pecora-qms",
+  "slug": "pecora-qms",
+  "status": 200,
+  "type": "text/html",
+  "loc": null,
+  "title": "Pecora QMS",
+  "bytes": 27932
+ },
+ {
+  "path": "/ask-capital-india-entrepreneur-fund",
+  "slug": "ask-capital-india-entrepreneur-fund",
+  "status": 200,
+  "type": "text/html",
+  "loc": null,
+  "title": "ASK Indian Entrepreneur Fund",
+  "bytes": 28935
+ },
+ {
+  "path": "/pecora-chatrier-equity-value",
+  "slug": "pecora-chatrier-equity-value",
+  "status": 200,
+  "type": "text/html",
+  "loc": null,
+  "title": "Pecora Chatrier Equity (Value) ",
+  "bytes": 27910
+ },
+ {
+  "path": "/pecora-manning-napier-high-yield-bond-strategy",
+  "slug": "pecora-manning-napier-high-yield-bond-strategy",
+  "status": 200,
+  "type": "text/html",
+  "loc": null,
+  "title": "Pecora Manning &amp; Napier High Yield Bond Strategy",
+  "bytes": 29098
+ },
+ {
+  "path": "/investment-management-solutions",
+  "slug": "investment-management-solutions",
+  "status": 200,
+  "type": "text/html",
+  "loc": null,
+  "title": "Investment Management Solutions",
+  "bytes": 27183
+ },
+ {
+  "path": "/structured-products",
+  "slug": "structured-products",
+  "status": 200,
+  "type": "text/html",
+  "loc": null,
+  "title": "Structured Products",
+  "bytes": 25491
+ },
+ {
+  "path": "/cookie-information",
+  "slug": "cookie-information",
+  "status": 200,
+  "type": "text/html",
+  "loc": null,
+  "title": "Cookie Information",
+  "bytes": 26819
+ },
+ {
+  "path": "/disclaimer",
+  "slug": "disclaimer",
+  "status": 200,
+  "type": "text/html",
+  "loc": null,
+  "title": "Disclaimer",
+  "bytes": 27497
+ },
+ {
+  "path": "/privacy-notice",
+  "slug": "privacy-notice",
+  "status": 200,
+  "type": "text/html",
+  "loc": null,
+  "title": "Privacy Notice",
+  "bytes": 33800
+ },
+ {
+  "path": "/africa",
+  "slug": "africa",
+  "status": 200,
+  "type": "text/html",
+  "loc": null,
+  "title": "Africa",
+  "bytes": 26560
+ },
+ {
+  "path": "/americas-caribbean",
+  "slug": "americas-caribbean",
+  "status": 200,
+  "type": "text/html",
+  "loc": null,
+  "title": "Americas &amp; Caribbean",
+  "bytes": 26700
+ },
+ {
+  "path": "/asia",
+  "slug": "asia",
+  "status": 200,
+  "type": "text/html",
+  "loc": null,
+  "title": "Asia",
+  "bytes": 26858
+ },
+ {
+  "path": "/europe",
+  "slug": "europe",
+  "status": 200,
+  "type": "text/html",
+  "loc": null,
+  "title": "Europe",
+  "bytes": 27216
+ },
+ {
+  "path": "/middle-east",
+  "slug": "middle-east",
+  "status": 200,
+  "type": "text/html",
+  "loc": null,
+  "title": "Middle East",
+  "bytes": 27111
+ },
+ {
+  "path": "/images/documents/GWMS-Investment-Tracking-Form-2023.pdf",
+  "slug": "images/documents/GWMS-Investment-Tracking-Form-2023.pdf",
+  "status": 200,
+  "type": "application/pdf",
+  "loc": null,
+  "title": null,
+  "bytes": 3136151
+ },
+ {
+  "path": "/about",
+  "slug": "about",
+  "status": 302,
+  "type": "text/html",
+  "loc": "/error404",
+  "title": null,
+  "bytes": 0
+ },
+ {
+  "path": "/cookie-information.",
+  "slug": "cookie-information.",
+  "status": 302,
+  "type": "text/html",
+  "loc": "/error404",
+  "title": null,
+  "bytes": 0
+ },
+ {
+  "path": "/error404",
+  "slug": "error404",
+  "status": 200,
+  "type": "text/html",
+  "loc": null,
+  "title": "404 Not Found",
+  "bytes": 25352
+ }
+]
