@@ -45,5 +45,5 @@ Platforms · Investment Management Solutions · Structured Products · Contact. 
 - **Escape** closes and returns focus to the button. Opening one panel closes the other. Click outside, or tabbing out of the open item, closes it.
 - **Mobile (< 70rem):** a "Menu" button reveals a full-width list; Funds and About us are accordion sections (independent). Escape collapses a section first, then the menu.
 - **No JavaScript:** the whole list renders expanded and every link works (tested with JS disabled).
-- Visible focus rings (3px, ≥3:1), no motion, honours `prefers-reduced-motion`.
+- Visible focus rings (3px, ≥3:1), no motion. (By owner decision, `prefers-reduced-motion` is not honoured by any future animation.)
 - The nav is generated from one data definition (`tools/make_preview.py`) so the header is never hand-duplicated.

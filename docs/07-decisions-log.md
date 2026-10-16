@@ -14,3 +14,4 @@
 | | ASK label | **"ASK Indian Entrepreneur Fund"** everywhere (menu and side list). |
 | | Home "Funds" link | **Add a plain Funds index page** listing the existing fund links (no new copy beyond existing labels and group names). |
 | | Visual direction / nav N1–N4 | **Not approved — design changes requested; details awaited.** |
+| 2026-10-16 | Reduced motion | **Owner decision: `prefers-reduced-motion` is discarded** (no reduced-motion handling for any future scroll-reveal/parallax). Accessibility risk noted to owner. |

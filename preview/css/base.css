@@ -41,9 +41,6 @@ sup { line-height: 0; }
   letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted);
 }
 
-@media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
-}
 @media print {
   .site-header, .nav-toggle, .skip-link { display: none; }
   body { font-size: 11pt; }
