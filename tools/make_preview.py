@@ -124,8 +124,6 @@ def page(title, path, body, section=None, extra_head=""):
 <meta name="description" content="{e(DESC)}">
 <link rel="canonical" href="{SITE}{path}">
 <link rel="icon" type="image/png" sizes="32x32" href="/img/gw-icon.png">
-<link rel="preload" href="/fonts/source-serif-4-latin-opsz.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="preload" href="/fonts/source-sans-3-latin-wght.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/css/tokens.css">
 <link rel="stylesheet" href="/css/base.css">
 <link rel="stylesheet" href="/css/components.css">
