@@ -113,7 +113,7 @@ FOOTER = f'''<footer class="site-footer on-dark">
 </footer>'''
 
 
-def page(title, path, body, section=None, extra_head=""):
+def page(title, path, body, section=None, extra_head="", footer=None, extra_scripts=""):
     return f'''<!doctype html>
 <html lang="en-GB" class="no-js">
 <head>
@@ -134,8 +134,9 @@ def page(title, path, body, section=None, extra_head=""):
 <main id="main">
 {body}
 </main>
-{FOOTER}
+{footer or FOOTER}
 <script src="/js/nav.js" defer></script>
+{extra_scripts}
 </body>
 </html>
 '''
@@ -232,7 +233,110 @@ def write(rel, content):
     p.write_text(content, encoding="utf-8")
 
 
+# ---------------------------------------------------------------------------------------
+# CONCEPT HOME (draft for approval; not the approved design). New copy is marked in
+# docs/08-concept-home.md. Everything else is existing GWMS text/labels.
+# ---------------------------------------------------------------------------------------
+CARDS = [  # (group, name as in menu, url, logo file, logo alt)
+    ("Multi Asset", "1OAK Multi Asset (MA80) Fund (Growth)", "/1oak-multi-asset-funds-guided-by-blackrock", "1oak.png", "1OAK"),
+    ("Multi Asset", "EPIC Wealth Fund (Balanced)", "/epic-investment-partners", "epic.png", "EPIC Investment Partners"),
+    ("Equities", "ASK Indian Entrepreneur Fund", "/ask-capital-india-entrepreneur-fund", "ask.png", "ASK Capital"),
+    ("Equities", "Pecora Chatrier Equity (Value)", "/pecora-chatrier-equity-value", "pecora.png", "Pecora Capital"),
+    ("Fixed Interest", "Pecora Manning & Napier High Yield Bond Strategy", "/pecora-manning-napier-high-yield-bond-strategy", "pecora.png", "Pecora Capital"),
+    ("Alternative Strategies", "Levendi Thornbridge Defined Return Fund", "/levendi-thornbridge-defined-return-fund", "levendi.png", "Levendi Investment Management"),
+    ("Alternative Strategies", "Pecora QMS", "/pecora-qms", "pecora.png", "Pecora Capital"),
+]
+cards_html = "\n".join(
+    f'''<li><a class="card" href="{u}"><span class="card__logo"><img src="/img/funds/{lg}" alt="{e(alt)}" loading="lazy"></span>
+<span class="card__group">{e(g)}</span><span class="card__name">{e(n, quote=False)}</span></a></li>'''
+    for g, n, u, lg, alt in CARDS)
+
+CONCEPT = f'''<div class="frame">
+<section class="hero hero--framed gradient on-dark" aria-labelledby="home-title">
+  <picture class="hero__media">
+    <source type="image/webp" srcset="/img/hero-800.webp 800w, /img/hero-1280.webp 1280w, /img/hero-1920.webp 1920w" sizes="100vw">
+    <img src="/img/hero-1280.webp" width="1280" height="928" alt="" fetchpriority="high">
+  </picture>
+  <div class="container hero__inner">
+    <span class="motif" aria-hidden="true"></span>
+    <h1 class="hero__title" id="home-title">Creating <br>long-term value</h1>
+  </div>
+</section>
+</div>
+<section class="statement statement--plain">
+  <div class="container statement__grid">
+    <h2 class="statement__lead">Our portfolio comprises ‘best-of-breed’ solutions to meet the needs of discerning intermediaries and their investors.</h2>
+    <ul class="index">
+      <li><a href="/platforms"><span>Platforms</span></a></li>
+      <li><a href="/levendi-thornbridge-defined-return-fund"><span>Funds</span></a></li>
+      <li><a href="/investment-management-solutions"><span>Investment Management Solutions</span></a></li>
+      <li><a href="/structured-products"><span>Structured Products</span></a></li>
+    </ul>
+  </div>
+</section>
+<section class="about" aria-labelledby="about-title">
+  <div class="container about__grid">
+    <div class="about__photo"><img src="/img/about-glass-1200.webp" srcset="/img/about-glass-700.webp 700w, /img/about-glass-1200.webp 1200w" sizes="(min-width: 60rem) 45vw, 100vw" width="1200" height="800" alt="" loading="lazy"></div>
+    <div>
+      <p class="label about__label"><span class="motif" aria-hidden="true"></span><span id="about-title">About us</span></p>
+      <p class="about__statement">Providing access to best of breed financial products since 2003.</p>
+      <p class="about__text">Trusted by banks, institutions, captives, trust companies, family offices and boutique fund managers for market knowledge, service and track record.</p>
+      <a class="text-link" href="/about-gwms">About GWMS</a>
+    </div>
+  </div>
+</section>
+<section class="funds" aria-labelledby="funds-title">
+  <div class="frame">
+    <div class="funds__panel gradient on-dark">
+      <div class="funds__head">
+        <h2 class="funds__title" id="funds-title"><span class="motif" aria-hidden="true"></span>Funds</h2>
+        <div class="funds__controls">
+          <button type="button" class="carousel-btn carousel-btn--prev" data-carousel-prev aria-label="Previous funds"><span class="chev" aria-hidden="true"></span></button>
+          <button type="button" class="carousel-btn carousel-btn--next" data-carousel-next aria-label="Next funds"><span class="chev" aria-hidden="true"></span></button>
+        </div>
+      </div>
+      <ul class="cards" data-carousel tabindex="0" aria-label="Funds, scrollable list">
+{cards_html}
+      </ul>
+    </div>
+  </div>
+</section>'''
+
+
+def foot_col(title, groups):
+    out = [f'<div class="footer-col"><h2><span class="motif" aria-hidden="true"></span>{e(title)}</h2>']
+    for label, items in groups:
+        if label:
+            out.append(f'<h3>{e(label)}</h3>')
+        out.append("<ul>" + "".join(f'<li><a href="{h}">{e(t, quote=False)}</a></li>' for t, h in items) + "</ul>")
+    return "\n".join(out) + "</div>"
+
+
+CONCEPT_FOOTER = f'''<footer class="site-footer site-footer--wide on-dark">
+  <div class="frame">
+    <div class="footer-panel gradient">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <img src="/img/gw-icon.svg" width="78" height="83" alt="">
+          <p class="footer-reg">{e(REG)}</p>
+        </div>
+        {foot_col("Funds", FUNDS_MENU)}
+        {foot_col("Solutions", [(None, [("Platforms", "/platforms"), ("Investment Management Solutions", "/investment-management-solutions"), ("Structured Products", "/structured-products")])])}
+        {foot_col("About us", [(None, [("About GWMS", "/about-gwms"), ("Meet the team", "/meet-the-team"), ("Contact", "/contact")]), ("Regions", ABOUT_MENU[1][1])])}
+      </div>
+      <ul class="footer-legal" aria-label="Legal">
+        <li><a href="/privacy-notice">Privacy Notice</a></li>
+        <li><a href="/disclaimer">Disclaimer</a></li>
+        <li><a href="/cookie-information">Cookie Information</a></li>
+      </ul>
+    </div>
+  </div>
+</footer>'''
+
 write("index.html", page("Home page", "/", HOME))
+write("concept-home/index.html", page("Home page (concept)", "/", CONCEPT,
+      extra_head='<link rel="stylesheet" href="/css/concept.css">\n', footer=CONCEPT_FOOTER,
+      extra_scripts='<script src="/js/carousel.js" defer></script>'))
 write("ask-capital-india-entrepreneur-fund/index.html",
       page("ASK Indian Entrepreneur Fund", ASK_PATH, ASK, section="funds"))
 print("wrote preview pages")
