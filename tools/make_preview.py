@@ -23,8 +23,7 @@ FUNDS_MENU = [  # group order: Multi Asset, Equities, Fixed Interest, Alternativ
         ("Pecora QMS", "/pecora-qms")]),
 ]
 ABOUT_MENU = [
-    ("About GWMS", [("About GWMS", "/about-gwms"), ("Meet the team", "/meet-the-team"),
-                    ("Documents", "/investment-notification-form")]),
+    ("About GWMS", [("About GWMS", "/about-gwms"), ("Meet the team", "/meet-the-team")]),
     ("Regions", [("Africa", "/africa"), ("Americas & Caribbean", "/americas-caribbean"), ("Asia", "/asia"),
                  ("Europe", "/europe"), ("Middle East", "/middle-east")]),
 ]

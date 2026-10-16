@@ -19,7 +19,7 @@ Rule applied: **every label below is an existing label**. Anything new, reordere
 ### About us ▾ — panel with two groups
 | Group | Links |
 |---|---|
-| About GWMS | About GWMS · Meet the team · Documents |
+| About GWMS | About GWMS · Meet the team |
 | Regions ⚑ | Africa · Americas & Caribbean · Asia · Europe · Middle East |
 
 ### Direct links
