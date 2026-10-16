@@ -128,7 +128,7 @@ def page(title, path, body, section=None, extra_head="", footer=None, extra_scri
 <link rel="stylesheet" href="/css/components.css">
 <script src="/js/init.js"></script>
 {extra_head}</head>
-<body>
+<body id="top">
 <a class="skip-link" href="#main">Skip to main content</a>
 {header(path, section)}
 <main id="main">
@@ -265,7 +265,10 @@ CONCEPT = f'''<div class="frame">
 </div>
 <section class="statement statement--plain">
   <div class="container statement__grid">
-    <h2 class="statement__lead">Our portfolio comprises ‘best-of-breed’ solutions to meet the needs of discerning intermediaries and their investors.</h2>
+    <div class="statement__text">
+      <span class="motif" aria-hidden="true"></span>
+      <h2 class="statement__lead">Our portfolio comprises ‘best-of-breed’ solutions to meet the needs of discerning intermediaries and their investors.</h2>
+    </div>
     <ul class="index">
       <li><a href="/platforms"><span>Platforms</span></a></li>
       <li><a href="/levendi-thornbridge-defined-return-fund"><span>Funds</span></a></li>
@@ -331,9 +334,12 @@ CONCEPT_FOOTER = f'''<footer class="site-footer site-footer--wide on-dark">
           <li><a href="/disclaimer">Disclaimer</a></li>
           <li><a href="/cookie-information">Cookie Information</a></li>
         </ul>
+        <div class="footer-side">
         <a class="footer-social" href="https://www.linkedin.com/company/gwms/" target="_blank" rel="noopener" aria-label="LinkedIn (opens in a new tab)">
           <svg viewBox="0 0 24 24" width="28" height="28" aria-hidden="true" focusable="false"><path fill="currentColor" d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.063 2.063 0 1 1 0-4.126 2.063 2.063 0 0 1 0 4.126zM7.119 20.452H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0z"/></svg>
         </a>
+        <a class="to-top" href="#top"><span class="to-top__tile" aria-hidden="true"></span><span class="to-top__label">Back to top</span></a>
+        </div>
       </div>
       <div class="footer-small">
         <p class="footer-reg">{e(REG)}</p>

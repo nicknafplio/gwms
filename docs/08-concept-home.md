@@ -32,3 +32,7 @@ Footer is four columns: (1) full logo, (2) navigation, (3) legal links (Privacy 
 
 ## Revision 4
 Footer uses your white single-colour logo (`design-assets/supplied/logo-final-white.svg`, delivered with an `.ai` extension but actually an SVG) directly on the gradient, with the existing line "Creating long-term value" as the strapline underneath. The white-plate version is retired.
+
+## Revision 5
+- Second section: statement text aligned to the top with the small offset-square marker above it (as in the other sections); index links reduced to 17 px with smaller arrows.
+- Footer: a "Back to top" link (`#top`) under the LinkedIn icon, drawn as a white tile with a grey offset shadow and an up-chevron, echoing the logo mark. "Back to top" is new functional UI text (not marketing copy).

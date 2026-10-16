@@ -108,4 +108,21 @@
 .footer-social:focus-visible, .footer-nav a:focus-visible, .footer-legal a:focus-visible, .footer-logo:focus-visible { outline-color: #fff; }
 .footer-small { max-width: var(--container); margin: var(--s-7) auto 0; padding-top: var(--s-5); border-top: 1px solid rgba(255, 255, 255, 0.28); }
 .footer-reg { margin: 0; font-size: 0.75rem; letter-spacing: 0.06em; line-height: 1.6; color: #c3d3e8; }
-@media (min-width: 60rem) { .footer-top { grid-template-columns: 1.15fr 1.3fr 0.9fr auto; gap: var(--s-8); } .footer-social { justify-self: end; } }
+@media (min-width: 60rem) { .footer-top { grid-template-columns: 1fr 1.6fr 0.8fr auto; gap: var(--s-8); } .footer-social { justify-self: end; } }
+
+/* ---- Second section: top-aligned, quieter index links, decorative marker ---------- */
+.statement--plain .statement__grid { align-items: start; }
+.statement__text .motif { font-size: 1.1rem; display: block; margin-bottom: var(--s-5); }
+.statement--plain .index a { font-size: 1.0625rem; padding: 0.95rem 0; }
+.statement--plain .index a::after { font-size: 1rem; }
+@media (min-width: 60rem) { .statement--plain .index { margin-top: 0.15rem; } }
+
+/* ---- Footer: LinkedIn + back-to-top stack ---------------------------------------- */
+.footer-side { display: flex; flex-direction: column; align-items: flex-start; gap: var(--s-5); }
+@media (min-width: 60rem) { .footer-side { align-items: flex-end; } .footer-top .footer-social { justify-self: auto; } }
+.to-top { display: inline-flex; flex-direction: column; align-items: center; gap: var(--s-3); color: #fff; text-decoration: none; }
+.to-top__tile { position: relative; width: 2.4rem; height: 2.4rem; background: #fff; border-radius: 0.5rem; box-shadow: 0.35rem 0.35rem 0 var(--gw-grey); }
+.to-top__tile::before { content: ""; position: absolute; left: 50%; top: 52%; width: 0.7rem; height: 0.7rem; border-left: 3px solid var(--gw-navy); border-top: 3px solid var(--gw-navy); transform: translate(-50%, -30%) rotate(45deg); }
+.to-top__label { font-size: 0.75rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; }
+.to-top:hover .to-top__tile { transform: translateY(-2px); }
+.to-top:focus-visible { outline: 3px solid #fff; outline-offset: 6px; }
