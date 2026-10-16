@@ -316,7 +316,8 @@ CONCEPT_FOOTER = f'''<footer class="site-footer site-footer--wide on-dark">
   <div class="frame">
     <div class="footer-panel gradient">
       <div class="footer-top">
-        <a class="footer-logo" href="/"><img src="/img/logo-gwms.svg" width="376" height="89" alt="Global Wealth Management Solutions — home"></a>
+        <div class="footer-brand"><a class="footer-logo" href="/"><img src="/img/logo-gwms-white.svg" width="2362" height="495" alt="Global Wealth Management Solutions — home"></a>
+          <p class="footer-strap">Creating long-term value</p></div>
         <nav class="footer-nav" aria-label="Footer">
           <ul>
             <li><a href="/platforms">Platforms</a></li>

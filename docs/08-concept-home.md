@@ -29,3 +29,6 @@ Everything else is an existing label: "About us", "Funds", "Platforms", group na
 
 ## Revision 3
 Footer is four columns: (1) full logo, (2) navigation, (3) legal links (Privacy Notice, Disclaimer, Cookie Information), (4) LinkedIn icon without a circle. The FCA statement stays underneath in small type. The logo sits on a white plate because the supplied logo has dark lettering that would disappear on the navy gradient; a reversed (white) logo would need your approval as a brand change.
+
+## Revision 4
+Footer uses your white single-colour logo (`design-assets/supplied/logo-final-white.svg`, delivered with an `.ai` extension but actually an SVG) directly on the gradient, with the existing line "Creating long-term value" as the strapline underneath. The white-plate version is retired.
