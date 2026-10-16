@@ -212,7 +212,24 @@ ASK = f'''<div class="container page">
 </div>'''
 
 
+def portable(content, depth):
+    """Rewrite root-relative URLs so the pages open straight from disk (file://) and on any host.
+    Assets -> relative path; page links -> relative path to <page>/index.html."""
+    import re
+    up = "../" * depth
+    def fix(m):
+        attr, url = m.group(1), m.group(2)
+        if re.match(r"/(css|js|img|fonts)/", url):
+            return f'{attr}="{up}{url[1:]}"'
+        if url == "/":
+            return f'{attr}="{up}index.html"'
+        return f'{attr}="{up}{url.strip("/")}/index.html"'
+    content = re.sub(r'\b(href|src)="(/[^"/][^"]*|/)"', fix, content)
+    return re.sub(r'(/img/[^ ",]+)( \d+w)', lambda m: up + m.group(1)[1:] + m.group(2), content)
+
+
 def write(rel, content):
+    content = portable(content, rel.count("/"))
     p = OUT / rel
     p.parent.mkdir(parents=True, exist_ok=True)
     p.write_text(content, encoding="utf-8")

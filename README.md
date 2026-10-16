@@ -12,7 +12,10 @@ Replacement for https://globalwms.com (Joomla), built as ordinary static HTML/CS
 | `docs/06-preview-test-results.md` | Measured vs not-yet-measured |
 | `docs/url-map.csv` | Old → new URL map (all existing URLs preserved) |
 
-## Preview locally
+## Preview (no install needed)
+Open `preview/index.html` in a browser by double-clicking it. The ASK page is `preview/ask-capital-india-entrepreneur-fund/index.html`. Plain HTML/CSS/JS; Python is only used by the optional generator.
+
+## Preview via local server (optional)
 ```
 python3 -m http.server 8765 --directory preview     # then open http://localhost:8765/
 ```
