@@ -316,7 +316,7 @@ CONCEPT_FOOTER = f'''<footer class="site-footer site-footer--wide on-dark">
   <div class="frame">
     <div class="footer-panel gradient">
       <div class="footer-top">
-        <img class="footer-mark" src="/img/gw-icon.svg" width="78" height="83" alt="">
+        <a class="footer-logo" href="/"><img src="/img/logo-gwms.svg" width="376" height="89" alt="Global Wealth Management Solutions — home"></a>
         <nav class="footer-nav" aria-label="Footer">
           <ul>
             <li><a href="/platforms">Platforms</a></li>
@@ -325,17 +325,17 @@ CONCEPT_FOOTER = f'''<footer class="site-footer site-footer--wide on-dark">
             <li><a href="/structured-products">Structured Products</a></li>
           </ul>
         </nav>
-        <a class="footer-social" href="https://www.linkedin.com/company/gwms/" target="_blank" rel="noopener" aria-label="LinkedIn (opens in a new tab)">
-          <svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.063 2.063 0 1 1 0-4.126 2.063 2.063 0 0 1 0 4.126zM7.119 20.452H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0z"/></svg>
-        </a>
-      </div>
-      <div class="footer-small">
-        <p class="footer-reg">{e(REG)}</p>
         <ul class="footer-legal" aria-label="Legal">
           <li><a href="/privacy-notice">Privacy Notice</a></li>
           <li><a href="/disclaimer">Disclaimer</a></li>
           <li><a href="/cookie-information">Cookie Information</a></li>
         </ul>
+        <a class="footer-social" href="https://www.linkedin.com/company/gwms/" target="_blank" rel="noopener" aria-label="LinkedIn (opens in a new tab)">
+          <svg viewBox="0 0 24 24" width="28" height="28" aria-hidden="true" focusable="false"><path fill="currentColor" d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.063 2.063 0 1 1 0-4.126 2.063 2.063 0 0 1 0 4.126zM7.119 20.452H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0z"/></svg>
+        </a>
+      </div>
+      <div class="footer-small">
+        <p class="footer-reg">{e(REG)}</p>
       </div>
     </div>
   </div>

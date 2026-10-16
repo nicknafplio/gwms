@@ -26,3 +26,6 @@ Everything else is an existing label: "About us", "Funds", "Platforms", group na
 - Footer navigation is only Platforms · Funds · Investment Management Solutions · Structured Products, plus a LinkedIn icon (links to the existing https://www.linkedin.com/company/gwms/, opens in a new tab).
 - The FCA statement sits underneath in small type. I kept the **Privacy Notice / Disclaimer / Cookie Information** links on that bottom line, because the policy pages must stay reachable from every page — say if you want them removed or moved.
 - Fund logos are placeholders until you supply updated ones.
+
+## Revision 3
+Footer is four columns: (1) full logo, (2) navigation, (3) legal links (Privacy Notice, Disclaimer, Cookie Information), (4) LinkedIn icon without a circle. The FCA statement stays underneath in small type. The logo sits on a white plate because the supplied logo has dark lettering that would disappear on the navy gradient; a reversed (white) logo would need your approval as a brand change.
