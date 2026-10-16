@@ -20,3 +20,9 @@ Everything else is an existing label: "About us", "Funds", "Platforms", group na
 5. Gradient band: static here. Planned slow drift toward the top-right and back (see `07-decisions-log.md`) once approved.
 6. Carousel: manual arrows only, no autoplay, scroll-snap, works without JavaScript as a swipeable list. Tested only visually so far — accessibility/keyboard scans not yet run on this page.
 7. Hero uses the existing walkway photo with a navy veil; the white-on-photo contrast has not been measured.
+
+## Revision 2 (per your feedback)
+- Order is now: hero → statement + index → **Funds** → **About** → footer.
+- Footer navigation is only Platforms · Funds · Investment Management Solutions · Structured Products, plus a LinkedIn icon (links to the existing https://www.linkedin.com/company/gwms/, opens in a new tab).
+- The FCA statement sits underneath in small type. I kept the **Privacy Notice / Disclaimer / Cookie Information** links on that bottom line, because the policy pages must stay reachable from every page — say if you want them removed or moved.
+- Fund logos are placeholders until you supply updated ones.

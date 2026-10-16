@@ -55,7 +55,7 @@
 @media (min-width: 60rem) { .about__grid { grid-template-columns: minmax(0, 6fr) minmax(0, 5fr); gap: var(--s-9); } }
 
 /* ---- Funds carousel ----------------------------------------------------- */
-.funds { padding-block: 0 var(--s-9); }
+.funds { padding-block: 0 var(--s-5); }
 .funds__panel { border-radius: 1.75rem; padding: var(--s-8) 0 var(--s-8) var(--gutter); }
 .funds__head { display: flex; align-items: flex-end; justify-content: space-between; gap: var(--s-5); padding-right: var(--gutter); margin-bottom: var(--s-6); }
 .funds__title { margin: 0; color: #fff; font-size: var(--step-3); font-weight: 400; display: flex; align-items: center; gap: var(--s-4); }
@@ -90,23 +90,21 @@
 .card__name { margin: 0; font-family: var(--font-serif); font-size: var(--step-1); line-height: 1.25; font-weight: 450; }
 .card__name::after { content: "\2192"; content: "\2192" / ""; display: block; margin-top: var(--s-4); font-family: var(--font-sans); }
 
-/* ---- Expanded footer ---------------------------------------------------- */
+/* ---- Footer: four-link navigation + LinkedIn, regulatory line underneath ---------- */
 .site-footer--wide { background: none; padding: 0 0 var(--s-6); color: #d9e4f2; }
 .footer-panel { border-radius: 1.75rem; padding: var(--s-8) var(--gutter) var(--s-6); }
-.footer-grid { display: grid; gap: var(--s-7); max-width: var(--container); margin-inline: auto; }
-.footer-brand { display: flex; flex-direction: column; gap: var(--s-5); align-items: flex-start; }
-.footer-brand img { width: 4rem; height: auto; }
-.footer-reg { margin: 0; font-size: 0.8125rem; letter-spacing: 0.06em; line-height: 1.7; max-width: 30rem; }
-.footer-col h2 { font-family: var(--font-sans); font-size: 0.8125rem; letter-spacing: 0.12em; text-transform: uppercase; font-weight: 700; color: #fff; margin: 0 0 var(--s-4); display: flex; align-items: center; gap: var(--s-3); }
-.footer-col h2 .motif { font-size: 0.6rem; margin-right: 0.15rem; }
-.footer-col h3 { font-family: var(--font-sans); font-size: 0.8125rem; font-weight: 600; letter-spacing: 0.04em; color: #a9c4e6; margin: var(--s-4) 0 var(--s-2); }
-.footer-col ul { list-style: none; margin: 0; padding: 0; }
-.footer-col li { margin: 0; }
-.footer-col a { display: inline-block; padding: 0.3rem 0; color: #fff; text-decoration: none; font-size: 1rem; line-height: 1.35; }
-.footer-col a:hover { text-decoration: underline; text-underline-offset: 0.2em; }
-.footer-col a:focus-visible { outline-color: #fff; }
-.footer-legal { list-style: none; padding-left: 0; max-width: var(--container); margin: var(--s-7) auto 0; padding-top: var(--s-5); border-top: 1px solid rgba(255, 255, 255, 0.28); display: flex; flex-wrap: wrap; gap: var(--s-3) var(--s-6); }
+.footer-top { display: grid; gap: var(--s-6); align-items: center; max-width: var(--container); margin-inline: auto; }
+.footer-mark { width: 3.75rem; height: auto; }
+.footer-nav ul { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: var(--s-2) var(--s-7); }
+.footer-nav li { margin: 0; }
+.footer-nav a { display: inline-block; padding: 0.4rem 0; color: #fff; text-decoration: none; font-family: var(--font-serif); font-size: var(--step-1); line-height: 1.3; }
+.footer-nav a:hover { text-decoration: underline; text-underline-offset: 0.25em; }
+.footer-social { display: inline-grid; place-items: center; width: 2.75rem; height: 2.75rem; border: 2px solid #fff; border-radius: 50%; color: #fff; }
+.footer-social:hover { background: rgba(255, 255, 255, 0.16); }
+.footer-social:focus-visible, .footer-nav a:focus-visible, .footer-legal a:focus-visible { outline-color: #fff; }
+.footer-small { max-width: var(--container); margin: var(--s-7) auto 0; padding-top: var(--s-5); border-top: 1px solid rgba(255, 255, 255, 0.28); display: grid; gap: var(--s-3); }
+.footer-reg { margin: 0; font-size: 0.75rem; letter-spacing: 0.06em; line-height: 1.6; color: #c3d3e8; }
+.footer-legal { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: var(--s-2) var(--s-5); }
 .footer-legal li { margin: 0; }
-.footer-legal a { color: #fff; font-size: 0.9375rem; text-underline-offset: 0.25em; }
-@media (min-width: 52rem) { .footer-grid { grid-template-columns: 1.2fr 1.6fr 1fr 1fr; } }
-@media (min-width: 52rem) { .footer-col--funds ul.two { columns: 1; } }
+.footer-legal a { color: #fff; font-size: 0.8125rem; text-underline-offset: 0.25em; }
+@media (min-width: 60rem) { .footer-top { grid-template-columns: auto minmax(0, 1fr) auto; gap: var(--s-8); } }
