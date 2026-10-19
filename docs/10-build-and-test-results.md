@@ -33,3 +33,6 @@ Built 19 Oct 2026 into `dist/` by `tools/make_preview.py`. Tested against a loca
 
 ## Animation speed (19 Oct, later)
 Overlay animation 5% faster (durations ×0.95): wide band 22 → 20.9 s, narrow band 26 → 24.7 s, gradient 30 → 28.5 s per leg. Still ease-in-out, alternating, infinite. Hero, Funds panel and the Funds-page hero (shared component).
+
+## EPIC logo (home Funds section)
+EPIC logo a further 5% smaller (height 6.75rem → 6.41rem). The Funds page no longer uses cards, so only the home carousel is affected.
