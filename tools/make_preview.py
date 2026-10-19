@@ -136,6 +136,7 @@ def page(title, path, body, section=None, extra_head="", footer=None, extra_scri
 </main>
 {footer or FOOTER}
 <script src="/js/nav.js" defer></script>
+<script src="/js/header-hide.js" defer></script>
 {extra_scripts}
 </body>
 </html>

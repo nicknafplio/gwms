@@ -77,7 +77,8 @@ button.site-nav__link { font-family: var(--font-serif); }
 .mega[hidden] { display: none; }
 /* With JS, visibility follows aria-expanded so panels never flash open before the script runs */
 .js .mega { display: none; }
-.js [aria-expanded="true"] + .mega { display: block; }
+.js .mega.is-open { display: block; }
+.mega.is-sliding { overflow: hidden; transition: height var(--slide-duration, 0.3s) cubic-bezier(0.4, 0, 0.2, 1); }
 .mega__inner { display: block; }
 .mega__title { display: none; }
 .mega__groups { display: grid; gap: var(--s-5); }
@@ -263,3 +264,8 @@ button.site-nav__link { font-family: var(--font-serif); }
 @media (min-width: 52rem) {
   .site-footer__inner { grid-template-columns: auto minmax(0, 1fr) auto; gap: var(--s-7); }
 }
+
+/* ---- Header: slides up out of view once the footer is reached (see js/header-hide.js) ---- */
+.site-header { transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1); }
+.site-header.is-hidden { transform: translateY(-100%); }
+.site-header.is-hidden:focus-within { transform: none; }   /* keyboard users can always reach it */

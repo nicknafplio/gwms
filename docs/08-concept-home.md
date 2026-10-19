@@ -82,3 +82,9 @@ Arrows are now a bold, short silver (`#BCBDBF`) arrow in a blue (`#065AA7`) roun
 
 ## Revision 20 — About photo scroll crossfade
 The About photo is now two stacked images: the original teal photo with the blue tint (underneath) and the new warm/orange photo (on top). `js/photo-fade.js` sets `--p` (0→1) from scroll position and the warm image's opacity follows it: 0 when the photo's top edge is at 90% of the viewport height, 1 when it reaches 30%. The navy tint fades as the orange comes in. Plain JS, passive scroll listener with requestAnimationFrame. Without JavaScript the warm photo shows. `preview/screenshots/concept-photo-fade-sequence.png` shows progress 0 / 0.5 / 1.
+
+## Revision 21 — navigation motion
+- **Dropdowns slide down/up on click.** One generic function (`slide()` in `js/nav.js`) animates the height of the panel controlled by *any* `button[aria-controls]` inside `#site-nav`, on desktop (mega panel) and mobile (accordion). To add a dropdown, add the button + panel markup; no new JS or CSS. Duration is `--slide-duration` (default 0.3s). Interrupting an animation reverses it from its current height.
+- **Header slides up out of view when the footer is reached** (`js/header-hide.js`, generic: it only needs `.site-header` and `.site-footer`). It returns when scrolling back up, and never hides: at the top of a short page, while the mobile menu is open, or while keyboard focus is inside the header. Open dropdowns are closed as it hides.
+- Both run for everyone (reduced-motion handling discarded by owner decision).
+- Tests (`tools/test_preview.cjs`) updated for animation timing: 12 axe scans 0 violations; keyboard/mobile/no-JS checks and 4 new header checks pass. Measured on desktop: opening Funds went 13px → 68 → 177 → 387 → 389px over the sampled frames; closing 376 → 211 → 63 → 0px (sampling times are approximate).
