@@ -43,8 +43,8 @@
 .about { padding-block: var(--s-8); }
 .about__grid { display: grid; gap: var(--s-7); align-items: center; }
 .about__photo { position: relative; border-radius: 1.5rem; overflow: hidden; background: var(--navy-900); aspect-ratio: 4 / 3; }
-.about__photo img { width: 100%; height: 100%; object-fit: cover; filter: hue-rotate(28deg) saturate(0.85); }
-.about__photo::after { content: ""; position: absolute; inset: 0; background: linear-gradient(135deg, rgba(26, 61, 108, 0.35), rgba(6, 90, 167, 0.12)); }
+.about__photo img { width: 100%; height: 100%; object-fit: cover;  }
+.about__photo::after { content: ""; position: absolute; inset: 0; background: linear-gradient(135deg, rgba(26, 61, 108, 0.18), rgba(6, 90, 167, 0)); }
 .about__label { display: flex; align-items: center; gap: var(--s-3); margin: 0 0 var(--s-5); }
 .about__label .motif { font-size: 0.7rem; margin-right: 0.15rem; }
 .about__statement { font-size: var(--step-3); line-height: 1.18; color: var(--ink); margin: 0 0 var(--s-5); font-weight: 400; }

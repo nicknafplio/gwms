@@ -39,3 +39,6 @@ Footer uses your white single-colour logo (`design-assets/supplied/logo-final-wh
 
 ## Revision 6
 Footer "Back to top" → **"Top"** (screen readers announce "Top of page"), with a plain white up-chevron and no tile behind it.
+
+## Revision 7
+About-band photo swapped to the warm sunlit version of the glass corridor (`design-assets/supplied/photo-glass-corridor-warm.jpg`). The earlier blue colour-shift was removed (it turned the orange to yellow); only a faint navy tint remains at the top-left. This is a deliberate warm accent against the navy/blue palette — say if you want it cooled toward blue instead.
