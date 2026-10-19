@@ -238,16 +238,16 @@ def write(rel, content):
 # docs/08-concept-home.md. Everything else is existing GWMS text/labels.
 # ---------------------------------------------------------------------------------------
 CARDS = [  # (group, name as in menu, url, logo file, logo alt)
-    ("Multi Asset", "1OAK Multi Asset (MA80) Fund (Growth)", "/1oak-multi-asset-funds-guided-by-blackrock", "1oak.png", "1OAK"),
-    ("Multi Asset", "EPIC Wealth Fund (Balanced)", "/epic-investment-partners", "epic.png", "EPIC Investment Partners"),
-    ("Equities", "ASK Indian Entrepreneur Fund", "/ask-capital-india-entrepreneur-fund", "ask.png", "ASK Capital"),
+    ("Multi Asset", "1OAK Multi Asset (MA80) Fund (Growth)", "/1oak-multi-asset-funds-guided-by-blackrock", "1oak-white.svg", "1OAK"),
+    ("Multi Asset", "EPIC Wealth Fund (Balanced)", "/epic-investment-partners", "epic-white.svg", "EPIC Investment Partners"),
+    ("Equities", "ASK Indian Entrepreneur Fund", "/ask-capital-india-entrepreneur-fund", "ask-white.svg", "ASK Investment Managers"),
     ("Equities", "Pecora Chatrier Equity (Value)", "/pecora-chatrier-equity-value", "pecora.png", "Pecora Capital"),
     ("Fixed Interest", "Pecora Manning & Napier High Yield Bond Strategy", "/pecora-manning-napier-high-yield-bond-strategy", "pecora.png", "Pecora Capital"),
     ("Alternative Strategies", "Levendi Thornbridge Defined Return Fund", "/levendi-thornbridge-defined-return-fund", "levendi.png", "Levendi Investment Management"),
     ("Alternative Strategies", "Pecora QMS", "/pecora-qms", "pecora.png", "Pecora Capital"),
 ]
 cards_html = "\n".join(
-    f'''<li><a class="card" href="{u}"><span class="card__logo"><img src="/img/funds/{lg}" alt="{e(alt)}" loading="lazy"></span>
+    f'''<li><a class="card" href="{u}"><span class="card__logo{' card__logo--mark' if lg.endswith('.svg') else ''}"><img src="/img/funds/{lg}" alt="{e(alt)}" loading="lazy"></span>
 <span class="card__group">{e(g)}</span><span class="card__name">{e(n, quote=False)}</span></a></li>'''
     for g, n, u, lg, alt in CARDS)
 

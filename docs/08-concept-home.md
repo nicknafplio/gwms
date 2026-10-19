@@ -60,3 +60,10 @@ Hero veil 5 points more transparent at every stop (navy 90→85%, mid 76→71%, 
 
 ## Revision 14
 Hero headline is vertically centred in the banner (was bottom-aligned).
+
+## Revision 15 — fund logos
+Five white fund logos supplied and stored in `design-assets/supplied/fund-logos/` (also copied to `preview/img/funds/`): 1OAK, ASK, EPIC, Levendi-Thornbridge, Pecora Capital.
+- Applied now to the three visible home cards: **1OAK, EPIC, ASK**, shown directly on the gradient (no white plate).
+- **Needs your check:** the file named *Levendi-Thornbridge-causeway* actually shows the **Causeway Securities** logo, not Levendi's. Not used anywhere yet.
+- The ASK file reads "ASK Investment Managers" (the live site uses an "ASK Capital" logo and text says ASK Capital is a subsidiary of ASK Investment Managers).
+- The remaining cards (Pecora ×3, Levendi) still show the old logos on white plates, so the carousel is mixed until you confirm; Pecora's white logo is ready to apply.
