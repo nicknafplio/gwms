@@ -51,3 +51,6 @@ Hero diagonal band: opacity raised by 10 points (white 13%→23% at the top, 7%�
 
 ## Revision 10
 Hero band rolled back 5 points: white 18% at the top, 12% at the bottom (10 points above the original 13%/7% minus 5).
+
+## Revision 12 (replaces Revision 11)
+Revision 11 is rolled back: the Funds panel is again plain gradient + two bands (no photo). Instead the **hero overlay now mirrors the Funds panel**: the same navy→blue gradient (translucent, so the walkway photo still shows through) and the same two diagonal bands, at the Funds opacity (13% / 7%).

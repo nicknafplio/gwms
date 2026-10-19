@@ -129,7 +129,15 @@
 .to-top:hover .to-top__tile { transform: translateY(-2px); }
 .to-top:focus-visible { outline: 3px solid #fff; outline-offset: 6px; }
 
-/* ---- Hero: diagonal band lifted above the photo veil and 10 points less transparent ---- */
-.hero--framed { --band-1: rgba(255, 255, 255, 0.18); --band-2: rgba(255, 255, 255, 0.12); }
-.hero--framed::before { z-index: 0; }
+/* ---- Hero overlay mirrors the Funds panel: navy -> blue gradient + two diagonal bands over the photo ---- */
+.hero--framed { --band-1: rgba(255, 255, 255, 0.13); --band-2: rgba(255, 255, 255, 0.07); }
+.hero--framed .hero__media::after { /* veil, translucent so the photo still shows */
+  content: ""; position: absolute; inset: 0;
+  background: linear-gradient(105deg, rgba(12, 36, 66, 0.90) 0%, rgba(26, 61, 108, 0.76) 48%, rgba(6, 90, 167, 0.62) 100%);
+}
+.hero--framed::before { z-index: 0; }                                   /* wide band, above photo + veil */
+.hero--framed::after {                                                  /* narrow second band (was the veil) */
+  z-index: 0; inset: 0; clip-path: polygon(78% 0, 100% 0, 100% 100%, 62% 100%);
+  background: linear-gradient(to bottom, var(--band-2), rgba(255, 255, 255, 0));
+}
 .hero--framed .hero__inner { position: relative; z-index: 1; }
