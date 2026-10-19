@@ -111,6 +111,16 @@ MEMBERS = {"david-parker": "25-david-parker", "james-bottomley": "61-james-botto
            "sarah-crow": "32-sarah-crow-partner", "jessica-french": "34-jessica-french"}
 
 
+# Owner-requested edits to the captured member pages (applied after extraction so a re-run keeps them).
+MEMBER_EDITS = {
+    "david-parker": [('<li class="bizcard__detail"><span class="bizcard__key">t:</span> +44(0)1525 862420</li>', "")],
+    "simon-voysey": [('<li class="bizcard__job">Partner</li>', '<li class="bizcard__job">International Sales Director</li>'),
+                     ('<li class="bizcard__detail"><span class="bizcard__key">t:</span> +44 (0) 1525 863774</li>', "")],
+    "sarah-crow": [("+44 (01525) 62420", "+44(0)7876 757253")],
+    "jessica-french": [("+44 (01525) 863780", "+44(0)7788 205487")],
+}
+
+
 def member(slug):
     """Individual team-member page (captured from /meet-the-team/<id>-<name>): role, biography,
     the vCard lead-in sentence, the business-card details and (David Parker) the LinkedIn sentence."""
@@ -148,7 +158,11 @@ def member(slug):
         txt = el.get_text(strip=True)
         if txt:
             out.append(str(el).replace("\xa0", " "))
-    return "\n".join(out)
+    html = "\n".join(out)
+    for old, new in MEMBER_EDITS.get(slug, []):
+        assert old in html, (slug, old)
+        html = html.replace(old, new)
+    return html
 
 
 if __name__ == "__main__":

@@ -63,3 +63,9 @@ Hero text centred; decorative square on its own line; arrow anchor link (`#state
 - 5 team-member pages added (28 pages in total). Test run: 76 checks passed (axe 0 violations on every page at 1440 and 390 px, no broken links, no third-party requests).
 - **Entry notice:** wording unchanged (verbatim from the live site). ACCEPT now sets one first-party cookie, `gwms_notice=1` (30 days, `SameSite=Lax`, `Secure` on https), which matches the Cookie Information page ("a cookie is created that tells whether or not to display the popup"). Nothing is set before ACCEPT or on DECLINE. If cookies are unavailable (blocked, or opened from disk) it falls back to `sessionStorage`. **The 30-day lifetime is my choice, not a stated GWMS fact** - change `DAYS` in `js/notice.js`.
 - Note: the Cookie Information page still describes Google Analytics and a CMS session cookie, which the new site does not use (policy review stage 2).
+
+## Update: Mike Kew, number edits
+- **Mike Kew** (International Sales Director) added to Meet the Team below David Parker, with his own page `team-mike-kew.html`, the supplied bio, the photo placeholder and a blank `vcards/mike-kew.vcf`. His contact details are **placeholders**: e-mail and mobile read "[… to be confirmed]" (I did not invent an address); the website line is the existing company one. The vCard link and bio wording are new content supplied by the owner and are not part of the live-site comparison.
+- Simon Voysey's page: job title "Partner" -> "International Sales Director".
+- Numbers removed/replaced on team-member pages (owner instruction): David Parker 01525 862420 removed; Simon Voysey 01525 863774 removed; Sarah Crow 01525 62420 -> +44(0)7876 757253; Jessica French 01525 863780 -> +44(0)7788 205487. (Contact page numbers are unchanged.) These edits are held in `MEMBER_EDITS` in `tools/extract_bodies.py` so a re-extract keeps them.
+- Test run: all checks pass on 29 pages.
