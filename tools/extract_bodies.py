@@ -18,6 +18,7 @@ SLUGS = ["1oak-multi-asset-funds-guided-by-blackrock", "epic-investment-partners
          "investment-management-solutions", "structured-products", "platforms", "contact",
          "africa", "americas-caribbean", "asia", "europe", "middle-east",
          "privacy-notice", "disclaimer", "cookie-information"]
+REMOVED_PEOPLE = {"contact": ["Asma Choudhary", "Emily Karavla"]}
 d = lambda s: base64.b64decode(s).decode()
 
 
@@ -93,6 +94,10 @@ def clean(slug):
     # the link text is untouched, only the target is pointed at the page the text names.
     for a in body.find_all("a", href=True):
         a["href"] = {"/about": "/about-gwms", "/cookie-information.": "/cookie-information"}.get(a["href"], a["href"])
+    for who in REMOVED_PEOPLE.get(slug, []):      # owner decision: people removed from the site
+        for p_ in body.find_all("p"):
+            if p_.get_text().strip().startswith(who):
+                p_.decompose()
     h1 = soup.select_one(".page-header h1")
     html = body.decode_contents().replace("\xa0", " ")
     html = re.sub(r"\n{2,}", "\n", html).strip()

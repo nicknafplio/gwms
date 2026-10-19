@@ -444,12 +444,34 @@ def logo(file, alt, w, h, wide=True):
     return f'<img class="{cls}" src="/img/{file}" width="{w}" height="{h}" alt="{e(alt)}">'
 
 
-def article(h1, content, side=None, logo_html="", footnotes=""):
-    head = f'<header class="page-header">\n        <h1>{e(h1, quote=False)}</h1>\n        {logo_html}\n      </header>'
-    art = f'<article>\n      {head}\n      <div class="prose">\n{content}\n      </div>{footnotes}\n    </article>'
+def banner(title):
+    """Framed gradient banner with the page title (same as the Funds page)."""
+    return f'''<div class="frame">
+<section class="hero hero--framed hero--page gradient on-dark" aria-labelledby="page-title">
+  <picture class="hero__media">
+    <source type="image/webp" srcset="/img/hero-800.webp 800w, /img/hero-1280.webp 1280w, /img/hero-1920.webp 1920w" sizes="100vw">
+    <img src="/img/hero-1280.webp" width="1280" height="928" alt="" fetchpriority="high">
+  </picture>
+  <div class="container hero__inner">
+    <h1 class="hero__title" id="page-title"><span class="motif" aria-hidden="true"></span>{e(title, quote=False)}</h1>
+  </div>
+</section>
+</div>
+'''
+
+
+def article(h1, content, side=None, logo_html="", footnotes="", banner_title=None):
+    """With banner_title the page title lives in the banner (h1) and the page header keeps only the logo."""
+    if banner_title:
+        head = f'<header class="page-header page-header--logo">\n        {logo_html}\n      </header>\n      ' if logo_html else ""
+    else:
+        head = f'<header class="page-header">\n        <h1>{e(h1, quote=False)}</h1>\n        {logo_html}\n      </header>\n      '
+    art = f'<article>\n      {head}<div class="prose">\n{content}\n      </div>{footnotes}\n    </article>'
     if side:
-        return f'<div class="container page">\n  <div class="page__layout">\n{side}\n    {art}\n  </div>\n</div>'
-    return f'<div class="container page page--single">\n  {art}\n</div>'
+        inner = f'<div class="container page">\n  <div class="page__layout">\n{side}\n    {art}\n  </div>\n</div>'
+    else:
+        inner = f'<div class="container page page--single">\n  {art}\n</div>'
+    return (banner(banner_title) if banner_title else "") + inner
 
 
 def people(content):
@@ -527,19 +549,20 @@ for name, role, bio, vc in TEAM:
     add("/team-" + vc, short, article(name, role_html + "\n" + rest, ABOUT_SIDE("/meet-the-team"), photo), "about")
 TEAM_HTML = '<ul class="team">\n' + "\n".join(team_items) + "\n</ul>"
 add("/meet-the-team", "Meet the Team",
-    f'<div class="container page">\n  <div class="page__layout">\n{ABOUT_SIDE("/meet-the-team")}\n    <article>\n      <header class="page-header"><h1>Meet the Team</h1></header>\n{TEAM_HTML}\n    </article>\n  </div>\n</div>', "about")
+    banner("Meet the Team") + f'<div class="container page">\n  <div class="page__layout">\n{ABOUT_SIDE("/meet-the-team")}\n    <article>\n{TEAM_HTML}\n    </article>\n  </div>\n</div>', "about")
 
 for slug, h1 in [("africa", "Africa"), ("americas-caribbean", "Americas & Caribbean"), ("asia", "Asia"),
                  ("europe", "Europe"), ("middle-east", "Middle East")]:
     add("/" + slug, h1, article(h1, people(body_of(slug)), ABOUT_SIDE("/" + slug)), "about")
 
 add("/platforms", "Platforms", article("Platforms", body_of("platforms"), None,
-    logo("platforms/veritas-life.svg", "Veritas Life", 296, 114)), None)
+    logo("platforms/veritas-life.svg", "Veritas Life", 296, 114), banner_title="Platforms"), None)
 add("/investment-management-solutions", "Investment Management Solutions",
     article("Investment Management Solutions", body_of("investment-management-solutions"), None,
-            logo("investment/resilience-asset-management.svg", "Resilience Asset Management", 1024, 229)), None)
-add("/structured-products", "Structured Products", article("Structured Products", body_of("structured-products")), None)
-add("/contact", "Contact", article("Contact", people(body_of("contact"))), None)
+            logo("investment/resilience-asset-management.svg", "Resilience Asset Management", 1024, 229),
+            banner_title="Investment Management Solutions"), None)
+add("/structured-products", "Structured Products", article("Structured Products", body_of("structured-products"), banner_title="Structured Products"), None)
+add("/contact", "Contact", article("Contact", people(body_of("contact")), banner_title="Contact"), None)
 for slug, h1 in [("privacy-notice", "Privacy Notice"), ("disclaimer", "Disclaimer"), ("cookie-information", "Cookie Information")]:
     add("/" + slug, h1, article(h1, body_of(slug)), None)
 

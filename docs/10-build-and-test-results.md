@@ -69,3 +69,9 @@ Hero text centred; decorative square on its own line; arrow anchor link (`#state
 - Simon Voysey's page: job title "Partner" -> "International Sales Director".
 - Numbers removed/replaced on team-member pages (owner instruction): David Parker 01525 862420 removed; Simon Voysey 01525 863774 removed; Sarah Crow 01525 62420 -> +44(0)7876 757253; Jessica French 01525 863780 -> +44(0)7788 205487. (Contact page numbers are unchanged.) These edits are held in `MEMBER_EDITS` in `tools/extract_bodies.py` so a re-extract keeps them.
 - Test run: all checks pass on 29 pages.
+
+## Update: banners, portrait style, Contact
+- Banners (same framed gradient banner as the Funds page, page title as the h1) added to Meet the Team, Contact, Platforms, Investment Management Solutions and Structured Products. On Platforms and Investment Management Solutions the partner logo now sits below the banner.
+- Portrait style (team list and team-member pages): rounded corners, hairline edge and soft drop shadow, 3:4 portrait crop; the dark-blue left border is removed from photos (and from the team list rows).
+- Contact page: Emily Karavla and Asma Choudhary removed (`REMOVED_PEOPLE` in `tools/extract_bodies.py`). Dawn Parker remains on the Contact page.
+- Test run: 78 checks pass on 29 pages.
