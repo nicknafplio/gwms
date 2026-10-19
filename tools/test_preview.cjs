@@ -14,6 +14,12 @@ async function axe(p, label) {
 }
 (async () => {
   const b = await chromium.launch();
+  // Suppress the entry-notice dialog in tests that are not about it
+  if (!process.env.SHOW_NOTICE) {
+    const nc = b.newContext.bind(b);
+    b.newContext = async o => { const c = await nc(o); await c.addInitScript(() => { try { sessionStorage.setItem('gwms-notice-accepted', '1'); } catch (e) {} }); return c; };
+    b.newPage = async o => { const c = await b.newContext(o); return c.newPage(); };
+  }
   for (const [name, w, h, touch] of [['desktop',1440,900,false],['mobile',390,844,true]]) {
     const c = await b.newContext({ viewport:{width:w,height:h}, hasTouch:touch, isMobile:touch });
     const p = await c.newPage();

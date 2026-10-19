@@ -37,3 +37,7 @@ old_url,new_url,action,redirect_type,note
 /sitemap.xml,/sitemap.xml,new,n/a,Does not exist today.
 /robots.txt,/robots.txt,new-content,n/a,Joomla default today; replaced.
 /funds,/funds,new-page,n/a,New Funds index page (decision: add a plain index of the existing funds). Home and footer "Funds" links now point here; the old home link went to the Levendi page.
+/funds,/funds/,new-page,n/a,New Funds index page (built in dist/)
+/404.html,/404.html,new,n/a,Real HTTP 404 page (replaces the old soft-404 /error404)
+/investment-notification-form,(none),retire-410,n/a,Owner decision 2026-10-16; .htaccess returns 410
+/images/documents/GWMS-Investment-Tracking-Form-2023.pdf,(none),retire-410,n/a,Owner decision 2026-10-16; .htaccess returns 410

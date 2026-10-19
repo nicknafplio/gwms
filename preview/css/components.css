@@ -269,3 +269,4 @@ button.site-nav__link { font-family: var(--font-serif); }
 .site-header { transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1); }
 .site-header.is-hidden { transform: translateY(-100%); }
 .site-header.is-hidden:focus-within { transform: none; }   /* keyboard users can always reach it */
+.page-header__logo--wide { width: clamp(11rem, 20vw, 16rem); }

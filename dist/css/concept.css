@@ -1,0 +1,202 @@
+/* ==========================================================================
+   Concept home — "framed" layout with navy/blue gradient panels.
+   Loaded after components.css; only used by /concept-home/.
+   The diagonal light band is a ::before layer so it can be animated later
+   (slow drift toward the top-right and back) without touching content.
+   ========================================================================== */
+:root {
+  --gw-deep: #0c2442;
+  --band-1: rgba(255, 255, 255, 0.13);
+  --band-2: rgba(255, 255, 255, 0.07);
+}
+
+.gradient {
+  position: relative; isolation: isolate; overflow: hidden; color: #fff;
+  background: linear-gradient(105deg, var(--gw-deep) 0%, var(--gw-navy) 48%, var(--gw-blue) 100%);
+}
+.gradient::before, .gradient::after {
+  content: ""; position: absolute; z-index: -1; pointer-events: none;
+}
+.gradient::before { /* large translucent diagonal band */
+  inset: 0; background: linear-gradient(to bottom, var(--band-1), var(--band-2));
+  clip-path: polygon(34% 0, 66% 0, 46% 100%, 14% 100%);
+}
+.gradient::after { /* narrow second band, opposite lean */
+  inset: 0; background: linear-gradient(to bottom, var(--band-2), rgba(255, 255, 255, 0));
+  clip-path: polygon(78% 0, 100% 0, 100% 100%, 62% 100%);
+}
+
+/* ---- Framed hero -------------------------------------------------------- */
+.frame { max-width: calc(var(--container) + 2 * var(--gutter)); margin-inline: auto; padding: var(--s-4) var(--gutter) 0; }
+.hero--framed { border-radius: 1.75rem; min-height: clamp(26rem, 68vh, 42rem); }
+.hero--framed::after { /* photo veil: navy gradient so type stays legible (full-bleed, not clipped like the band) */
+  clip-path: none; inset: 0; z-index: -1;
+  background: linear-gradient(100deg, rgba(10, 30, 56, 0.88) 0%, rgba(26, 61, 108, 0.62) 45%, rgba(6, 90, 167, 0.28) 100%);
+}
+.hero--framed { align-items: center; }
+.hero--framed .hero__inner { padding-block: var(--s-8); }
+.hero--framed .hero__title { font-size: clamp(2.75rem, 1.6rem + 5.2vw, 6rem); font-weight: 400; }
+
+/* ---- Statement + index (with Platforms) --------------------------------- */
+.statement--plain { background: var(--paper); border-bottom: 0; padding-block: var(--s-9) var(--s-8); }
+
+/* ---- About band --------------------------------------------------------- */
+.about { padding-block: var(--s-8); }
+.about__grid { display: grid; gap: var(--s-7); align-items: center; }
+.about__photo { position: relative; border-radius: 1.5rem; overflow: hidden; background: var(--navy-900); aspect-ratio: 4 / 3; }
+.about__photo img { width: 100%; height: 100%; object-fit: cover;  }
+.about__photo::after { content: ""; position: absolute; inset: 0; background: linear-gradient(135deg, rgba(26, 61, 108, 0.18), rgba(6, 90, 167, 0)); }
+.about__label { display: flex; align-items: center; gap: var(--s-3); margin: 0 0 var(--s-5); }
+.about__label .motif { font-size: 0.7rem; margin-right: 0.15rem; }
+.about__statement { font-size: var(--step-3); line-height: 1.18; color: var(--ink); margin: 0 0 var(--s-5); font-weight: 400; }
+.about__text { max-width: 34rem; margin: 0 0 var(--s-6); }
+.text-link { display: inline-flex; align-items: center; gap: var(--s-3); font-weight: 600; color: var(--gw-blue); text-decoration: none; border-bottom: 2px solid currentColor; padding-bottom: 0.15rem; }
+.text-link::after { content: "\2192"; content: "\2192" / ""; }
+.text-link:hover { color: var(--gw-navy); }
+@media (min-width: 60rem) { .about__grid { grid-template-columns: minmax(0, 6fr) minmax(0, 5fr); gap: var(--s-9); } }
+
+/* ---- Funds carousel ----------------------------------------------------- */
+.funds { padding-block: 0 var(--s-5); }
+.funds__panel { border-radius: 1.75rem; padding: var(--s-8) 0 var(--s-8) var(--gutter); }
+.funds__head { display: flex; align-items: flex-end; justify-content: space-between; gap: var(--s-5); padding-right: var(--gutter); margin-bottom: var(--s-6); }
+.funds__title { margin: 0; color: #fff; font-size: var(--step-3); font-weight: 400; display: flex; align-items: center; gap: var(--s-4); }
+.funds__title .motif { font-size: 0.9rem; }
+.funds__controls { display: flex; gap: var(--s-3); }
+.carousel-btn {
+  width: 3rem; height: 3rem; border-radius: 50%; border: 2px solid #fff; background: transparent; color: #fff;
+  display: grid; place-items: center; cursor: pointer; font: inherit; padding: 0;
+}
+.carousel-btn:hover:not(:disabled) { background: rgba(255, 255, 255, 0.16); }
+.carousel-btn:disabled { opacity: 0.4; cursor: default; }
+.carousel-btn .chev { width: 0.7rem; height: 0.7rem; margin: 0; border-width: 2.5px; }
+.carousel-btn--prev .chev { transform: rotate(135deg); margin-left: 0.2rem; }
+.carousel-btn--next .chev { transform: rotate(-45deg); margin-right: 0.2rem; }
+.no-js .funds__controls { display: none; }
+
+.cards { list-style: none; margin: 0; padding: 0 var(--gutter) var(--s-3) 0; display: flex; gap: var(--s-5); overflow-x: auto; scroll-snap-type: x mandatory; scroll-padding-left: 0; scrollbar-width: none; }
+.cards::-webkit-scrollbar { display: none; }
+.cards li { margin: 0; flex: 0 0 min(78%, 20rem); scroll-snap-align: start; }
+@media (min-width: 52rem) { .cards li { flex-basis: calc((100% - 2 * var(--s-5)) / 3 - 1rem); } }
+
+.card {
+  display: flex; flex-direction: column; height: 100%; text-decoration: none; color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.28); border-radius: 1.1rem; padding: var(--s-5);
+  background: rgba(255, 255, 255, 0.06);
+}
+.card:hover { background: rgba(255, 255, 255, 0.14); }
+.card:focus-visible { outline: 3px solid #fff; outline-offset: 3px; }
+.card__logo { display: grid; place-items: center; background: #fff; border-radius: 0.6rem; height: 7.5rem; padding: var(--s-4) var(--s-5); margin-bottom: var(--s-5); }
+.card__logo img { max-height: 100%; max-width: 100%; width: auto; height: auto; object-fit: contain; }
+.card__group { margin: 0 0 var(--s-2); font-size: 0.8125rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: #cfe0f5; }
+.card__name { margin: 0; font-family: var(--font-serif); font-size: var(--step-1); line-height: 1.25; font-weight: 450; }
+.card__name::after { content: "\2192"; content: "\2192" / ""; display: block; margin-top: var(--s-4); font-family: var(--font-sans); }
+
+/* ---- Footer: four-link navigation + LinkedIn, regulatory line underneath ---------- */
+.site-footer--wide { background: none; padding: 0 0 var(--s-6); color: #d9e4f2; }
+.footer-panel { border-radius: 1.75rem; padding: var(--s-8) var(--gutter) var(--s-6); }
+.footer-top { display: grid; gap: var(--s-6); align-items: start; max-width: var(--container); margin-inline: auto; }
+.footer-brand { justify-self: start; }
+.footer-logo { display: inline-block; line-height: 0; }
+.footer-logo img { width: 15rem; max-width: 100%; height: auto; }
+.footer-strap { margin: var(--s-4) 0 0; font-family: var(--font-serif); font-size: var(--step-1); line-height: 1.3; color: #d9e4f2; }
+.footer-nav ul, .footer-legal { list-style: none; margin: 0; padding: 0; }
+.footer-nav li, .footer-legal li { margin: 0; }
+.footer-nav a { display: inline-block; padding: 0.35rem 0; color: #fff; text-decoration: none; font-family: var(--font-serif); font-size: var(--step-1); line-height: 1.3; }
+.footer-nav a:hover { text-decoration: underline; text-underline-offset: 0.25em; }
+.footer-legal a { display: inline-block; padding: 0.35rem 0; color: #fff; font-size: 0.9375rem; text-underline-offset: 0.25em; }
+.footer-social { display: inline-grid; place-items: center; width: 2.75rem; height: 2.75rem; color: #fff; justify-self: start; }
+.footer-social:hover { color: #cfe0f5; }
+.footer-social:focus-visible, .footer-nav a:focus-visible, .footer-legal a:focus-visible, .footer-logo:focus-visible { outline-color: #fff; }
+.footer-small { max-width: var(--container); margin: var(--s-7) auto 0; padding-top: var(--s-5); border-top: 1px solid rgba(255, 255, 255, 0.28); }
+.footer-reg { margin: 0; font-size: 0.75rem; letter-spacing: 0.06em; line-height: 1.6; color: #c3d3e8; }
+@media (min-width: 60rem) { .footer-top { grid-template-columns: 1fr 1.6fr 0.8fr auto; gap: var(--s-8); } .footer-social { justify-self: end; } }
+
+/* ---- Second section: top-aligned, quieter index links, decorative marker ---------- */
+.statement--plain .statement__grid { align-items: start; }
+/* inline marker: sits on the first line of the text, sized relative to it */
+.statement__lead .motif { font-size: 0.32em; margin-right: 0.7em; vertical-align: 0.55em; }
+.hero__title .motif { font-size: 0.26em; margin: 0 0.7em 0 0; vertical-align: 0.9em; }
+.statement--plain .index a { font-size: 1.0625rem; padding: 0.95rem 0; }
+.statement--plain .index a::after,
+.fund-groups .index a::after { font-size: 1rem; }
+@media (min-width: 60rem) { .statement--plain .index { margin-top: 0.15rem; } }
+
+/* ---- Footer: LinkedIn + back-to-top stack ---------------------------------------- */
+.footer-side { display: flex; flex-direction: column; align-items: flex-start; gap: var(--s-5); }
+@media (min-width: 60rem) { .footer-side { align-items: flex-end; } .footer-top .footer-social { justify-self: auto; } }
+.to-top { display: inline-flex; flex-direction: column; align-items: center; gap: var(--s-3); color: #fff; text-decoration: none; }
+.to-top__tile { position: relative; width: 2.4rem; height: 1.6rem; }
+.to-top__tile::before { content: ""; position: absolute; left: 50%; top: 50%; width: 0.9rem; height: 0.9rem; border-left: 3px solid #fff; border-top: 3px solid #fff; transform: translate(-50%, -25%) rotate(45deg); }
+.to-top__label { font-size: 0.75rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; }
+.to-top:hover .to-top__tile { transform: translateY(-2px); }
+.to-top:focus-visible { outline: 3px solid #fff; outline-offset: 6px; }
+
+/* ---- Hero overlay mirrors the Funds panel: navy -> blue gradient + two diagonal bands over the photo ---- */
+.hero--framed { --band-1: rgba(255, 255, 255, 0.13); --band-2: rgba(255, 255, 255, 0.07); }
+.hero--framed .hero__media::after { /* veil, translucent so the photo still shows */
+  content: ""; position: absolute; inset: 0;
+  background: linear-gradient(105deg, rgba(12, 36, 66, 0.85) 0%, rgba(26, 61, 108, 0.71) 48%, rgba(6, 90, 167, 0.57) 100%);
+}
+.hero--framed::before { z-index: 0; }                                   /* wide band, above photo + veil */
+.hero--framed::after {                                                  /* narrow second band (was the veil) */
+  z-index: 0; inset: 0; clip-path: polygon(78% 0, 100% 0, 100% 100%, 62% 100%);
+  background: linear-gradient(to bottom, var(--band-2), rgba(255, 255, 255, 0));
+}
+.hero--framed .hero__inner { position: relative; z-index: 1; }
+
+/* White logo marks sit directly on the gradient card (no white plate) */
+.card__logo--mark { background: none; padding: 0; border-radius: 0; justify-items: start; }
+.card__logo--mark img { width: 100%; height: 100%; max-height: none; object-fit: contain; object-position: left center; }
+.card__logo--oak img { width: auto; height: 4.4rem; }  /* the 1OAK mark is tall and dense; scaled so it does not outweigh the others */
+.card__logo--epic img { width: auto; height: 6.75rem; }  /* 10% smaller than the full 7.5rem logo area */
+
+/* ---- Second-section index: arrow in a blue square (silver arrow); hover reverses colours and slides left ---- */
+.statement--plain .index a::after,
+.fund-groups .index a::after {
+  content: ""; flex: none; align-self: center; width: 1.9rem; height: 1.9rem; border-radius: 0.2rem;
+  background: var(--gw-blue) center / 72% no-repeat url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3E%3Cpath d='M5 10h9M10.5 5.5 15 10l-4.5 4.5' fill='none' stroke='%23bcbdbf' stroke-width='3' stroke-linecap='square' stroke-linejoin='miter'/%3E%3C/svg%3E");
+  transition: background-color 0.28s ease, transform 0.28s ease;
+}
+.statement--plain .index a:hover::after,
+.statement--plain .index a:focus-visible::after,
+.fund-groups .index a:hover::after,
+.fund-groups .index a:focus-visible::after {
+  background: var(--gw-grey) center / 72% no-repeat url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3E%3Cpath d='M5 10h9M10.5 5.5 15 10l-4.5 4.5' fill='none' stroke='%23065aa7' stroke-width='3' stroke-linecap='square' stroke-linejoin='miter'/%3E%3C/svg%3E");
+  transform: translateX(-0.7rem);
+}
+
+/* ---- About photo: scroll-driven crossfade, blue-tinted original -> warm orange version ----
+   --p (0..1) is set by js/photo-fade.js from scroll position; without JS the warm photo shows. */
+.about__img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.about__img--blue { filter: hue-rotate(28deg) saturate(0.85); }
+.about__img--warm { opacity: var(--p, 1); }
+.about__photo::after { background: linear-gradient(135deg, rgba(26, 61, 108, 0.35), rgba(6, 90, 167, 0.12)); opacity: calc(1 - 0.6 * var(--p, 1)); z-index: 1; }
+
+/* ================= Funds index page ================= */
+.hero--page { min-height: clamp(14rem, 30vh, 19rem); }
+.hero--page .hero__title { font-size: clamp(2.5rem, 1.6rem + 3.2vw, 4.75rem); }
+.fund-groups { padding-block: var(--s-8) var(--s-9); }
+.fund-group + .fund-group { margin-top: var(--s-8); }
+.fund-group__label {
+  display: flex; align-items: center; gap: var(--s-3); margin: 0 0 var(--s-5);
+  font-family: var(--font-sans); font-size: 0.8125rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted);
+}
+.fund-group__label .motif { font-size: 0.7rem; margin-right: 0.15rem; }
+.card-grid { list-style: none; margin: 0; padding: 0; display: grid; gap: var(--s-5); grid-template-columns: repeat(auto-fill, minmax(min(100%, 19rem), 1fr)); }
+.card-grid li { margin: 0; }
+.card--solid { border: 0; background: linear-gradient(135deg, var(--gw-deep) 0%, var(--gw-navy) 62%, #0d4c8a 100%); min-height: 17rem; }
+.card--solid:hover { background: linear-gradient(135deg, var(--gw-navy) 0%, var(--gw-blue) 100%); }
+
+/* ---- Funds index, v2: statement + enlarged grouped list ---- */
+.fund-intro { max-width: 52rem; margin: 0 0 var(--s-8); font-family: var(--font-serif); font-weight: 400; color: var(--ink); font-size: var(--step-3); line-height: 1.22; }
+.fund-intro .motif { font-size: 0.32em; margin-right: 0.7em; vertical-align: 0.55em; }
+.fund-groups__lists { display: grid; gap: var(--s-8) var(--s-9); }
+@media (min-width: 60rem) { .fund-groups__lists { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+.fund-groups .fund-group + .fund-group { margin-top: 0; }
+.fund-groups .fund-group__label {
+  margin: 0 0 var(--s-4); font-family: var(--font-sans); font-size: 1.25rem; font-weight: 700;
+  letter-spacing: 0; text-transform: none; color: var(--gw-navy);
+}
+.fund-groups .fund-group__label .motif { font-size: 0.6rem; margin-right: 0.2rem; }
+.fund-groups .index a { font-size: 1.375rem; padding: 1.15rem 0; }
+.fund-groups .index { border-bottom: 1px solid var(--rule); }

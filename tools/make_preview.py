@@ -31,7 +31,7 @@ ABOUT_MENU = [
 SIDE_NAV = [
     ("Multi Asset", [("1OAK Multi Asset (MA80) Fund (Growth)", "/1oak-multi-asset-funds-guided-by-blackrock"),
                      ("EPIC Wealth Fund (Balanced)", "/epic-investment-partners")]),
-    ("Equities", [("ASK Capital India Entrepreneur Fund", "/ask-capital-india-entrepreneur-fund"),
+    ("Equities", [("ASK Indian Entrepreneur Fund", "/ask-capital-india-entrepreneur-fund"),
                   ("Pecora Chatrier Equity (Value)", "/pecora-chatrier-equity-value")]),
     ("Fixed Interest", [("Pecora Manning & Napier High Yield Bond Strategy", "/pecora-manning-napier-high-yield-bond-strategy")]),
     ("Alternative Strategies", [("Levendi Thornbridge Defined Return Fund", "/levendi-thornbridge-defined-return-fund"),
@@ -113,7 +113,7 @@ FOOTER = f'''<footer class="site-footer on-dark">
 </footer>'''
 
 
-def page(title, path, body, section=None, extra_head="", footer=None, extra_scripts=""):
+def page(title, path, body, section=None, extra_head="", footer=None, extra_scripts="", notice=False, robots=None):
     return f'''<!doctype html>
 <html lang="en-GB" class="no-js">
 <head>
@@ -121,13 +121,14 @@ def page(title, path, body, section=None, extra_head="", footer=None, extra_scri
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>{title}</title>
 <meta name="description" content="{e(DESC)}">
-<link rel="canonical" href="{SITE}{path}">
+{"" if robots else f'<link rel="canonical" href="{SITE}{path}">'}
+{f'<meta name="robots" content="{robots}">' if robots else ""}
 <link rel="icon" type="image/png" sizes="32x32" href="/img/gw-icon.png">
 <link rel="stylesheet" href="/css/tokens.css">
 <link rel="stylesheet" href="/css/base.css">
 <link rel="stylesheet" href="/css/components.css">
 <script src="/js/init.js"></script>
-{extra_head}</head>
+{extra_head}{'<link rel="stylesheet" href="/css/notice.css">' + chr(10) if notice else ""}</head>
 <body id="top">
 <a class="skip-link" href="#main">Skip to main content</a>
 {header(path, section)}
@@ -138,10 +139,27 @@ def page(title, path, body, section=None, extra_head="", footer=None, extra_scri
 <script src="/js/nav.js" defer></script>
 <script src="/js/header-hide.js" defer></script>
 {extra_scripts}
+{NOTICE_HTML + chr(10) + '<script src="/js/notice.js" defer></script>' if notice else ""}
 </body>
 </html>
 '''
 
+
+
+# Entry notice: wording copied verbatim from the live site's modal (audit/baseline/pages/home.html).
+NOTICE_HTML = '''<dialog class="notice" id="entry-notice" aria-labelledby="notice-title">
+  <div class="notice__body">
+    <h2 id="notice-title">Notice</h2>
+    <p>Global Wealth Management Solutions deals exclusively with Intermediaries.</p>
+    <p>It does not provide advice to Private Clients or the Public in general; therefore in the event of any part or all of the website being accessed by or coming into the hands of Private Clients or the Public in general, none of its content should be construed as explicit or implicit advice of any kind.</p>
+    <h3>Cookie Statement</h3>
+    <p>Please note that this site uses cookies for the essential running of the website. Please make sure to read the cookie statement to find out how globalwms.com uses cookies.</p>
+    <div class="notice__actions">
+      <button type="button" class="notice__accept" data-notice-accept autofocus>ACCEPT</button>
+      <a class="notice__decline" href="https://google.com">DECLINE</a>
+    </div>
+  </div>
+</dialog>'''
 
 HOME = '''<section class="hero on-dark" aria-labelledby="home-title">
   <picture class="hero__media">
@@ -179,7 +197,7 @@ ASK = f'''<div class="container page">
     <article>
       <header class="page-header">
         <h1>ASK Indian Entrepreneur Fund</h1>
-        <img class="page-header__logo" src="/img/fund-ask-web.png" width="250" height="74" alt="ASK Capital">
+        <img class="page-header__logo page-header__logo--wide" src="/img/funds/ask-dark.svg" width="1000" height="159" alt="ASK Investment Managers">
       </header>
       <div class="prose">
 <p>ASK Capital, a subsidiary of ASK Investment Managers (“ASK”), is a boutique India-specialist investment manager. ASK is one of the leading asset and wealth management companies in India, with an AUM of ~USD 10.1 billion<a class="fn-ref" href="#_ftn1" id="_ftnref1"><sup>[1]</sup></a>. </p>
@@ -227,9 +245,11 @@ def portable(content, depth):
     return re.sub(r'(/img/[^ ",]+)( \d+w)', lambda m: up + m.group(1)[1:] + m.group(2), content)
 
 
-def write(rel, content):
-    content = portable(content, rel.count("/"))
-    p = OUT / rel
+def write(rel, content, root=None, raw=False):
+    root = root or OUT
+    if not raw:
+        content = portable(content, rel.count("/"))
+    p = root / rel
     p.parent.mkdir(parents=True, exist_ok=True)
     p.write_text(content, encoding="utf-8")
 
@@ -399,3 +419,70 @@ write("concept-home/index.html", page("Home page (concept)", "/", CONCEPT,
 write("ask-capital-india-entrepreneur-fund/index.html",
       page("ASK Indian Entrepreneur Fund", ASK_PATH, ASK, section="funds"))
 print("wrote preview pages")
+
+# =======================================================================================
+# DEPLOYABLE SITE  ->  dist/   (home, funds, ASK fund page + 404, robots, sitemap, .htaccess)
+# Only pages that are built are included; every other link is still dead until built.
+# =======================================================================================
+import re, shutil
+DIST = OUT.parent / "dist"
+if DIST.exists():
+    shutil.rmtree(DIST)
+DIST.mkdir()
+ASSET_SRC = OUT
+BUILT = ["/", "/funds", ASK_PATH]
+FOOT_HEAD = '<link rel="stylesheet" href="/css/concept.css">\n'
+HOME_JS = '<script src="/js/photo-fade.js" defer></script>'
+
+write("index.html", page("Home page", "/", CONCEPT, extra_head=FOOT_HEAD, footer=CONCEPT_FOOTER,
+      extra_scripts='<script src="/js/carousel.js" defer></script>\n' + HOME_JS, notice=True), root=DIST)
+write("funds/index.html", page("Funds", "/funds", FUNDS_PAGE, section="funds", extra_head=FOOT_HEAD,
+      footer=CONCEPT_FOOTER, notice=True), root=DIST)
+write(ASK_PATH.strip("/") + "/index.html", page("ASK Indian Entrepreneur Fund", ASK_PATH, ASK, section="funds",
+      extra_head=FOOT_HEAD, footer=CONCEPT_FOOTER, notice=True), root=DIST)
+
+# 404: served by the host at any URL depth, so it uses root-absolute asset paths (written raw).
+NOT_FOUND = '''<div class="container page">
+  <h1>404 Not Found</h1>
+  <div class="prose">
+    <p>The document has not been found on this server.</p>
+    <p>Either the link is broken or it is temporarily unavailable.</p>
+  </div>
+</div>'''
+write("404.html", page("404 Not Found", "/404", NOT_FOUND, extra_head=FOOT_HEAD, footer=CONCEPT_FOOTER,
+      notice=True, robots="noindex"), root=DIST, raw=True)
+
+write("robots.txt", "User-agent: *\nAllow: /\n\nSitemap: " + SITE + "/sitemap.xml\n", root=DIST, raw=True)
+urls = "".join(f"  <url><loc>{SITE}{u if u != '/' else '/'}</loc></url>\n" for u in BUILT)
+write("sitemap.xml", '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' + urls + "</urlset>\n", root=DIST, raw=True)
+write(".htaccess", """# Apache (SiteGround). Plain static site: no PHP/CMS is required.
+Options -Indexes
+DirectoryIndex index.html
+ErrorDocument 404 /404.html
+AddType image/svg+xml .svg
+AddType font/woff2 .woff2
+
+RewriteEngine On
+# Joomla-era duplicates of the home page and of every page
+RewriteRule ^index\\.php/?$ / [R=301,L]
+RewriteRule ^home/?$ / [R=301,L]
+RewriteRule ^index\\.php/(.+)$ /$1 [R=301,L]
+# Retired (owner decision): Investment Notification page and its PDF, Joomla login and feeds
+RewriteRule ^investment-notification-form/?$ - [G]
+RewriteRule ^images/documents/ - [G]
+RewriteRule ^component/ - [G]
+""", root=DIST, raw=True)
+
+# assets: css/js/fonts whole (small); images only if referenced
+for d in ("css", "js", "fonts"):
+    shutil.copytree(ASSET_SRC / d, DIST / d)
+text = "".join(f.read_text(encoding="utf-8", errors="ignore") for f in DIST.rglob("*") if f.suffix in (".html", ".css", ".js"))
+used = sorted(set(re.findall(r"img/[A-Za-z0-9_\-./]+\.(?:webp|png|jpg|svg)", text)))
+for rel in used:
+    src = ASSET_SRC / rel
+    if src.exists():
+        (DIST / rel).parent.mkdir(parents=True, exist_ok=True)
+        shutil.copy2(src, DIST / rel)
+    else:
+        print("MISSING ASSET:", rel)
+print(f"wrote dist/ ({len(used)} images)")

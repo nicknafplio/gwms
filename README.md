@@ -1,9 +1,13 @@
-# GWMS static website — redesign (stage 1: audit, direction, preview)
+# GWMS static website — redesign
 
 Replacement for https://globalwms.com (Joomla), built as ordinary static HTML/CSS/JS. **Nothing here has been deployed; production is untouched.**
 
+**Built so far (in `dist/`, ready to upload to a staging site — see `DEPLOY.md`):** Home, Funds, ASK Indian Entrepreneur Fund, 404, robots.txt, sitemap.xml, `.htaccess`. The other 19 pages are not built yet.
+
 | Read first | |
 |---|---|
+| `DEPLOY.md` | How to deploy `dist/` (SiteGround/Apache, nginx, Netlify) and why not to deploy it over the live site yet |
+| `docs/10-build-and-test-results.md` | What `dist/` contains and what was measured |
 | `docs/05-decisions-and-questions.md` | What I need you to decide |
 | `docs/01-audit-inventory.md` | Pages, navigation, documents, assets, dependencies, access gaps |
 | `docs/02-navigation-proposal.md` | Proposed mega menus; every non-existing label flagged |

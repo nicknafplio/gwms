@@ -1,0 +1,16 @@
+# Apache (SiteGround). Plain static site: no PHP/CMS is required.
+Options -Indexes
+DirectoryIndex index.html
+ErrorDocument 404 /404.html
+AddType image/svg+xml .svg
+AddType font/woff2 .woff2
+
+RewriteEngine On
+# Joomla-era duplicates of the home page and of every page
+RewriteRule ^index\.php/?$ / [R=301,L]
+RewriteRule ^home/?$ / [R=301,L]
+RewriteRule ^index\.php/(.+)$ /$1 [R=301,L]
+# Retired (owner decision): Investment Notification page and its PDF, Joomla login and feeds
+RewriteRule ^investment-notification-form/?$ - [G]
+RewriteRule ^images/documents/ - [G]
+RewriteRule ^component/ - [G]
