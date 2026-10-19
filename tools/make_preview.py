@@ -293,7 +293,10 @@ CONCEPT = f'''<div class="frame">
 </section>
 <section class="about" aria-labelledby="about-title">
   <div class="container about__grid">
-    <div class="about__photo"><img src="/img/about-glass-1200.webp" srcset="/img/about-glass-700.webp 700w, /img/about-glass-1200.webp 1200w" sizes="(min-width: 60rem) 45vw, 100vw" width="1200" height="800" alt="" loading="lazy"></div>
+    <div class="about__photo" data-photo-fade>
+      <img class="about__img about__img--blue" src="/img/about-glass-blue-1200.webp" srcset="/img/about-glass-blue-700.webp 700w, /img/about-glass-blue-1200.webp 1200w" sizes="(min-width: 60rem) 45vw, 100vw" width="1200" height="800" alt="" loading="lazy">
+      <img class="about__img about__img--warm" src="/img/about-glass-1200.webp" srcset="/img/about-glass-700.webp 700w, /img/about-glass-1200.webp 1200w" sizes="(min-width: 60rem) 45vw, 100vw" width="1200" height="800" alt="" loading="lazy">
+    </div>
     <div>
       <p class="label about__label"><span class="motif" aria-hidden="true"></span><span id="about-title">About us</span></p>
       <p class="about__statement">Providing access to best of breed financial products since 2003.</p>
@@ -349,7 +352,7 @@ CONCEPT_FOOTER = f'''<footer class="site-footer site-footer--wide on-dark">
 write("index.html", page("Home page", "/", HOME))
 write("concept-home/index.html", page("Home page (concept)", "/", CONCEPT,
       extra_head='<link rel="stylesheet" href="/css/concept.css">\n', footer=CONCEPT_FOOTER,
-      extra_scripts='<script src="/js/carousel.js" defer></script>'))
+      extra_scripts='<script src="/js/carousel.js" defer></script>\n<script src="/js/photo-fade.js" defer></script>'))
 write("ask-capital-india-entrepreneur-fund/index.html",
       page("ASK Indian Entrepreneur Fund", ASK_PATH, ASK, section="funds"))
 print("wrote preview pages")

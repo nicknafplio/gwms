@@ -79,3 +79,6 @@ EPIC logo 10% smaller (height 6.75rem, was the full 7.5rem logo area).
 
 ## Revision 19 — second-section links
 Arrows are now a bold, short silver (`#BCBDBF`) arrow in a blue (`#065AA7`) rounded square. On hover/keyboard focus the colours reverse (silver square, blue arrow) and the square slides left 0.7rem over 0.28s. Silver-on-blue and blue-on-silver are both ≈3.6:1 (meets the 3:1 needed for graphical controls; the link text itself is unchanged). Animation runs for everyone (reduced-motion handling discarded by owner decision).
+
+## Revision 20 — About photo scroll crossfade
+The About photo is now two stacked images: the original teal photo with the blue tint (underneath) and the new warm/orange photo (on top). `js/photo-fade.js` sets `--p` (0→1) from scroll position and the warm image's opacity follows it: 0 when the photo's top edge is at 90% of the viewport height, 1 when it reaches 30%. The navy tint fades as the orange comes in. Plain JS, passive scroll listener with requestAnimationFrame. Without JavaScript the warm photo shows. `preview/screenshots/concept-photo-fade-sequence.png` shows progress 0 / 0.5 / 1.
