@@ -51,3 +51,6 @@ Hero diagonal band: opacity raised by 10 points (white 13%â†’23% at the top, 7%â
 
 ## Revision 10
 Hero band rolled back 5 points: white 18% at the top, 12% at the bottom (10 points above the original 13%/7% minus 5).
+
+## Revision 11
+Funds panel now follows the hero recipe (photo + navy/blue veil + diagonal light band) but varied so the two don't repeat: the walkway photo is mirrored and cropped low-right, the veil runs the opposite direction and is a little lighter/bluer, and the band sits right of centre instead of centre-left. Same photo files as the hero (no extra download). Text/cards sit above the veil; contrast on the cards' white logo plates is unaffected, but the white card text over the band has not been measured.

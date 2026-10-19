@@ -133,3 +133,14 @@
 .hero--framed { --band-1: rgba(255, 255, 255, 0.18); --band-2: rgba(255, 255, 255, 0.12); }
 .hero--framed::before { z-index: 0; }
 .hero--framed .hero__inner { position: relative; z-index: 1; }
+
+/* ---- Funds panel: same recipe as the hero (photo + veil + diagonal band), placed differently ----
+   photo mirrored and cropped low-right, bluer/lighter veil, band moved to the right. */
+.funds__panel { --band-1: rgba(255, 255, 255, 0.18); --band-2: rgba(255, 255, 255, 0.12); }
+.funds__media, .funds__media img { position: absolute; inset: 0; width: 100%; height: 100%; z-index: -3; }
+.funds__media img { object-fit: cover; object-position: 30% 85%; transform: scaleX(-1); }
+.funds__panel::after { /* veil, full-bleed */
+  clip-path: none; inset: 0; z-index: -2;
+  background: linear-gradient(255deg, rgba(10, 30, 56, 0.90) 0%, rgba(26, 61, 108, 0.80) 48%, rgba(6, 90, 167, 0.62) 100%);
+}
+.funds__panel::before { z-index: -1; clip-path: polygon(58% 0, 88% 0, 68% 100%, 38% 100%); }
