@@ -36,3 +36,6 @@ Footer uses your white single-colour logo (`design-assets/supplied/logo-final-wh
 ## Revision 5
 - Second section: statement text aligned to the top with the small offset-square marker above it (as in the other sections); index links reduced to 17 px with smaller arrows.
 - Footer: a "Back to top" link (`#top`) under the LinkedIn icon, drawn as a white tile with a grey offset shadow and an up-chevron, echoing the logo mark. "Back to top" is new functional UI text (not marketing copy).
+
+## Revision 6
+Footer "Back to top" → **"Top"** (screen readers announce "Top of page"), with a plain white up-chevron and no tile behind it.
