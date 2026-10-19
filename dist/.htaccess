@@ -4,6 +4,7 @@ DirectoryIndex index.html
 ErrorDocument 404 /404.html
 AddType image/svg+xml .svg
 AddType font/woff2 .woff2
+AddType text/vcard .vcf
 
 RewriteEngine On
 # Joomla-era duplicates of the home page and of every page
@@ -14,3 +15,10 @@ RewriteRule ^index\.php/(.+)$ /$1 [R=301,L]
 RewriteRule ^investment-notification-form/?$ - [G]
 RewriteRule ^images/documents/ - [G]
 RewriteRule ^component/ - [G]
+# Old extensionless page URLs -> the same page as <name>.html
+RewriteRule ^about/?$ /about-gwms.html [R=301,L]
+RewriteRule ^cookie-information\.$ /cookie-information.html [R=301,L]
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{DOCUMENT_ROOT}/$1.html -f
+RewriteRule ^([A-Za-z0-9-]+)/?$ /$1.html [R=301,L]

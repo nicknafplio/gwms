@@ -2,7 +2,7 @@
 """Generate the two representative preview pages from one shared definition of
 header / navigation / footer. All page text below is copied verbatim from the
 live site (audit/baseline/text/*.txt); tools/verify_preview.py checks that."""
-import html, pathlib, sys
+import html, pathlib, re, sys
 
 OUT = pathlib.Path(__file__).resolve().parent.parent / "preview"
 SITE = "https://globalwms.com"
@@ -121,7 +121,7 @@ def page(title, path, body, section=None, extra_head="", footer=None, extra_scri
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>{title}</title>
 <meta name="description" content="{e(DESC)}">
-{"" if robots else f'<link rel="canonical" href="{SITE}{path}">'}
+{"" if robots else f'<link rel="canonical" href="{SITE}{"/" if path == "/" else path + ".html"}">'}
 {f'<meta name="robots" content="{robots}">' if robots else ""}
 <link rel="icon" type="image/png" sizes="32x32" href="/img/gw-icon.png">
 <link rel="stylesheet" href="/css/tokens.css">
@@ -183,11 +183,11 @@ HOME = '''<section class="hero on-dark" aria-labelledby="home-title">
 </section>'''
 
 
-def side_nav(current):
+def side_nav(current, groups=None, label="Funds"):
     parts = []
-    for label, items in SIDE_NAV:
-        parts.append(f'<p class="side-nav__label"><span class="motif" aria-hidden="true"></span>{e(label)}</p>\n<ul>\n{links(items, current)}\n</ul>')
-    return '<nav class="side-nav" aria-label="Funds">\n' + "\n".join(parts) + "\n</nav>"
+    for glabel, items in (groups or SIDE_NAV):
+        parts.append(f'<p class="side-nav__label"><span class="motif" aria-hidden="true"></span>{e(glabel)}</p>\n<ul>\n{links(items, current)}\n</ul>')
+    return f'<nav class="side-nav" aria-label="{label}">\n' + "\n".join(parts) + "\n</nav>"
 
 
 ASK_PATH = "/ask-capital-india-entrepreneur-fund"
@@ -229,26 +229,40 @@ ASK = f'''<div class="container page">
 </div>'''
 
 
-def portable(content, depth):
-    """Rewrite root-relative URLs so the pages open straight from disk (file://) and on any host.
-    Assets -> relative path; page links -> relative path to <page>/index.html."""
-    import re
-    up = "../" * depth
+ASSET_DIRS = "css|js|img|fonts|vcards"
+
+
+def page_href(url):
+    """Internal page path -> flat file at the site root: '/about-gwms' -> 'about-gwms.html'."""
+    return "index.html" if url == "/" else url.strip("/") + ".html"
+
+
+def portable(content):
+    """Pages sit at the site root, so every internal URL becomes a plain relative path and the
+    site opens straight from disk (file://) as well as on any host."""
     def fix(m):
         attr, url = m.group(1), m.group(2)
-        if re.match(r"/(css|js|img|fonts)/", url):
-            return f'{attr}="{up}{url[1:]}"'
-        if url == "/":
-            return f'{attr}="{up}index.html"'
-        return f'{attr}="{up}{url.strip("/")}/index.html"'
+        if re.match(rf"/({ASSET_DIRS})/", url):
+            return f'{attr}="{url[1:]}"'
+        return f'{attr}="{page_href(url)}"'
     content = re.sub(r'\b(href|src)="(/[^"/][^"]*|/)"', fix, content)
-    return re.sub(r'(/img/[^ ",]+)( \d+w)', lambda m: up + m.group(1)[1:] + m.group(2), content)
+    return re.sub(r'(/img/[^ ",]+)( \d+w)', lambda m: m.group(1)[1:] + m.group(2), content)
+
+
+def absolute(content):
+    """For 404.html, which a host serves at any URL: keep root-absolute paths, add '.html' to page links."""
+    def fix(m):
+        attr, url = m.group(1), m.group(2)
+        if re.match(rf"/({ASSET_DIRS})/", url) or url == "/":
+            return m.group(0)
+        return f'{attr}="/{page_href(url)}"'
+    return re.sub(r'\b(href|src)="(/[^"/][^"]*|/)"', fix, content)
 
 
 def write(rel, content, root=None, raw=False):
     root = root or OUT
-    if not raw:
-        content = portable(content, rel.count("/"))
+    if rel.endswith(".html"):
+        content = absolute(content) if raw else portable(content)
     p = root / rel
     p.parent.mkdir(parents=True, exist_ok=True)
     p.write_text(content, encoding="utf-8")
@@ -411,40 +425,140 @@ FUNDS_PAGE = f'''<div class="frame">
   </div>
 </div>'''
 
-write("funds/index.html", page("Funds", "/funds", FUNDS_PAGE, section="funds",
-      extra_head='<link rel="stylesheet" href="/css/concept.css">\n', footer=CONCEPT_FOOTER))
 
-write("index.html", page("Home page", "/", HOME))
-write("concept-home/index.html", page("Home page (concept)", "/", CONCEPT,
-      extra_head='<link rel="stylesheet" href="/css/concept.css">\n', footer=CONCEPT_FOOTER,
-      extra_scripts='<script src="/js/carousel.js" defer></script>\n<script src="/js/photo-fade.js" defer></script>'))
-write("ask-capital-india-entrepreneur-fund/index.html",
-      page("ASK Indian Entrepreneur Fund", ASK_PATH, ASK, section="funds"))
-print("wrote preview pages")
 
 # =======================================================================================
-# DEPLOYABLE SITE  ->  dist/   (home, funds, ASK fund page + 404, robots, sitemap, .htaccess)
-# Only pages that are built are included; every other link is still dead until built.
+# INNER PAGES.  Page bodies come from tools/content/*.html (cleaned captures of the live
+# pages, see extract_bodies.py); only the frame around them is new.
 # =======================================================================================
-import re, shutil
+import shutil
+CONTENT = pathlib.Path(__file__).resolve().parent / "content"
+
+
+def body_of(slug):
+    return (CONTENT / f"{slug}.html").read_text(encoding="utf-8").strip()
+
+
+def logo(file, alt, w, h, wide=True):
+    cls = "page-header__logo" + (" page-header__logo--wide" if wide else "")
+    return f'<img class="{cls}" src="/img/{file}" width="{w}" height="{h}" alt="{e(alt)}">'
+
+
+def article(h1, content, side=None, logo_html="", footnotes=""):
+    head = f'<header class="page-header">\n        <h1>{e(h1, quote=False)}</h1>\n        {logo_html}\n      </header>'
+    art = f'<article>\n      {head}\n      <div class="prose">\n{content}\n      </div>{footnotes}\n    </article>'
+    if side:
+        return f'<div class="container page">\n  <div class="page__layout">\n{side}\n    {art}\n  </div>\n</div>'
+    return f'<div class="container page page--single">\n  {art}\n</div>'
+
+
+def people(content):
+    """Contact / region pages: the first heading (if any) stays above; each person is a card."""
+    m = re.match(r"(<h2>.*?</h2>\s*)?(.*)", content, re.S)
+    return (m.group(1) or "") + '<div class="people">\n' + m.group(2) + "\n</div>"
+
+
+ABOUT_SIDE = lambda cur: side_nav(cur, ABOUT_MENU, "About us")
+FUND_PAGES = [  # slug, h1, header logo
+    ("1oak-multi-asset-funds-guided-by-blackrock", "1OAK Multi Asset (MA80) Fund", logo("funds/1oak-dark.svg", "1OAK", 515, 193, wide=False)),
+    ("epic-investment-partners", "EPIC Investment Partners", logo("funds/epic-dark.svg", "EPIC Investment Partners", 515, 193, wide=False)),
+    ("levendi-thornbridge-defined-return-fund", "Levendi Thornbridge Defined Return Fund", logo("funds/causeway-dark.svg", "Causeway Securities", 1000, 193)),
+    ("pecora-chatrier-equity-value", "Pecora Chatrier Equity (Value)", logo("funds/pecora-capital-dark.svg", "Pecora Capital", 761, 121)),
+    ("pecora-manning-napier-high-yield-bond-strategy", "Pecora Manning & Napier High Yield Bond Strategy", logo("funds/pecora-capital-dark.svg", "Pecora Capital", 761, 121)),
+    ("pecora-qms", "Pecora QMS", logo("funds/pecora-capital-dark.svg", "Pecora Capital", 761, 121)),
+]
+
+PAGES = {}   # path -> (title, html, section)
+
+
+def add(path, title, html, section=None):
+    PAGES[path] = (title, html, section)
+
+
+add("/", "Home page", CONCEPT)
+add("/funds", "Funds", FUNDS_PAGE, "funds")
+add(ASK_PATH, "ASK Indian Entrepreneur Fund", ASK, "funds")
+for slug, h1, lg in FUND_PAGES:
+    path = "/" + slug
+    add(path, h1, article(h1, body_of(slug), side_nav(path), lg), "funds")
+
+ABOUT = '''<p>Established in 2003, Global Wealth Management Solutions (GWMS) provides access to a suite of best of breed financial products. We are trusted by banks, institutions, captives, trust companies, family offices and boutique fund managers, who value our exceptional market knowledge, excellent service levels and strong track record.</p>
+<p>Our management team has over 150 years of financial services experience and provides the highest levels of support, professionalism and integrity. Most of our Partners and senior staff have been with us for more than 10 years. As a result, we have developed a sustainable and successful business, based on longevity, experience, security and value.</p>
+<h2>Locations</h2>
+<p>We offer a global reach combined with local knowledge, transacting business in over 80 countries. GWMS is headquartered in the UK but reaches a global audience through our teams operating in Offshore Islands and throughout Europe, Africa, Asia, The Middle East, Caribbean Islands and South America. We understand each marketplace, its nuances, challenges and opportunities, utilising the deep insights of our country specialists.</p>
+<p>Global Wealth Managent Solutions on <a href="https://www.linkedin.com/company/gwms/" target="_blank" rel="noopener">LinkedIn<span class="sr-only"> External site: linkedin.com. Opens in a new tab.</span></a>.</p>'''
+CREDENTIALS = '''<aside class="credentials" aria-labelledby="cred-title">
+  <h2 id="cred-title">Credentials</h2>
+  <p>Global Wealth Management Solutions LLP is authorised and regulated by the Financial Conduct Authority (ref 678746).</p>
+  <p>Professional Connections</p>
+  <ul>
+    <li>Bank: NatWest</li>
+    <li>Lawyers: BDB Pitmans LLP</li>
+    <li>Compliance Advisers: FM Consult</li>
+    <li>Regulators: FCA</li>
+  </ul>
+</aside>'''
+add("/about-gwms", "Exceptional wealth management solutions",
+    article("Exceptional wealth management solutions", ABOUT + "\n" + CREDENTIALS, ABOUT_SIDE("/about-gwms")), "about")
+
+TEAM = [  # name, role, bio (verbatim), vcard file
+    ("David Parker", "Chief Executive Officer", "David has 34 years of experience marketing wealth management products to institutions and professional intermediaries.", "david-parker"),
+    ("James Bottomley", "Head of Institutional Sales Asia", "James has 30 years experience in the Financial Services sector.", "james-bottomley"),
+    ("Simon Voysey", "International Sales Director", "As an IFA for 10 years in the Middle East I was initially attracted by the best of breed fund range, providing key client solutions for IFAs and Wealth Managers.", "simon-voysey"),
+    ("Dawn Parker - Partner", "Head of Back Office and Marketing", "", "dawn-parker"),
+    ("Sarah Crow - Partner", "Head of Commissions & Client Services", "", "sarah-crow"),
+    ("Jessica French - Partner", "Head of Accounting & Audit", "", "jessica-french"),
+]
+team_items = []
+for name, role, bio, vc in TEAM:
+    short = name.split(" - ")[0]
+    team_items.append(f'''<li class="member">
+  <img class="member__photo" src="/img/team/duffprofile.jpg" width="337" height="337" alt="" loading="lazy">
+  <div class="member__text">
+    <h2 class="member__name">{e(name)}</h2>
+    <p class="member__role">{e(role, quote=False)}</p>
+    {f'<p class="member__bio">{e(bio, quote=False)}</p>' if bio else ""}
+    <a class="member__vcard" href="/vcards/{vc}.vcf" download>vCard<span class="sr-only"> for {e(short)}</span></a>
+  </div>
+</li>''')
+TEAM_HTML = '<ul class="team">\n' + "\n".join(team_items) + "\n</ul>"
+add("/meet-the-team", "Meet the Team",
+    f'<div class="container page">\n  <div class="page__layout">\n{ABOUT_SIDE("/meet-the-team")}\n    <article>\n      <header class="page-header"><h1>Meet the Team</h1></header>\n{TEAM_HTML}\n    </article>\n  </div>\n</div>', "about")
+
+for slug, h1 in [("africa", "Africa"), ("americas-caribbean", "Americas & Caribbean"), ("asia", "Asia"),
+                 ("europe", "Europe"), ("middle-east", "Middle East")]:
+    add("/" + slug, h1, article(h1, people(body_of(slug)), ABOUT_SIDE("/" + slug)), "about")
+
+add("/platforms", "Platforms", article("Platforms", body_of("platforms"), None,
+    logo("platforms/veritas-life.svg", "Veritas Life", 296, 114)), None)
+add("/investment-management-solutions", "Investment Management Solutions",
+    article("Investment Management Solutions", body_of("investment-management-solutions"), None,
+            logo("investment/resilience-asset-management.svg", "Resilience Asset Management", 1024, 229)), None)
+add("/structured-products", "Structured Products", article("Structured Products", body_of("structured-products")), None)
+add("/contact", "Contact", article("Contact", people(body_of("contact"))), None)
+for slug, h1 in [("privacy-notice", "Privacy Notice"), ("disclaimer", "Disclaimer"), ("cookie-information", "Cookie Information")]:
+    add("/" + slug, h1, article(h1, body_of(slug)), None)
+
+# =======================================================================================
+# DEPLOYABLE SITE  ->  dist/   Every page is a plain .html file at the site root; assets live
+# in their own folders (css, js, fonts, img/*, vcards), each with a blank index.html.
+# =======================================================================================
 DIST = OUT.parent / "dist"
 if DIST.exists():
     shutil.rmtree(DIST)
 DIST.mkdir()
-ASSET_SRC = OUT
-BUILT = ["/", "/funds", ASK_PATH]
 FOOT_HEAD = '<link rel="stylesheet" href="/css/concept.css">\n'
-HOME_JS = '<script src="/js/photo-fade.js" defer></script>'
+HOME_JS = '<script src="/js/carousel.js" defer></script>\n<script src="/js/photo-fade.js" defer></script>'
 
-write("index.html", page("Home page", "/", CONCEPT, extra_head=FOOT_HEAD, footer=CONCEPT_FOOTER,
-      extra_scripts='<script src="/js/carousel.js" defer></script>\n' + HOME_JS, notice=True), root=DIST)
-write("funds/index.html", page("Funds", "/funds", FUNDS_PAGE, section="funds", extra_head=FOOT_HEAD,
-      footer=CONCEPT_FOOTER, notice=True), root=DIST)
-write(ASK_PATH.strip("/") + "/index.html", page("ASK Indian Entrepreneur Fund", ASK_PATH, ASK, section="funds",
-      extra_head=FOOT_HEAD, footer=CONCEPT_FOOTER, notice=True), root=DIST)
+for path, (title, html_, section) in PAGES.items():
+    scripts = HOME_JS if path == "/" else ""
+    if 'class="mail"' in html_:
+        scripts += '\n<script src="/js/mail.js" defer></script>'
+    write(page_href(path), page(title, path, html_, section=section, extra_head=FOOT_HEAD,
+          footer=CONCEPT_FOOTER, extra_scripts=scripts, notice=True), root=DIST)
 
-# 404: served by the host at any URL depth, so it uses root-absolute asset paths (written raw).
-NOT_FOUND = '''<div class="container page">
+# 404: served by the host at any URL depth, so it uses root-absolute asset paths.
+NOT_FOUND = '''<div class="container page page--single">
   <h1>404 Not Found</h1>
   <div class="prose">
     <p>The document has not been found on this server.</p>
@@ -455,7 +569,7 @@ write("404.html", page("404 Not Found", "/404", NOT_FOUND, extra_head=FOOT_HEAD,
       notice=True, robots="noindex"), root=DIST, raw=True)
 
 write("robots.txt", "User-agent: *\nAllow: /\n\nSitemap: " + SITE + "/sitemap.xml\n", root=DIST, raw=True)
-urls = "".join(f"  <url><loc>{SITE}{u if u != '/' else '/'}</loc></url>\n" for u in BUILT)
+urls = "".join(f"  <url><loc>{SITE}{'/' if u == '/' else u + '.html'}</loc></url>\n" for u in PAGES)
 write("sitemap.xml", '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' + urls + "</urlset>\n", root=DIST, raw=True)
 write(".htaccess", """# Apache (SiteGround). Plain static site: no PHP/CMS is required.
 Options -Indexes
@@ -463,6 +577,7 @@ DirectoryIndex index.html
 ErrorDocument 404 /404.html
 AddType image/svg+xml .svg
 AddType font/woff2 .woff2
+AddType text/vcard .vcf
 
 RewriteEngine On
 # Joomla-era duplicates of the home page and of every page
@@ -473,18 +588,28 @@ RewriteRule ^index\\.php/(.+)$ /$1 [R=301,L]
 RewriteRule ^investment-notification-form/?$ - [G]
 RewriteRule ^images/documents/ - [G]
 RewriteRule ^component/ - [G]
+# Old extensionless page URLs -> the same page as <name>.html
+RewriteRule ^about/?$ /about-gwms.html [R=301,L]
+RewriteRule ^cookie-information\\.$ /cookie-information.html [R=301,L]
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{DOCUMENT_ROOT}/$1.html -f
+RewriteRule ^([A-Za-z0-9-]+)/?$ /$1.html [R=301,L]
 """, root=DIST, raw=True)
 
-# assets: css/js/fonts whole (small); images only if referenced
-for d in ("css", "js", "fonts"):
-    shutil.copytree(ASSET_SRC / d, DIST / d)
+# assets: css/js/fonts/vcards whole (small); images only if referenced
+for d in ("css", "js", "fonts", "vcards"):
+    shutil.copytree(OUT / d, DIST / d)
 text = "".join(f.read_text(encoding="utf-8", errors="ignore") for f in DIST.rglob("*") if f.suffix in (".html", ".css", ".js"))
 used = sorted(set(re.findall(r"img/[A-Za-z0-9_\-./]+\.(?:webp|png|jpg|svg)", text)))
 for rel in used:
-    src = ASSET_SRC / rel
+    src = OUT / rel
     if src.exists():
         (DIST / rel).parent.mkdir(parents=True, exist_ok=True)
         shutil.copy2(src, DIST / rel)
     else:
         print("MISSING ASSET:", rel)
-print(f"wrote dist/ ({len(used)} images)")
+BLANK = '<!doctype html>\n<meta charset="utf-8">\n<title></title>\n'
+for folder in sorted({d for d in DIST.rglob("*") if d.is_dir()}):
+    (folder / "index.html").write_text(BLANK, encoding="utf-8")
+print(f"wrote dist/: {len(PAGES)} pages, {len(used)} images")

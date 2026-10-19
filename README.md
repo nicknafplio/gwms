@@ -2,7 +2,7 @@
 
 Replacement for https://globalwms.com (Joomla), built as ordinary static HTML/CSS/JS. **Nothing here has been deployed; production is untouched.**
 
-**Built so far (in `dist/`, ready to upload to a staging site — see `DEPLOY.md`):** Home, Funds, ASK Indian Entrepreneur Fund, 404, robots.txt, sitemap.xml, `.htaccess`. The other 19 pages are not built yet.
+**Built (in `dist/`, ready for a staging site — see `DEPLOY.md`):** all 23 pages as flat `.html` files in the root, 404, robots.txt, sitemap.xml, `.htaccess`.
 
 | Read first | |
 |---|---|
@@ -16,19 +16,18 @@ Replacement for https://globalwms.com (Joomla), built as ordinary static HTML/CS
 | `docs/06-preview-test-results.md` | Measured vs not-yet-measured |
 | `docs/url-map.csv` | Old → new URL map (all existing URLs preserved) |
 
-## Preview (no install needed)
-Open `preview/index.html` in a browser by double-clicking it. The ASK page is `preview/ask-capital-india-entrepreneur-fund/index.html`. Plain HTML/CSS/JS; Python is only used by the optional generator.
-
-## Preview via local server (optional)
+## View the site (no install needed)
+Open `dist/index.html` in a browser (links are relative, so it works from disk), or serve it:
 ```
-python3 -m http.server 8765 --directory preview     # then open http://localhost:8765/
+python3 -m http.server 8766 --directory dist
 ```
-Only Home (`/`) and the ASK fund page (`/ask-capital-india-entrepreneur-fund/`) exist in the preview; other links will 404 until the full build.
+`preview/` now holds only the asset sources (css, js, fonts, img, vcards) and screenshots; pages are generated into `dist/`.
 
 ## Tools (`tools/`)
 | Script | Purpose |
 |---|---|
-| `make_preview.py` | Generates the preview pages from one shared header/nav/footer definition |
+| `extract_bodies.py` | Cleans the captured live page text into `tools/content/*.html` |
+| `make_preview.py` | Builds `dist/` (all pages, header/nav/footer shared, 404, sitemap, `.htaccess`) |
 | `compare_content.py` | Word-for-word comparison of a built page against `audit/baseline/text/` |
 | `test_preview.cjs` | axe + keyboard + mobile + no-JS tests (needs Playwright and axe-core; set `AXE_PATH`) |
 | `shoot_preview.cjs` | Regenerates `preview/screenshots/` |

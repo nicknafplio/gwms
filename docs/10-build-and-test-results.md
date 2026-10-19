@@ -39,3 +39,22 @@ EPIC logo a further 5% smaller (height 6.75rem → 6.41rem). The Funds page no l
 
 ## Mobile home refinements (below 52rem only)
 Hero text centred; decorative square on its own line; arrow anchor link (`#statement`) added; Funds panel vertical padding reduced; Funds logos ~40% smaller. Desktop CSS unchanged. Measured: no horizontal overflow at 390px; screenshot `preview/screenshots/dist-home-mobile.jpg`.
+
+
+## Full site build (all 23 pages)
+**Structure:** all pages are flat `.html` files at the root; assets in `css/ js/ fonts/ img/ img/funds/ img/platforms/ img/investment/ img/team/ vcards/`, each folder with a blank `index.html`. Old extensionless URLs are 301-redirected by `.htaccess`; `docs/url-map.csv` regenerated.
+
+**Page layouts:** fund pages (1OAK, EPIC, Levendi/Causeway, Pecora x3) follow the ASK page (Funds side navigation, heading, dark logo, prose). About, Meet the Team and the five regions use the same layout with an About-us side navigation. Platforms (Veritas Life logo), Investment Management Solutions (Resilience logo), Structured Products, Contact and the three policy pages use the same frame without a side navigation. Meet the Team keeps the original list layout (photo, name, role, bio) in the new design.
+
+**Measured (Chromium 1.56 via Playwright, local server):** `tools/test_dist.cjs`: 60 checks passed - axe (WCAG 2.0/2.1/2.2 A/AA + best practice) 0 violations on all 24 pages at 1440 and 390 px; no console/network errors; no horizontal overflow; no broken images; no third-party requests; no cookies; 0 broken internal links/assets across the 24 pages; every folder has an index.html.
+**Content comparison (`tools/compare_content.py` against the captured live text):** identical word-for-word for the 7 fund pages, About, IMS, Structured Products, Disclaimer and Cookie Information. Only expected differences: (a) e-mail addresses (see below), (b) added page headings "Platforms" and "Meet the Team" (the live pages had none; labels are the existing menu labels), (c) the "vCard" links on Meet the Team.
+**Not measured:** other browsers, screen readers, Lighthouse, real-device touch, no-JS pass on the new pages.
+
+**Changes needing your confirmation**
+1. **Team photos / vCards are placeholders:** every person uses `img/team/duffprofile.jpg` and a blank `vcards/<name>.vcf` (0 bytes). Replace the files, same names. The "vCard" download link is new (requested).
+2. **Dawn Parker** is in the live team text but not in the screenshot you sent; she is included (existing content). Remove if intended.
+3. **Individual team-member pages** (`/meet-the-team/25-david-parker` etc.) were never captured and are not built.
+4. **Contact e-mail:** addresses are assembled by `js/mail.js` (as the old site did); without JavaScript they show as "name [at] globalwms.com". A plain `mailto:` link is the alternative - your decision (deferred earlier).
+5. **Privacy Notice:** the two broken links ("/about", "/cookie-information.") now point to About GWMS and Cookie Information; wording unchanged. Policy wording is still the live text, unreviewed; the Cookie page still describes Google Analytics although the new site has none (policy review stage 2).
+6. **Logos:** Veritas Life and Resilience SVGs used as supplied (the Resilience file is a traced bitmap, ~50 KB; Veritas has empty space under the wordmark).
+7. Region pages: phone numbers that were links on the live site remain links.

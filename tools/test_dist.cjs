@@ -19,12 +19,13 @@ let fails = 0; const ok = (c, m) => { console.log((c ? 'PASS ' : 'FAIL ') + m); 
   await p.screenshot({ path: 'preview/screenshots/dist-entry-notice.png' });
   await p.click('[data-notice-accept]'); await p.waitForTimeout(200);
   ok(!(await p.isVisible('#entry-notice')), 'ACCEPT closes the notice');
-  await p.goto(BASE + '/funds/', { waitUntil: 'networkidle' });
+  await p.goto(BASE + '/funds.html', { waitUntil: 'networkidle' });
   ok(!(await p.isVisible('#entry-notice')), 'notice stays closed for the rest of the browser session');
   ok((await c.cookies()).length === 0, 'no cookies set (' + (await c.cookies()).length + ')');
   // --- every page: axe, console, third-party requests
   const hosts = new Set();
-  for (const pg of ['/', '/funds/', '/ask-capital-india-entrepreneur-fund/', '/404.html']) {
+  const ALL = fs.readdirSync(DIST).filter(f => f.endsWith('.html')).sort();
+  for (const pg of ALL.map(f => f === 'index.html' ? '/' : '/' + f)) {
     for (const [w, label] of [[1440, 'desktop'], [390, 'mobile']]) {
       const cx = await b.newContext({ viewport: { width: w, height: 900 } }); await cx.addInitScript(() => { try { sessionStorage.setItem('gwms-notice-accepted', '1'); } catch (e) {} });
       const q = await cx.newPage(); const e2 = []; q.on('console', m => { if (m.type() === 'error') e2.push(m.text()); }); q.on('pageerror', e => e2.push(e.message)); q.on('requestfailed', rq => e2.push('FAILED ' + rq.url()));
@@ -39,20 +40,19 @@ let fails = 0; const ok = (c, m) => { console.log((c ? 'PASS ' : 'FAIL ') + m); 
     }
   }
   ok([...hosts].every(h => h.startsWith('localhost')), 'no third-party requests: ' + [...hosts].join(', '));
-  // --- link audit (built pages only)
-  const pages = ['index.html', 'funds/index.html', 'ask-capital-india-entrepreneur-fund/index.html'];
-  const missing = new Map(); const internalOk = new Set();
-  for (const f of pages) {
+  // --- link audit: every internal href/src in every page resolves to a file; every folder has a blank index.html
+  const broken = []; let checked = 0;
+  for (const f of ALL) {
     const html = fs.readFileSync(path.join(DIST, f), 'utf8');
     for (const m of html.matchAll(/(?:href|src)="([^"#]+)"/g)) {
       const u = m[1]; if (/^(https?:|mailto:|tel:|data:)/.test(u)) continue;
-      const target = path.normalize(path.join(DIST, path.dirname(f), u));
-      if (fs.existsSync(target)) internalOk.add(u); else { const k = u.replace(/^(\.\.\/)+/, '').replace(/^\.\//, '').replace(/\/index\.html$/, ''); missing.set(k, (missing.get(k) || 0) + 1); }
+      const base = f === '404.html' ? path.join(DIST, u.startsWith('/') ? u.slice(1) : u) : path.join(DIST, u);
+      checked++; if (!fs.existsSync(base)) broken.push(f + ' -> ' + u);
     }
   }
-  console.log('INFO internal references that resolve:', internalOk.size);
-  console.log('INFO links to pages not built yet (' + missing.size + '):', [...missing.keys()].sort().join(', '));
-  const assetMissing = [...missing.keys()].filter(k => /\.(css|js|webp|png|svg|jpg|woff2|ico)$/.test(k));
-  ok(assetMissing.length === 0, 'no missing assets (css/js/images/fonts)' + (assetMissing.length ? ': ' + assetMissing.join(', ') : ''));
+  ok(broken.length === 0, `no broken internal links/assets (${checked} references in ${ALL.length} pages)` + (broken.length ? ': ' + broken.slice(0, 10).join('; ') : ''));
+  const dirs = []; (function walk(d) { for (const e of fs.readdirSync(d, { withFileTypes: true })) if (e.isDirectory()) { dirs.push(path.join(d, e.name)); walk(path.join(d, e.name)); } })(DIST);
+  const noIndex = dirs.filter(d => !fs.existsSync(path.join(d, 'index.html')));
+  ok(noIndex.length === 0, `every folder has an index.html (${dirs.length} folders)` + (noIndex.length ? ': ' + noIndex.join(', ') : ''));
   await b.close(); console.log(fails ? `\n${fails} FAILED` : '\nall dist checks passed'); process.exit(fails ? 1 : 0);
 })().catch(e => { console.error(e); process.exit(2); });

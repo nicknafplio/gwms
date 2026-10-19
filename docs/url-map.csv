@@ -1,43 +1,37 @@
 old_url,new_url,action,redirect_type,note
-/,/,preserved,none,Existing URL kept.
-/about-gwms,/about-gwms,preserved,none,Existing URL kept.
-/meet-the-team,/meet-the-team,preserved,none,Existing URL kept.
-/investment-notification-form,/investment-notification-form,preserved,none,Existing URL kept.
-/contact,/contact,preserved,none,Existing URL kept.
-/platforms,/platforms,preserved,none,Existing URL kept.
-/1oak-multi-asset-funds-guided-by-blackrock,/1oak-multi-asset-funds-guided-by-blackrock,preserved,none,Existing URL kept.
-/epic-investment-partners,/epic-investment-partners,preserved,none,Existing URL kept.
-/levendi-thornbridge-defined-return-fund,/levendi-thornbridge-defined-return-fund,preserved,none,Existing URL kept.
-/pecora-qms,/pecora-qms,preserved,none,Existing URL kept.
-/ask-capital-india-entrepreneur-fund,/ask-capital-india-entrepreneur-fund,preserved,none,Existing URL kept.
-/pecora-chatrier-equity-value,/pecora-chatrier-equity-value,preserved,none,Existing URL kept.
-/pecora-manning-napier-high-yield-bond-strategy,/pecora-manning-napier-high-yield-bond-strategy,preserved,none,Existing URL kept.
-/investment-management-solutions,/investment-management-solutions,preserved,none,Existing URL kept.
-/structured-products,/structured-products,preserved,none,Existing URL kept.
-/cookie-information,/cookie-information,preserved,none,Existing URL kept.
-/disclaimer,/disclaimer,preserved,none,Existing URL kept.
-/privacy-notice,/privacy-notice,preserved,none,Existing URL kept.
-/africa,/africa,preserved,none,Existing URL kept.
-/americas-caribbean,/americas-caribbean,preserved,none,Existing URL kept.
-/asia,/asia,preserved,none,Existing URL kept.
-/europe,/europe,preserved,none,Existing URL kept.
-/middle-east,/middle-east,preserved,none,Existing URL kept.
-/images/documents/GWMS-Investment-Tracking-Form-2023.pdf,/images/documents/GWMS-Investment-Tracking-Form-2023.pdf,preserved,none,Existing URL kept.
-/error404,/error404,preserved,none,Existing URL kept.
+/,/,preserved,none,Home page (index.html)
+/about-gwms,/about-gwms.html,redirect-301,permanent,Page now a flat .html file at the site root; .htaccess redirects the old URL.
+/meet-the-team,/meet-the-team.html,redirect-301,permanent,Page now a flat .html file at the site root; .htaccess redirects the old URL.
+/contact,/contact.html,redirect-301,permanent,Page now a flat .html file at the site root; .htaccess redirects the old URL.
+/platforms,/platforms.html,redirect-301,permanent,Page now a flat .html file at the site root; .htaccess redirects the old URL.
+/1oak-multi-asset-funds-guided-by-blackrock,/1oak-multi-asset-funds-guided-by-blackrock.html,redirect-301,permanent,Page now a flat .html file at the site root; .htaccess redirects the old URL.
+/epic-investment-partners,/epic-investment-partners.html,redirect-301,permanent,Page now a flat .html file at the site root; .htaccess redirects the old URL.
+/levendi-thornbridge-defined-return-fund,/levendi-thornbridge-defined-return-fund.html,redirect-301,permanent,Page now a flat .html file at the site root; .htaccess redirects the old URL.
+/pecora-qms,/pecora-qms.html,redirect-301,permanent,Page now a flat .html file at the site root; .htaccess redirects the old URL.
+/ask-capital-india-entrepreneur-fund,/ask-capital-india-entrepreneur-fund.html,redirect-301,permanent,Page now a flat .html file at the site root; .htaccess redirects the old URL.
+/pecora-chatrier-equity-value,/pecora-chatrier-equity-value.html,redirect-301,permanent,Page now a flat .html file at the site root; .htaccess redirects the old URL.
+/pecora-manning-napier-high-yield-bond-strategy,/pecora-manning-napier-high-yield-bond-strategy.html,redirect-301,permanent,Page now a flat .html file at the site root; .htaccess redirects the old URL.
+/investment-management-solutions,/investment-management-solutions.html,redirect-301,permanent,Page now a flat .html file at the site root; .htaccess redirects the old URL.
+/structured-products,/structured-products.html,redirect-301,permanent,Page now a flat .html file at the site root; .htaccess redirects the old URL.
+/cookie-information,/cookie-information.html,redirect-301,permanent,Page now a flat .html file at the site root; .htaccess redirects the old URL.
+/disclaimer,/disclaimer.html,redirect-301,permanent,Page now a flat .html file at the site root; .htaccess redirects the old URL.
+/privacy-notice,/privacy-notice.html,redirect-301,permanent,Page now a flat .html file at the site root; .htaccess redirects the old URL.
+/africa,/africa.html,redirect-301,permanent,Page now a flat .html file at the site root; .htaccess redirects the old URL.
+/americas-caribbean,/americas-caribbean.html,redirect-301,permanent,Page now a flat .html file at the site root; .htaccess redirects the old URL.
+/asia,/asia.html,redirect-301,permanent,Page now a flat .html file at the site root; .htaccess redirects the old URL.
+/europe,/europe.html,redirect-301,permanent,Page now a flat .html file at the site root; .htaccess redirects the old URL.
+/middle-east,/middle-east.html,redirect-301,permanent,Page now a flat .html file at the site root; .htaccess redirects the old URL.
 /index.php,/,redirect-301,permanent,Joomla duplicate of the home page.
-/home,/,redirect-301,permanent,Joomla duplicate of the home page (returns 200 today).
-/index.php/<alias>,/<alias>,redirect-301,permanent,"Joomla ""index.php"" duplicates of each page, e.g. /index.php/about-gwms (host-level rule, if the host supports it)."
-/africa/ (trailing slash),/africa,host-dependent,n/a,Trailing-slash variants return 200 today; static hosts normally add or strip the slash themselves.
-/component/users/,(none),retire-410,n/a,Public Joomla login page; no equivalent in a static site. Decision needed.
-/meet-the-team?format=feed&type=rss,(none),retire-410,n/a,Joomla RSS feed. Decision needed.
-/meet-the-team?format=feed&type=atom,(none),retire-410,n/a,Joomla Atom feed. Decision needed.
-/error404,/404.html,replaced,n/a,Old soft-404 page (HTTP 200); new site returns a real 404.
-/about,(none),not-a-page,n/a,Broken link in the Privacy Notice; wording fix is part of the policy review (target would be /about-gwms).
-/cookie-information.,/cookie-information,not-a-page,n/a,Broken link (trailing full stop) in the Privacy Notice; policy review.
-/sitemap.xml,/sitemap.xml,new,n/a,Does not exist today.
-/robots.txt,/robots.txt,new-content,n/a,Joomla default today; replaced.
-/funds,/funds,new-page,n/a,New Funds index page (decision: add a plain index of the existing funds). Home and footer "Funds" links now point here; the old home link went to the Levendi page.
-/funds,/funds/,new-page,n/a,New Funds index page (built in dist/)
-/404.html,/404.html,new,n/a,Real HTTP 404 page (replaces the old soft-404 /error404)
-/investment-notification-form,(none),retire-410,n/a,Owner decision 2026-10-16; .htaccess returns 410
-/images/documents/GWMS-Investment-Tracking-Form-2023.pdf,(none),retire-410,n/a,Owner decision 2026-10-16; .htaccess returns 410
+/home,/,redirect-301,permanent,Joomla duplicate of the home page.
+/index.php/<alias>,/<alias>.html,redirect-301,permanent,Joomla index.php duplicates.
+/about,/about-gwms.html,redirect-301,permanent,Broken link in the Privacy Notice; link target now points at About GWMS (text unchanged).
+/cookie-information.,/cookie-information.html,redirect-301,permanent,Broken link (trailing full stop) in the Privacy Notice; target corrected.
+/investment-notification-form,(none),retire-410,n/a,Retired by owner decision.
+/images/documents/GWMS-Investment-Tracking-Form-2023.pdf,(none),retire-410,n/a,Retired by owner decision.
+/component/users/,(none),retire-410,n/a,Joomla login; no equivalent.
+/meet-the-team?format=feed&type=rss,(none),retire-410,n/a,Joomla feed.
+/meet-the-team?format=feed&type=atom,(none),retire-410,n/a,Joomla feed.
+/error404,/404.html,replaced,n/a,Old soft-404 (HTTP 200) replaced by a real 404.
+/meet-the-team/<id>-<name>,(none),not-built,n/a,Individual team-member pages on the live site were not captured by the audit; not built.
+(new),/funds.html,new-page,n/a,Funds index page.
+(new),"/sitemap.xml, /robots.txt",new,n/a,Did not exist / replaced.

@@ -1,0 +1,107 @@
+#!/usr/bin/env python3
+"""Extract the article body of each captured live page (audit/baseline/pages) into a
+cleaned HTML fragment in tools/content/<slug>.html.
+
+Only presentation is removed (inline styles, Joomla/TinyMCE classes, layout rows and
+columns, empty spacer paragraphs, images). Words, order, lists, bold/italic and links are
+kept as captured. Joomla's e-mail obfuscation is replaced by <span class="mail"> (see
+js/mail.js); the decoded address is data-user@data-domain. Verified afterwards with
+tools/compare_content.py."""
+import base64, pathlib, re, sys
+from bs4 import BeautifulSoup, Comment, NavigableString
+
+ROOT = pathlib.Path(__file__).resolve().parent.parent
+SRC = ROOT / "audit/baseline/pages"
+OUT = pathlib.Path(__file__).resolve().parent / "content"
+SLUGS = ["1oak-multi-asset-funds-guided-by-blackrock", "epic-investment-partners", "levendi-thornbridge-defined-return-fund",
+         "pecora-chatrier-equity-value", "pecora-manning-napier-high-yield-bond-strategy", "pecora-qms",
+         "investment-management-solutions", "structured-products", "platforms", "contact",
+         "africa", "americas-caribbean", "asia", "europe", "middle-east",
+         "privacy-notice", "disclaimer", "cookie-information"]
+d = lambda s: base64.b64decode(s).decode()
+
+
+def clean(slug):
+    soup = BeautifulSoup((SRC / f"{slug}.html").read_text(encoding="utf-8"), "html.parser")
+    body = soup.select_one(".com-content-article__body")
+    for c in body.find_all(string=lambda s: isinstance(s, Comment)):
+        c.extract()
+    for img in body.find_all("img"):
+        img.decompose()
+    for jm in body.find_all("joomla-hidden-mail"):
+        user, dom = d(jm["first"]), d(jm["last"])
+        shown = d(jm["text"])
+        attrs = {"class": "mail", "data-user": user, "data-domain": dom}
+        if shown != f"{user}@{dom}":
+            attrs["data-label"] = shown
+        span = soup.new_tag("span", attrs=attrs)
+        span.string = f"{user} [at] {dom}"
+        jm.replace_with(span)
+    for a in body.find_all("a"):          # empty mailto stubs left behind by the CMS
+        if not a.get_text(strip=True) and not a.find_all(True):
+            a.decompose()
+    for div in body.find_all("div"):      # layout rows/columns carry no content
+        div.unwrap()
+    for t in body.find_all(True):
+        for attr in list(t.attrs):
+            if attr not in ("href", "data-user", "data-domain", "class") or (attr == "class" and t.name != "span"):
+                del t.attrs[attr]
+        if t.name == "a" and t.get("href", "").startswith("tel:"):
+            t["href"] = "tel:" + re.sub(r"[^\d+]", "", re.sub(r"%20", "", t["href"][4:]))
+    # direct text/inline children of the body (structured products, 1OAK footer line) -> paragraphs
+    inline = []
+    for ch in list(body.children):
+        blockish = getattr(ch, "name", None) in ("p", "ul", "ol", "h2", "h3", "h4", "table", "section")
+        if blockish or (isinstance(ch, NavigableString) and not ch.strip()):
+            if inline:
+                p = soup.new_tag("p")
+                inline[0].insert_before(p)
+                for n in inline: p.append(n.extract())
+                inline = []
+            continue
+        if getattr(ch, "name", None) == "br":
+            continue
+        inline.append(ch)
+    if inline:
+        p = soup.new_tag("p"); inline[0].insert_before(p)
+        for n in inline: p.append(n.extract())
+    for br in body.find_all("br", recursive=False):
+        br.decompose()
+    for p in body.find_all("p"):          # empty / nbsp-only spacer paragraphs
+        if not p.get_text().replace("\xa0", "").strip() and not p.find(["a", "span"]):
+            p.decompose()
+    for u in body.find_all("ul"):         # CMS emitted one <ul> per bullet
+        nxt = u.find_next_sibling()
+        while nxt is not None and nxt.name == "ul" and u.find_next_sibling() is nxt:
+            for li in list(nxt.find_all("li", recursive=False)):
+                u.append(li.extract())
+            gone, nxt = nxt, nxt.find_next_sibling()
+            gone.decompose()
+    for sp in body.find_all("span"):      # empty spans left by the CMS
+        if not sp.attrs and not sp.get_text(strip=True):
+            sp.decompose()
+    for p in body.find_all("p"):          # a paragraph that is only bold in the blue name colour -> heading
+        kids = [c for c in p.children if not (isinstance(c, NavigableString) and not c.strip())]
+        if len(kids) == 1 and kids[0].name == "strong" and slug == "epic-investment-partners":
+            p.name = "h3"; kids[0].unwrap()
+    for a in body.find_all("a", href=re.compile(r"^https?://")):
+        a["target"] = "_blank"; a["rel"] = "noopener"
+        host = re.sub(r"^https?://(www\.)?", "", a["href"]).split("/")[0]
+        s = soup.new_tag("span", attrs={"class": "sr-only"}); s.string = f" External site: {host}. Opens in a new tab."
+        a.append(s)
+    # two links in the Privacy Notice point at pages that never existed ("/about", "/cookie-information.");
+    # the link text is untouched, only the target is pointed at the page the text names.
+    for a in body.find_all("a", href=True):
+        a["href"] = {"/about": "/about-gwms", "/cookie-information.": "/cookie-information"}.get(a["href"], a["href"])
+    h1 = soup.select_one(".page-header h1")
+    html = body.decode_contents().replace("\xa0", " ")
+    html = re.sub(r"\n{2,}", "\n", html).strip()
+    return (h1.get_text(strip=True) if h1 else None), html
+
+
+if __name__ == "__main__":
+    OUT.mkdir(exist_ok=True)
+    for slug in SLUGS:
+        h1, html = clean(slug)
+        (OUT / f"{slug}.html").write_text(html + "\n", encoding="utf-8")
+        print(f"{slug}: h1={h1!r} {len(html)} bytes")

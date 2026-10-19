@@ -234,3 +234,37 @@
   .card__logo--oak img { height: 2.64rem; }
   .card__logo--epic img { height: 3.85rem; }
 }
+
+/* ==========================================================================
+   Inner pages: team, people cards, credentials
+   ========================================================================== */
+.prose h3 { font-size: var(--step-1); font-weight: 600; color: var(--gw-blue); margin: var(--s-6) 0 var(--s-2); }
+.prose h2 + h3, .prose h2 + p { margin-top: 0; }
+.prose p strong em, .prose p em strong { font-style: normal; }
+.page--single .page-header { margin-top: 0; }
+
+.team { list-style: none; margin: 0; padding: 0; display: grid; gap: var(--s-5); max-width: 52rem; }
+.member {
+  display: grid; grid-template-columns: 6.5rem minmax(0, 1fr); background: #fff; margin: 0;
+  border: 1px solid var(--rule); border-left: 4px solid var(--gw-blue); border-radius: 0.9rem; overflow: hidden;
+}
+.member__photo { width: 100%; height: 100%; min-height: 8.5rem; object-fit: cover; background: var(--mist); display: block; }
+.member__text { padding: var(--s-4) var(--s-5); }
+.member__name { margin: 0; font-size: var(--step-2); font-weight: 400; line-height: 1.2; }
+.member__role { margin: var(--s-1) 0 0; color: var(--gw-blue); font-weight: 600; }
+.member__bio { margin: var(--s-2) 0 0; max-width: 40rem; }
+.member__vcard { display: inline-block; margin-top: var(--s-3); font-size: 0.875rem; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase; color: var(--gw-blue); text-decoration: none; border-bottom: 1px solid currentColor; }
+.member__vcard::before { content: "\2193\00a0"; content: "\2193\00a0" / ""; }
+.member__vcard:hover { color: var(--gw-navy); }
+@media (min-width: 40rem) { .member { grid-template-columns: 10rem minmax(0, 1fr); } .member__text { padding: var(--s-5) var(--s-6); } }
+
+.people { display: grid; gap: var(--s-4); grid-template-columns: repeat(auto-fill, minmax(min(100%, 20rem), 1fr)); max-width: 56rem; margin-top: var(--s-4); }
+.prose h2 + .people { margin-top: var(--s-4); }
+.people p { margin: 0; padding: var(--s-4) var(--s-5); background: #fff; border: 1px solid var(--rule); border-left: 4px solid var(--gw-blue); border-radius: 0.9rem; overflow-wrap: anywhere; }
+
+.credentials { background: var(--mist); border-radius: 0.9rem; padding: var(--s-5) var(--s-6); margin-top: var(--s-7); }
+.credentials h2 { margin: 0 0 var(--s-3); font-size: var(--step-1); }
+.credentials p { margin: 0 0 var(--s-3); }
+.credentials ul { margin: 0; padding-left: 1.2em; }
+.credentials li::marker { color: var(--gw-blue); }
+.page__layout > article { min-width: 0; }
