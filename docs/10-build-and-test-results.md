@@ -75,3 +75,7 @@ Hero text centred; decorative square on its own line; arrow anchor link (`#state
 - Portrait style (team list and team-member pages): rounded corners, hairline edge and soft drop shadow, 3:4 portrait crop; the dark-blue left border is removed from photos (and from the team list rows).
 - Contact page: Emily Karavla and Asma Choudhary removed (`REMOVED_PEOPLE` in `tools/extract_bodies.py`). Dawn Parker remains on the Contact page.
 - Test run: 78 checks pass on 29 pages.
+
+## Update: Mike Kew list entry, Dawn Parker on Contact
+- Mike Kew's bio now appears only on his personal page; the team list shows name, photo and title only.
+- Dawn Parker removed from the Contact page (she is now removed everywhere on the site).

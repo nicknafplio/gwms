@@ -18,7 +18,7 @@ SLUGS = ["1oak-multi-asset-funds-guided-by-blackrock", "epic-investment-partners
          "investment-management-solutions", "structured-products", "platforms", "contact",
          "africa", "americas-caribbean", "asia", "europe", "middle-east",
          "privacy-notice", "disclaimer", "cookie-information"]
-REMOVED_PEOPLE = {"contact": ["Asma Choudhary", "Emily Karavla"]}
+REMOVED_PEOPLE = {"contact": ["Dawn Parker", "Asma Choudhary", "Emily Karavla"]}
 d = lambda s: base64.b64decode(s).decode()
 
 
