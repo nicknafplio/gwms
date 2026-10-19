@@ -79,3 +79,6 @@ Hero text centred; decorative square on its own line; arrow anchor link (`#state
 ## Update: Mike Kew list entry, Dawn Parker on Contact
 - Mike Kew's bio now appears only on his personal page; the team list shows name, photo and title only.
 - Dawn Parker removed from the Contact page (she is now removed everywhere on the site).
+
+## Update: team photos
+Photos supplied by the owner added for David Parker, James Bottomley, Simon Voysey, Sarah Crow and Jessica French (matched to the live-site portraits by image comparison). The Meet the Team list uses a square crop to face and shoulders (`img/team/<name>-square.jpg`); each personal page uses the full 3:4 portrait (`img/team/<name>.jpg`). Mike Kew still uses the placeholder. Crops were set by eye; tell me if any should be re-framed.

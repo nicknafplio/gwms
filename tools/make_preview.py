@@ -531,11 +531,14 @@ TEAM = [  # name, role, bio (verbatim), slug
     ("Sarah Crow - Partner", "Head of Commissions & Client Services", "", "sarah-crow"),
     ("Jessica French - Partner", "Head of Accounting & Audit", "", "jessica-french"),
 ]
+PHOTOS = {"david-parker", "james-bottomley", "simon-voysey", "sarah-crow", "jessica-french"}   # others: placeholder
 team_items = []
 for name, role, bio, vc in TEAM:
+    list_img = f"/img/team/{vc}-square.jpg" if vc in PHOTOS else "/img/team/duffprofile.jpg"
+    page_img = f"/img/team/{vc}.jpg" if vc in PHOTOS else "/img/team/duffprofile.jpg"
     short = name.split(" - ")[0]
     team_items.append(f'''<li class="member">
-  <img class="member__photo" src="/img/team/duffprofile.jpg" width="337" height="337" alt="" loading="lazy">
+  <img class="member__photo" src="{list_img}" width="300" height="300" alt="" loading="lazy">
   <div class="member__text">
     <h2 class="member__name"><a href="/team-{vc}">{e(name)}</a></h2>
     <p class="member__role">{e(role, quote=False)}</p>
@@ -545,7 +548,7 @@ for name, role, bio, vc in TEAM:
 </li>''')
     mc = body_of("team-" + vc).replace('</ul></div>', f'</ul><a class="member__vcard" href="/vcards/{vc}.vcf" download>vCard<span class="sr-only"> for {e(short)}</span></a></div>')
     role_html, rest = mc.split("\n", 1)
-    photo = f'<img class="page-header__photo" src="/img/team/duffprofile.jpg" width="337" height="337" alt="">'
+    photo = f'<img class="page-header__photo" src="{page_img}" width="300" height="405" alt="">'
     add("/team-" + vc, short, article(name, role_html + "\n" + rest, ABOUT_SIDE("/meet-the-team"), photo), "about")
 TEAM_HTML = '<ul class="team">\n' + "\n".join(team_items) + "\n</ul>"
 add("/meet-the-team", "Meet the Team",
