@@ -32,6 +32,11 @@ old_url,new_url,action,redirect_type,note
 /meet-the-team?format=feed&type=rss,(none),retire-410,n/a,Joomla feed.
 /meet-the-team?format=feed&type=atom,(none),retire-410,n/a,Joomla feed.
 /error404,/404.html,replaced,n/a,Old soft-404 (HTTP 200) replaced by a real 404.
-/meet-the-team/<id>-<name>,(none),not-built,n/a,Individual team-member pages on the live site were not captured by the audit; not built.
 (new),/funds.html,new-page,n/a,Funds index page.
 (new),"/sitemap.xml, /robots.txt",new,n/a,Did not exist / replaced.
+/meet-the-team/25-david-parker,/team-david-parker.html,redirect-301,permanent,"Team-member page, rebuilt as a flat .html file."
+/meet-the-team/61-james-bottomley,/team-james-bottomley.html,redirect-301,permanent,"Team-member page, rebuilt as a flat .html file."
+/meet-the-team/28-simon-voysey,/team-simon-voysey.html,redirect-301,permanent,"Team-member page, rebuilt as a flat .html file."
+/meet-the-team/32-sarah-crow-partner,/team-sarah-crow.html,redirect-301,permanent,"Team-member page, rebuilt as a flat .html file."
+/meet-the-team/34-jessica-french,/team-jessica-french.html,redirect-301,permanent,"Team-member page, rebuilt as a flat .html file."
+/meet-the-team/57-dawn-parker,(none),retire-410,n/a,Dawn Parker removed from the team (owner decision).

@@ -33,9 +33,9 @@ def clean(slug):
         shown = d(jm["text"])
         attrs = {"class": "mail", "data-user": user, "data-domain": dom}
         if shown != f"{user}@{dom}":
-            attrs["data-label"] = shown
+            attrs["data-label"] = shown       # display case differs from the address
         span = soup.new_tag("span", attrs=attrs)
-        span.string = f"{user} [at] {dom}"
+        span.string = shown.replace("@", " [at] ")
         jm.replace_with(span)
     for a in body.find_all("a"):          # empty mailto stubs left behind by the CMS
         if not a.get_text(strip=True) and not a.find_all(True):
@@ -105,3 +105,53 @@ if __name__ == "__main__":
         h1, html = clean(slug)
         (OUT / f"{slug}.html").write_text(html + "\n", encoding="utf-8")
         print(f"{slug}: h1={h1!r} {len(html)} bytes")
+
+
+MEMBERS = {"david-parker": "25-david-parker", "james-bottomley": "61-james-bottomley", "simon-voysey": "28-simon-voysey",
+           "sarah-crow": "32-sarah-crow-partner", "jessica-french": "34-jessica-french"}
+
+
+def member(slug):
+    """Individual team-member page (captured from /meet-the-team/<id>-<name>): role, biography,
+    the vCard lead-in sentence, the business-card details and (David Parker) the LinkedIn sentence."""
+    soup = BeautifulSoup((SRC / "team" / f"{MEMBERS[slug]}.html").read_text(encoding="utf-8"), "html.parser")
+    body = soup.select_one(".item-page .com-content-article__body")
+    for c in body.find_all(string=lambda t: isinstance(t, Comment)):
+        c.extract()
+    out = [f'<p class="member__role">{body.find("h3").get_text(strip=True)}</p>']
+    for el in body.find_all(["p", "div"], recursive=False):
+        if el.name == "div":                       # the business card
+            items = []
+            for li in el.find_all("li"):
+                jm = li.find("joomla-hidden-mail")
+                if jm:
+                    user, dom, shown = d(jm["first"]), d(jm["last"]), d(jm["text"])
+                    lab = f' data-label="{shown}"' if shown != f"{user}@{dom}" else ""
+                    val = f'<span class="mail" data-user="{user}" data-domain="{dom}"{lab}>{shown.replace("@", " [at] ")}</span>'
+                else:
+                    val = "".join(str(c) for c in li.children if getattr(c, "name", None) != "span").strip()
+                key = li.find("span")
+                cls = (li.get("class") or [""])[0]
+                items.append((cls, key.get_text(strip=True) if key else "", val))
+            lis = "".join(f'<li class="bizcard__{c}">' + (f'<span class="bizcard__key">{k}</span> ' if k else "") + v + "</li>" for c, k, v in items)
+            out.append(f'<div class="bizcard"><ul>{lis}</ul></div>')
+            continue
+        for a in el.find_all("a", href=re.compile("^https?://")):
+            for i in a.find_all("i"): i.decompose()
+            a["target"] = "_blank"; a["rel"] = "noopener"
+            sp = soup.new_tag("span", attrs={"class": "sr-only"}); sp.string = " External site: linkedin.com. Opens in a new tab."
+            a.append(sp)
+            a.string = a.get_text().strip() if False else a.contents[0].strip() if isinstance(a.contents[0], NavigableString) else a.contents[0]
+        for t in [el] + el.find_all(True):
+            for attr in list(t.attrs):
+                if attr not in ("href", "target", "rel", "class"): del t.attrs[attr]
+        txt = el.get_text(strip=True)
+        if txt:
+            out.append(str(el).replace("\xa0", " "))
+    return "\n".join(out)
+
+
+if __name__ == "__main__":
+    for slug in MEMBERS:
+        (OUT / f"team-{slug}.html").write_text(member(slug) + "\n", encoding="utf-8")
+        print("team-" + slug)

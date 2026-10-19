@@ -15,6 +15,13 @@ RewriteRule ^index\.php/(.+)$ /$1 [R=301,L]
 RewriteRule ^investment-notification-form/?$ - [G]
 RewriteRule ^images/documents/ - [G]
 RewriteRule ^component/ - [G]
+# Individual team-member pages (old Joomla URLs); Dawn Parker's page is retired (owner decision)
+RewriteRule ^meet-the-team/25-david-parker/?$ /team-david-parker.html [R=301,L]
+RewriteRule ^meet-the-team/61-james-bottomley/?$ /team-james-bottomley.html [R=301,L]
+RewriteRule ^meet-the-team/28-simon-voysey/?$ /team-simon-voysey.html [R=301,L]
+RewriteRule ^meet-the-team/32-sarah-crow-partner/?$ /team-sarah-crow.html [R=301,L]
+RewriteRule ^meet-the-team/34-jessica-french/?$ /team-jessica-french.html [R=301,L]
+RewriteRule ^meet-the-team/57-dawn-parker/?$ - [G]
 # Old extensionless page URLs -> the same page as <name>.html
 RewriteRule ^about/?$ /about-gwms.html [R=301,L]
 RewriteRule ^cookie-information\.$ /cookie-information.html [R=301,L]

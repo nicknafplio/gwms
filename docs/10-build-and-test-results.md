@@ -52,9 +52,14 @@ Hero text centred; decorative square on its own line; arrow anchor link (`#state
 
 **Changes needing your confirmation**
 1. **Team photos / vCards are placeholders:** every person uses `img/team/duffprofile.jpg` and a blank `vcards/<name>.vcf` (0 bytes). Replace the files, same names. The "vCard" download link is new (requested).
-2. **Dawn Parker** is in the live team text but not in the screenshot you sent; she is included (existing content). Remove if intended.
-3. **Individual team-member pages** (`/meet-the-team/25-david-parker` etc.) were never captured and are not built.
-4. **Contact e-mail:** addresses are assembled by `js/mail.js` (as the old site did); without JavaScript they show as "name [at] globalwms.com". A plain `mailto:` link is the alternative - your decision (deferred earlier).
+2. **Dawn Parker** removed from Meet the Team (page, vCard, old URL now 410). She is still listed on the Contact page (existing content) - say if she should go from there too.
+3. **Individual team-member pages** captured from the live site and built (`team-<name>.html`; word-for-word identical, checked). Photos/vCards on them are the placeholders.
+4. **E-mail:** shown everywhere as `name [at] globalwms.com`; no address or `mailto:` target exists in the served HTML or rendered DOM; the link's `mailto:` is assembled in `js/mail.js` only when activated (click/tap/Enter). Without JavaScript the same text is shown (no link).
 5. **Privacy Notice:** the two broken links ("/about", "/cookie-information.") now point to About GWMS and Cookie Information; wording unchanged. Policy wording is still the live text, unreviewed; the Cookie page still describes Google Analytics although the new site has none (policy review stage 2).
 6. **Logos:** Veritas Life and Resilience SVGs used as supplied (the Resilience file is a traced bitmap, ~50 KB; Veritas has empty space under the wordmark).
 7. Region pages: phone numbers that were links on the live site remain links.
+
+## Update: team-member pages, e-mail, entry-notice cookie
+- 5 team-member pages added (28 pages in total). Test run: 76 checks passed (axe 0 violations on every page at 1440 and 390 px, no broken links, no third-party requests).
+- **Entry notice:** wording unchanged (verbatim from the live site). ACCEPT now sets one first-party cookie, `gwms_notice=1` (30 days, `SameSite=Lax`, `Secure` on https), which matches the Cookie Information page ("a cookie is created that tells whether or not to display the popup"). Nothing is set before ACCEPT or on DECLINE. If cookies are unavailable (blocked, or opened from disk) it falls back to `sessionStorage`. **The 30-day lifetime is my choice, not a stated GWMS fact** - change `DAYS` in `js/notice.js`.
+- Note: the Cookie Information page still describes Google Analytics and a CMS session cookie, which the new site does not use (policy review stage 2).

@@ -17,17 +17,32 @@ let fails = 0; const ok = (c, m) => { console.log((c ? 'PASS ' : 'FAIL ') + m); 
   await p.keyboard.press('Escape'); ok(await p.isVisible('#entry-notice'), 'Escape does not dismiss the notice');
   ok((await p.getAttribute('.notice__decline', 'href')) === 'https://google.com', 'DECLINE links to https://google.com');
   await p.screenshot({ path: 'preview/screenshots/dist-entry-notice.png' });
+  ok((await c.cookies()).length === 0, 'no cookies set before ACCEPT');
   await p.click('[data-notice-accept]'); await p.waitForTimeout(200);
   ok(!(await p.isVisible('#entry-notice')), 'ACCEPT closes the notice');
   await p.goto(BASE + '/funds.html', { waitUntil: 'networkidle' });
   ok(!(await p.isVisible('#entry-notice')), 'notice stays closed for the rest of the browser session');
-  ok((await c.cookies()).length === 0, 'no cookies set (' + (await c.cookies()).length + ')');
+  const ck = await c.cookies();
+  ok(ck.length === 1 && ck[0].name === 'gwms_notice' && ck[0].sameSite === 'Lax' && ck[0].expires > Date.now() / 1000 + 29 * 86400, 'one first-party cookie after ACCEPT: ' + ck.map(k => k.name + ' (SameSite ' + k.sameSite + ')').join(', '));
+  const p2 = await c.newPage(); await p2.goto(BASE + '/about-gwms.html', { waitUntil: 'networkidle' });
+  ok(!(await p2.isVisible('#entry-notice')), 'notice stays closed on another page / later visit (cookie)'); await p2.close();
+  // declining sets nothing
+  const cd = await b.newContext(); const pd = await cd.newPage(); await pd.goto(BASE + '/', { waitUntil: 'networkidle' });
+  ok((await cd.cookies()).length === 0, 'no cookie when the notice is merely shown / declined'); await cd.close();
+  // e-mail obfuscation
+  const cm = await b.newContext(); await cm.addInitScript(() => { document.cookie = 'gwms_notice=1; path=/'; });
+  const pm = await cm.newPage(); await pm.goto(BASE + '/contact.html', { waitUntil: 'networkidle' });
+  const raw = fs.readFileSync(path.join(DIST, 'contact.html'), 'utf8');
+  ok(!/@globalwms\.com|mailto:[a-z]/i.test(raw), 'no e-mail address or mailto target in the served HTML of contact.html');
+  ok(!/@globalwms\.com/i.test(await pm.content()), 'no e-mail address in the rendered DOM either');
+  const linkText = await pm.textContent('a.mail >> nth=0'); ok(/ \[at\] globalwms\.com$/.test(linkText), 'shown as name [at] domain: ' + linkText);
+  await cm.close();
   // --- every page: axe, console, third-party requests
   const hosts = new Set();
   const ALL = fs.readdirSync(DIST).filter(f => f.endsWith('.html')).sort();
   for (const pg of ALL.map(f => f === 'index.html' ? '/' : '/' + f)) {
     for (const [w, label] of [[1440, 'desktop'], [390, 'mobile']]) {
-      const cx = await b.newContext({ viewport: { width: w, height: 900 } }); await cx.addInitScript(() => { try { sessionStorage.setItem('gwms-notice-accepted', '1'); } catch (e) {} });
+      const cx = await b.newContext({ viewport: { width: w, height: 900 } }); await cx.addInitScript(() => { try { document.cookie = 'gwms_notice=1; path=/'; } catch (e) {} });
       const q = await cx.newPage(); const e2 = []; q.on('console', m => { if (m.type() === 'error') e2.push(m.text()); }); q.on('pageerror', e => e2.push(e.message)); q.on('requestfailed', rq => e2.push('FAILED ' + rq.url()));
       q.on('request', rq => hosts.add(new URL(rq.url()).host));
       await q.goto(BASE + pg, { waitUntil: 'networkidle' }); await q.evaluate(() => document.querySelectorAll('img[loading=lazy]').forEach(i => i.loading = 'eager')); await q.waitForTimeout(400);

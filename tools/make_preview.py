@@ -501,11 +501,10 @@ CREDENTIALS = '''<aside class="credentials" aria-labelledby="cred-title">
 add("/about-gwms", "Exceptional wealth management solutions",
     article("Exceptional wealth management solutions", ABOUT + "\n" + CREDENTIALS, ABOUT_SIDE("/about-gwms")), "about")
 
-TEAM = [  # name, role, bio (verbatim), vcard file
+TEAM = [  # name, role, bio (verbatim), slug
     ("David Parker", "Chief Executive Officer", "David has 34 years of experience marketing wealth management products to institutions and professional intermediaries.", "david-parker"),
     ("James Bottomley", "Head of Institutional Sales Asia", "James has 30 years experience in the Financial Services sector.", "james-bottomley"),
     ("Simon Voysey", "International Sales Director", "As an IFA for 10 years in the Middle East I was initially attracted by the best of breed fund range, providing key client solutions for IFAs and Wealth Managers.", "simon-voysey"),
-    ("Dawn Parker - Partner", "Head of Back Office and Marketing", "", "dawn-parker"),
     ("Sarah Crow - Partner", "Head of Commissions & Client Services", "", "sarah-crow"),
     ("Jessica French - Partner", "Head of Accounting & Audit", "", "jessica-french"),
 ]
@@ -515,12 +514,16 @@ for name, role, bio, vc in TEAM:
     team_items.append(f'''<li class="member">
   <img class="member__photo" src="/img/team/duffprofile.jpg" width="337" height="337" alt="" loading="lazy">
   <div class="member__text">
-    <h2 class="member__name">{e(name)}</h2>
+    <h2 class="member__name"><a href="/team-{vc}">{e(name)}</a></h2>
     <p class="member__role">{e(role, quote=False)}</p>
     {f'<p class="member__bio">{e(bio, quote=False)}</p>' if bio else ""}
     <a class="member__vcard" href="/vcards/{vc}.vcf" download>vCard<span class="sr-only"> for {e(short)}</span></a>
   </div>
 </li>''')
+    mc = body_of("team-" + vc).replace('</ul></div>', f'</ul><a class="member__vcard" href="/vcards/{vc}.vcf" download>vCard<span class="sr-only"> for {e(short)}</span></a></div>')
+    role_html, rest = mc.split("\n", 1)
+    photo = f'<img class="page-header__photo" src="/img/team/duffprofile.jpg" width="337" height="337" alt="">'
+    add("/team-" + vc, short, article(name, role_html + "\n" + rest, ABOUT_SIDE("/meet-the-team"), photo), "about")
 TEAM_HTML = '<ul class="team">\n' + "\n".join(team_items) + "\n</ul>"
 add("/meet-the-team", "Meet the Team",
     f'<div class="container page">\n  <div class="page__layout">\n{ABOUT_SIDE("/meet-the-team")}\n    <article>\n      <header class="page-header"><h1>Meet the Team</h1></header>\n{TEAM_HTML}\n    </article>\n  </div>\n</div>', "about")
@@ -588,6 +591,13 @@ RewriteRule ^index\\.php/(.+)$ /$1 [R=301,L]
 RewriteRule ^investment-notification-form/?$ - [G]
 RewriteRule ^images/documents/ - [G]
 RewriteRule ^component/ - [G]
+# Individual team-member pages (old Joomla URLs); Dawn Parker's page is retired (owner decision)
+RewriteRule ^meet-the-team/25-david-parker/?$ /team-david-parker.html [R=301,L]
+RewriteRule ^meet-the-team/61-james-bottomley/?$ /team-james-bottomley.html [R=301,L]
+RewriteRule ^meet-the-team/28-simon-voysey/?$ /team-simon-voysey.html [R=301,L]
+RewriteRule ^meet-the-team/32-sarah-crow-partner/?$ /team-sarah-crow.html [R=301,L]
+RewriteRule ^meet-the-team/34-jessica-french/?$ /team-jessica-french.html [R=301,L]
+RewriteRule ^meet-the-team/57-dawn-parker/?$ - [G]
 # Old extensionless page URLs -> the same page as <name>.html
 RewriteRule ^about/?$ /about-gwms.html [R=301,L]
 RewriteRule ^cookie-information\\.$ /cookie-information.html [R=301,L]
