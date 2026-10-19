@@ -73,3 +73,6 @@ Per owner: Levendi was acquired by Causeway, so the **Causeway Securities** logo
 
 ## Revision 17
 1OAK logo scaled down (height 4.4rem, was filling the 7.5rem logo area) so it no longer outweighs the other fund logos.
+
+## Revision 18
+EPIC logo 10% smaller (height 6.75rem, was the full 7.5rem logo area).

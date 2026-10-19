@@ -247,7 +247,7 @@ CARDS = [  # (group, name as in menu, url, logo file, logo alt)
     ("Alternative Strategies", "Pecora QMS", "/pecora-qms", "pecora-capital-white.svg", "Pecora Capital"),
 ]
 cards_html = "\n".join(
-    f'''<li><a class="card" href="{u}"><span class="card__logo{' card__logo--mark' if lg.endswith('.svg') else ''}{' card__logo--oak' if lg.startswith('1oak') else ''}"><img src="/img/funds/{lg}" alt="{e(alt)}" loading="lazy"></span>
+    f'''<li><a class="card" href="{u}"><span class="card__logo{' card__logo--mark' if lg.endswith('.svg') else ''}{' card__logo--oak' if lg.startswith('1oak') else ''}{' card__logo--epic' if lg.startswith('epic') else ''}"><img src="/img/funds/{lg}" alt="{e(alt)}" loading="lazy"></span>
 <span class="card__group">{e(g)}</span><span class="card__name">{e(n, quote=False)}</span></a></li>'''
     for g, n, u, lg, alt in CARDS)
 
