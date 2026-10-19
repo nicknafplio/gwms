@@ -70,3 +70,6 @@ Five white fund logos supplied and stored in `design-assets/supplied/fund-logos/
 
 ## Revision 16 — fund logos
 Per owner: Levendi was acquired by Causeway, so the **Causeway Securities** logo is used for the Levendi card, and the supplied ASK logo ("ASK Investment Managers") stays. The three Pecora cards now use the white Pecora Capital logo, so all seven cards are consistent. Not changed: the fund name on the card ("Levendi Thornbridge Defined Return Fund") and the Levendi fund page text, which still describe Levendi — the page text should be reviewed against this acquisition (content and compliance wording, not changed here).
+
+## Revision 17
+1OAK logo scaled down (height 4.4rem, was filling the 7.5rem logo area) so it no longer outweighs the other fund logos.
