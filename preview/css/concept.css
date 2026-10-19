@@ -117,7 +117,8 @@
 .statement__lead .motif { font-size: 0.32em; margin-right: 0.7em; vertical-align: 0.55em; }
 .hero__title .motif { font-size: 0.26em; margin: 0 0.7em 0 0; vertical-align: 0.9em; }
 .statement--plain .index a { font-size: 1.0625rem; padding: 0.95rem 0; }
-.statement--plain .index a::after { font-size: 1rem; }
+.statement--plain .index a::after,
+.fund-groups .index a::after { font-size: 1rem; }
 @media (min-width: 60rem) { .statement--plain .index { margin-top: 0.15rem; } }
 
 /* ---- Footer: LinkedIn + back-to-top stack ---------------------------------------- */
@@ -150,13 +151,16 @@
 .card__logo--epic img { width: auto; height: 6.75rem; }  /* 10% smaller than the full 7.5rem logo area */
 
 /* ---- Second-section index: arrow in a blue square (silver arrow); hover reverses colours and slides left ---- */
-.statement--plain .index a::after {
+.statement--plain .index a::after,
+.fund-groups .index a::after {
   content: ""; flex: none; align-self: center; width: 1.9rem; height: 1.9rem; border-radius: 0.2rem;
   background: var(--gw-blue) center / 72% no-repeat url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3E%3Cpath d='M5 10h9M10.5 5.5 15 10l-4.5 4.5' fill='none' stroke='%23bcbdbf' stroke-width='3' stroke-linecap='square' stroke-linejoin='miter'/%3E%3C/svg%3E");
   transition: background-color 0.28s ease, transform 0.28s ease;
 }
 .statement--plain .index a:hover::after,
-.statement--plain .index a:focus-visible::after {
+.statement--plain .index a:focus-visible::after,
+.fund-groups .index a:hover::after,
+.fund-groups .index a:focus-visible::after {
   background: var(--gw-grey) center / 72% no-repeat url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3E%3Cpath d='M5 10h9M10.5 5.5 15 10l-4.5 4.5' fill='none' stroke='%23065aa7' stroke-width='3' stroke-linecap='square' stroke-linejoin='miter'/%3E%3C/svg%3E");
   transform: translateX(-0.7rem);
 }
@@ -182,3 +186,17 @@
 .card-grid li { margin: 0; }
 .card--solid { border: 0; background: linear-gradient(135deg, var(--gw-deep) 0%, var(--gw-navy) 62%, #0d4c8a 100%); min-height: 17rem; }
 .card--solid:hover { background: linear-gradient(135deg, var(--gw-navy) 0%, var(--gw-blue) 100%); }
+
+/* ---- Funds index, v2: statement + enlarged grouped list ---- */
+.fund-intro { max-width: 52rem; margin: 0 0 var(--s-8); font-family: var(--font-serif); font-weight: 400; color: var(--ink); font-size: var(--step-3); line-height: 1.22; }
+.fund-intro .motif { font-size: 0.32em; margin-right: 0.7em; vertical-align: 0.55em; }
+.fund-groups__lists { display: grid; gap: var(--s-8) var(--s-9); }
+@media (min-width: 60rem) { .fund-groups__lists { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+.fund-groups .fund-group + .fund-group { margin-top: 0; }
+.fund-groups .fund-group__label {
+  margin: 0 0 var(--s-4); font-family: var(--font-sans); font-size: 1.25rem; font-weight: 700;
+  letter-spacing: 0; text-transform: none; color: var(--gw-navy);
+}
+.fund-groups .fund-group__label .motif { font-size: 0.6rem; margin-right: 0.2rem; }
+.fund-groups .index a { font-size: 1.375rem; padding: 1.15rem 0; }
+.fund-groups .index { border-bottom: 1px solid var(--rule); }

@@ -1,18 +1,16 @@
-# 09 · Funds index page (new page, DRAFT)
+# 09 · Funds index page (new page, DRAFT) — version 2
 
 `preview/funds/index.html` (URL `/funds`) · screenshots `preview/screenshots/funds-page-desktop.jpg`, `funds-page-mobile.jpg`.
 
-**Purpose:** the plain index of the existing funds agreed earlier (it replaces the home-page "Funds" link that pointed at the Levendi fund page). **No new copy:** the only text is the page title "Funds", the four existing group names and the existing fund names; each card links to its existing fund page.
-
-**Layout:** framed hero (same photo/veil/band recipe as the home page, shorter) → four groups in order Multi Asset, Equities, Fixed Interest, Alternative Strategies (N2, still pending your approval) → each group a responsive grid of dark gradient cards with the white fund logo → expanded footer.
-
-**Changes elsewhere:** the concept home page "Funds" index link and footer "Funds" link now go to `/funds`.
+**v2 (per owner):** an enlarged version of the grouped fund list from the old side navigation, replacing the v1 card grid.
+- Framed hero titled "Funds" (same photo/veil/band recipe as home).
+- At the top, the existing sentence: *"Our portfolio comprises ‘best-of-breed’ solutions to meet the needs of discerning intermediaries and their investors."* (verbatim, home-page text).
+- Four groups (Multi Asset, Equities, Fixed Interest, Alternative Strategies) in two columns on desktop, one on mobile: bold navy group label with the offset-square marker, then large ruled rows (22 px serif) with the same blue-square/silver-arrow links (and hover) as the home page.
+- Fund names are the main-menu labels ("ASK Indian Entrepreneur Fund" everywhere, per decision). No logos on this page for now; the v1 card version is in git history (commit `a1d81e1`) if you want to compare or combine.
 
 **Measured:** axe-core (WCAG 2.0–2.2 A/AA + best-practice), desktop 1440 and mobile 390: 0 violations, no horizontal overflow, no console errors.
 
-**Open points for development**
-1. Groups with two funds leave the third column empty on desktop; alternatives: one continuous grid with group labels inline, or a left-hand group list.
-2. The three Pecora cards share one logo and differ only by name/group.
-3. Nothing on the page says what each fund is. That needs existing text; the fund pages have it, but I have not excerpted it here.
-4. Whether the Funds nav button should also link to this page (today it only opens the dropdown).
-5. The Levendi card shows the Causeway logo while its name is still "Levendi Thornbridge Defined Return Fund" (see `08` rev. 16).
+**Open points**
+1. The Levendi row still reads "Levendi Thornbridge Defined Return Fund" although the fund was acquired by Causeway (see `08` rev. 16); wording to confirm.
+2. Fund logos could return as small marks beside each row — say if wanted.
+3. The Funds nav button still only opens the dropdown; it could also link to this page.

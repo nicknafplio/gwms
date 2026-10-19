@@ -363,12 +363,13 @@ GROUP_ORDER = ["Multi Asset", "Equities", "Fixed Interest", "Alternative Strateg
 groups_html = []
 for gi, g in enumerate(GROUP_ORDER):
     items = [c for c in CARDS if c[0] == g]
+    rows = "\n".join(f'          <li><a href="{u}"><span>{e(n, quote=False)}</span></a></li>' for _, n, u, _, _ in items)
     groups_html.append(f'''<section class="fund-group" aria-labelledby="fg{gi}">
-      <h2 class="fund-group__label" id="fg{gi}"><span class="motif" aria-hidden="true"></span>{e(g)}</h2>
-      <ul class="card-grid">
-{chr(10).join(fund_card(*c) for c in items)}
-      </ul>
-    </section>''')
+        <h2 class="fund-group__label" id="fg{gi}"><span class="motif" aria-hidden="true"></span>{e(g)}</h2>
+        <ul class="index">
+{rows}
+        </ul>
+      </section>''')
 
 FUNDS_PAGE = f'''<div class="frame">
 <section class="hero hero--framed hero--page gradient on-dark" aria-labelledby="page-title">
@@ -382,7 +383,10 @@ FUNDS_PAGE = f'''<div class="frame">
 </section>
 </div>
 <div class="container fund-groups">
-{chr(10).join(groups_html)}
+  <p class="fund-intro statement__lead"><span class="motif" aria-hidden="true"></span>Our portfolio comprises ‘best-of-breed’ solutions to meet the needs of discerning intermediaries and their investors.</p>
+  <div class="fund-groups__lists">
+      {chr(10).join(groups_html)}
+  </div>
 </div>'''
 
 write("funds/index.html", page("Funds", "/funds", FUNDS_PAGE, section="funds",
