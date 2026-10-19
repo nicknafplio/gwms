@@ -57,3 +57,6 @@ Revision 11 is rolled back: the Funds panel is again plain gradient + two bands 
 
 ## Revision 13
 Hero veil 5 points more transparent at every stop (navy 90→85%, mid 76→71%, blue 62→57%) so the photo shows slightly more. The diagonal bands are unchanged.
+
+## Revision 14
+Hero headline is vertically centred in the banner (was bottom-aligned).
