@@ -216,7 +216,7 @@
 @keyframes band2-drift { from { clip-path: polygon(78% 0, 100% 0, 100% 100%, 62% 100%); } to { clip-path: polygon(68% 0, 96% 0, 100% 100%, 56% 100%); } }
 @keyframes veil-drift  { from { background-position: 0% 50%; } to { background-position: 100% 50%; } }
 
-.hero--framed::before, .funds__panel::before { animation: band-drift 22s ease-in-out infinite alternate; }
-.hero--framed::after,  .funds__panel::after  { animation: band2-drift 26s ease-in-out infinite alternate; }
-.hero--framed .hero__media::after { background-size: 150% 100%; animation: veil-drift 30s ease-in-out infinite alternate; }
-.funds__panel { background-size: 150% 100%; animation: veil-drift 30s ease-in-out infinite alternate; }
+.hero--framed::before, .funds__panel::before { animation: band-drift 20.9s ease-in-out infinite alternate; }
+.hero--framed::after,  .funds__panel::after  { animation: band2-drift 24.7s ease-in-out infinite alternate; }
+.hero--framed .hero__media::after { background-size: 150% 100%; animation: veil-drift 28.5s ease-in-out infinite alternate; }
+.funds__panel { background-size: 150% 100%; animation: veil-drift 28.5s ease-in-out infinite alternate; }
