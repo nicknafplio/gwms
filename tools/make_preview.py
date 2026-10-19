@@ -287,6 +287,7 @@ CONCEPT = f'''<div class="frame">
   <div class="container statement__grid">
     <div class="statement__text">
       <h2 class="statement__lead"><span class="motif" aria-hidden="true"></span>Our portfolio comprises ‘best-of-breed’ solutions to meet the needs of discerning intermediaries and their investors.</h2>
+      <a class="text-link statement__more" href="/funds">Funds</a>
     </div>
     <ul class="index">
       <li><a href="/platforms"><span>Platforms</span></a></li>

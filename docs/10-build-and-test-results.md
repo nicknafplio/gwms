@@ -24,3 +24,9 @@ Built 19 Oct 2026 into `dist/` by `tools/make_preview.py`. Tested against a loca
 - **19 pages are not built**: 20 distinct links on the built pages go to them (About, Team, Contact, Platforms, IMS, Structured Products, six other funds, five regions, three policy pages) and 404 until built.
 - Browser-tab icon is still the PNG GW tile; touch-icon sizes and `manifest.json` not regenerated.
 - Policy text is **unchanged**; the entry notice's "Cookie Statement" paragraph says the site uses cookies although the new site sets none — kept verbatim pending the policy review (`04-policy-inventory.md`); `sessionStorage` use should be covered there.
+
+## Update 19 Oct (later): home link, overlay animation, strapline
+- **Home, under the statement:** a text link "Funds" → `/funds`, styled like the "About GWMS" link (existing label, no new copy).
+- **Overlay animation (hero and Funds panel, plus the Funds-page hero which shares the hero component):** three layers, all `ease-in-out`, `alternate`, `infinite`: the wide light band drifts toward the top-right and back (22 s per leg), the narrow band (26 s), and the navy→blue gradient shifts (30 s). Only `clip-path` / `background-position` change. Durations differ so the motion never repeats mechanically. The footer panel is **not** animated. Verified by computed style and by freezing the animations at 0 / 11 s / 22 s (`preview/screenshots/anim-hero-sequence.png`, `anim-funds-sequence.png`). The animation runs for everyone (reduced-motion handling discarded by owner decision).
+- **Home hero strapline:** 15% smaller (measured 96 → 81.6 px at 1440 wide; ratio 0.850 at 1440, 1100 and 390 wide). The Funds-page title is unchanged.
+- Re-tested after the changes: navigation/keyboard/mobile/no-JS/header-hide checks and the dist checks (axe 0 violations on all pages, no errors, no third-party requests, no cookies) all pass.
