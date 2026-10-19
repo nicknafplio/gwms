@@ -130,6 +130,6 @@
 .to-top:focus-visible { outline: 3px solid #fff; outline-offset: 6px; }
 
 /* ---- Hero: diagonal band lifted above the photo veil and 10 points less transparent ---- */
-.hero--framed { --band-1: rgba(255, 255, 255, 0.23); --band-2: rgba(255, 255, 255, 0.17); }
+.hero--framed { --band-1: rgba(255, 255, 255, 0.18); --band-2: rgba(255, 255, 255, 0.12); }
 .hero--framed::before { z-index: 0; }
 .hero--framed .hero__inner { position: relative; z-index: 1; }
