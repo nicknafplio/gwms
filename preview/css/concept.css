@@ -112,7 +112,9 @@
 
 /* ---- Second section: top-aligned, quieter index links, decorative marker ---------- */
 .statement--plain .statement__grid { align-items: start; }
-.statement__text .motif { font-size: 1.1rem; display: block; margin-bottom: var(--s-5); }
+/* inline marker: sits on the first line of the text, sized relative to it */
+.statement__lead .motif { font-size: 0.32em; margin-right: 0.7em; vertical-align: 0.55em; }
+.hero__title .motif { font-size: 0.26em; margin: 0 0.7em 0 0; vertical-align: 0.9em; }
 .statement--plain .index a { font-size: 1.0625rem; padding: 0.95rem 0; }
 .statement--plain .index a::after { font-size: 1rem; }
 @media (min-width: 60rem) { .statement--plain .index { margin-top: 0.15rem; } }

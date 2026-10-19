@@ -42,3 +42,6 @@ Footer "Back to top" → **"Top"** (screen readers announce "Top of page"), with
 
 ## Revision 7
 About-band photo swapped to the warm sunlit version of the glass corridor (`design-assets/supplied/photo-glass-corridor-warm.jpg`). The earlier blue colour-shift was removed (it turned the orange to yellow); only a faint navy tint remains at the top-left. This is a deliberate warm accent against the navy/blue palette — say if you want it cooled toward blue instead.
+
+## Revision 8
+The offset-square marker is now inline with the first line of text in every section: hero headline, second-section statement, Funds heading and About label (it was above the text in the first two).
