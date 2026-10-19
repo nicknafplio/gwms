@@ -278,10 +278,6 @@ CONCEPT = f'''<div class="frame">
 <section class="funds" aria-labelledby="funds-title">
   <div class="frame">
     <div class="funds__panel gradient on-dark">
-      <picture class="funds__media">
-        <source type="image/webp" srcset="/img/hero-800.webp 800w, /img/hero-1280.webp 1280w, /img/hero-1920.webp 1920w" sizes="100vw">
-        <img src="/img/hero-1280.webp" width="1280" height="928" alt="" loading="lazy">
-      </picture>
       <div class="funds__head">
         <h2 class="funds__title" id="funds-title"><span class="motif" aria-hidden="true"></span>Funds</h2>
         <div class="funds__controls">
