@@ -270,7 +270,7 @@ CONCEPT = f'''<div class="frame">
     </div>
     <ul class="index">
       <li><a href="/platforms"><span>Platforms</span></a></li>
-      <li><a href="/levendi-thornbridge-defined-return-fund"><span>Funds</span></a></li>
+      <li><a href="/funds"><span>Funds</span></a></li>
       <li><a href="/investment-management-solutions"><span>Investment Management Solutions</span></a></li>
       <li><a href="/structured-products"><span>Structured Products</span></a></li>
     </ul>
@@ -326,7 +326,7 @@ CONCEPT_FOOTER = f'''<footer class="site-footer site-footer--wide on-dark">
         <nav class="footer-nav" aria-label="Footer">
           <ul>
             <li><a href="/platforms">Platforms</a></li>
-            <li><a href="/levendi-thornbridge-defined-return-fund">Funds</a></li>
+            <li><a href="/funds">Funds</a></li>
             <li><a href="/investment-management-solutions">Investment Management Solutions</a></li>
             <li><a href="/structured-products">Structured Products</a></li>
           </ul>
@@ -349,6 +349,44 @@ CONCEPT_FOOTER = f'''<footer class="site-footer site-footer--wide on-dark">
     </div>
   </div>
 </footer>'''
+
+
+# ---------------------------------------------------------------------------------------
+# FUNDS INDEX PAGE (new page: lists the existing funds, existing group names only)
+# ---------------------------------------------------------------------------------------
+def fund_card(g, n, u, lg, alt):
+    cls = "card__logo card__logo--mark" + (" card__logo--oak" if lg.startswith("1oak") else "") + (" card__logo--epic" if lg.startswith("epic") else "")
+    return (f'<li><a class="card card--solid" href="{u}"><span class="{cls}"><img src="/img/funds/{lg}" alt="{e(alt)}" loading="lazy"></span>'
+            f'<span class="card__group">{e(g)}</span><span class="card__name">{e(n, quote=False)}</span></a></li>')
+
+GROUP_ORDER = ["Multi Asset", "Equities", "Fixed Interest", "Alternative Strategies"]
+groups_html = []
+for gi, g in enumerate(GROUP_ORDER):
+    items = [c for c in CARDS if c[0] == g]
+    groups_html.append(f'''<section class="fund-group" aria-labelledby="fg{gi}">
+      <h2 class="fund-group__label" id="fg{gi}"><span class="motif" aria-hidden="true"></span>{e(g)}</h2>
+      <ul class="card-grid">
+{chr(10).join(fund_card(*c) for c in items)}
+      </ul>
+    </section>''')
+
+FUNDS_PAGE = f'''<div class="frame">
+<section class="hero hero--framed hero--page gradient on-dark" aria-labelledby="page-title">
+  <picture class="hero__media">
+    <source type="image/webp" srcset="/img/hero-800.webp 800w, /img/hero-1280.webp 1280w, /img/hero-1920.webp 1920w" sizes="100vw">
+    <img src="/img/hero-1280.webp" width="1280" height="928" alt="" fetchpriority="high">
+  </picture>
+  <div class="container hero__inner">
+    <h1 class="hero__title" id="page-title"><span class="motif" aria-hidden="true"></span>Funds</h1>
+  </div>
+</section>
+</div>
+<div class="container fund-groups">
+{chr(10).join(groups_html)}
+</div>'''
+
+write("funds/index.html", page("Funds", "/funds", FUNDS_PAGE, section="funds",
+      extra_head='<link rel="stylesheet" href="/css/concept.css">\n', footer=CONCEPT_FOOTER))
 
 write("index.html", page("Home page", "/", HOME))
 write("concept-home/index.html", page("Home page (concept)", "/", CONCEPT,

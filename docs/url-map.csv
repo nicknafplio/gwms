@@ -36,3 +36,4 @@ old_url,new_url,action,redirect_type,note
 /cookie-information.,/cookie-information,not-a-page,n/a,Broken link (trailing full stop) in the Privacy Notice; policy review.
 /sitemap.xml,/sitemap.xml,new,n/a,Does not exist today.
 /robots.txt,/robots.txt,new-content,n/a,Joomla default today; replaced.
+/funds,/funds,new-page,n/a,New Funds index page (decision: add a plain index of the existing funds). Home and footer "Funds" links now point here; the old home link went to the Levendi page.
