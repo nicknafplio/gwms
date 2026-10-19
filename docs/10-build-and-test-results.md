@@ -36,3 +36,6 @@ Overlay animation 5% faster (durations ×0.95): wide band 22 → 20.9 s, narrow 
 
 ## EPIC logo (home Funds section)
 EPIC logo a further 5% smaller (height 6.75rem → 6.41rem). The Funds page no longer uses cards, so only the home carousel is affected.
+
+## Mobile home refinements (below 52rem only)
+Hero text centred; decorative square on its own line; arrow anchor link (`#statement`) added; Funds panel vertical padding reduced; Funds logos ~40% smaller. Desktop CSS unchanged. Measured: no horizontal overflow at 390px; screenshot `preview/screenshots/dist-home-mobile.jpg`.

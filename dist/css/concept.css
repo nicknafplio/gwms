@@ -220,3 +220,17 @@
 .hero--framed::after,  .funds__panel::after  { animation: band2-drift 24.7s ease-in-out infinite alternate; }
 .hero--framed .hero__media::after { background-size: 150% 100%; animation: veil-drift 28.5s ease-in-out infinite alternate; }
 .funds__panel { background-size: 150% 100%; animation: veil-drift 28.5s ease-in-out infinite alternate; }
+
+/* ---- Mobile home refinements (desktop untouched) ------------------------- */
+.hero__next { display: none; }
+@media (max-width: 51.99rem) {
+  .hero--framed .hero__inner { text-align: center; padding-block: var(--s-8) var(--s-10); }
+  .hero__title .motif { display: block; margin: 0 auto var(--s-5); font-size: 0.34em; vertical-align: baseline; }
+  .hero__next { display: grid; place-items: center; position: absolute; left: 50%; bottom: var(--s-5); transform: translateX(-50%); width: 2.75rem; height: 2.75rem; color: #fff; border: 1px solid rgba(255,255,255,.55); border-radius: 50%; z-index: 2; }
+  .hero__next:hover, .hero__next:focus-visible { background: #fff; color: var(--navy, #0a1e38); }
+  .funds__panel { padding-block: var(--s-6); }
+  .funds__head { margin-bottom: var(--s-4); }
+  .card__logo { height: 4.5rem; margin-bottom: var(--s-3); }
+  .card__logo--oak img { height: 2.64rem; }
+  .card__logo--epic img { height: 3.85rem; }
+}
