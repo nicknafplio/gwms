@@ -128,3 +128,8 @@
 .to-top__label { font-size: 0.75rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; }
 .to-top:hover .to-top__tile { transform: translateY(-2px); }
 .to-top:focus-visible { outline: 3px solid #fff; outline-offset: 6px; }
+
+/* ---- Hero: diagonal band lifted above the photo veil and 10 points less transparent ---- */
+.hero--framed { --band-1: rgba(255, 255, 255, 0.23); --band-2: rgba(255, 255, 255, 0.17); }
+.hero--framed::before { z-index: 0; }
+.hero--framed .hero__inner { position: relative; z-index: 1; }

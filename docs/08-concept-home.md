@@ -45,3 +45,6 @@ About-band photo swapped to the warm sunlit version of the glass corridor (`desi
 
 ## Revision 8
 The offset-square marker is now inline with the first line of text in every section: hero headline, second-section statement, Funds heading and About label (it was above the text in the first two).
+
+## Revision 9
+Hero diagonal band: opacity raised by 10 points (white 13%→23% at the top, 7%→17% at the bottom) and drawn above the photo veil, where it was previously hidden. Other gradient panels (Funds, footer) are unchanged.
