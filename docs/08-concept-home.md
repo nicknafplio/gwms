@@ -76,3 +76,6 @@ Per owner: Levendi was acquired by Causeway, so the **Causeway Securities** logo
 
 ## Revision 18
 EPIC logo 10% smaller (height 6.75rem, was the full 7.5rem logo area).
+
+## Revision 19 — second-section links
+Arrows are now a bold, short silver (`#BCBDBF`) arrow in a blue (`#065AA7`) rounded square. On hover/keyboard focus the colours reverse (silver square, blue arrow) and the square slides left 0.7rem over 0.28s. Silver-on-blue and blue-on-silver are both ≈3.6:1 (meets the 3:1 needed for graphical controls; the link text itself is unchanged). Animation runs for everyone (reduced-motion handling discarded by owner decision).
