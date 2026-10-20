@@ -365,6 +365,9 @@ CONCEPT = f'''<div class="frame">
 </section>'''
 
 
+OUTLINE_HTML = re.search(r'<div class="hero__outline".*?</div>', CONCEPT, re.S).group(0)   # traced GW outline, shared by hero and banners
+
+
 def foot_col(title, groups):
     out = [f'<div class="footer-col"><h2><span class="motif" aria-hidden="true"></span>{e(title)}</h2>']
     for label, items in groups:
@@ -437,6 +440,7 @@ FUNDS_PAGE = f'''<div class="frame">
   <div class="container hero__inner">
     <h1 class="hero__title" id="page-title"><span class="motif" aria-hidden="true"></span>Funds</h1>
   </div>
+  {OUTLINE_HTML}
 </section>
 </div>
 <div class="container fund-groups">
@@ -476,6 +480,7 @@ def banner(title):
   <div class="container hero__inner">
     <h1 class="hero__title" id="page-title"><span class="motif" aria-hidden="true"></span>{e(title, quote=False)}</h1>
   </div>
+  {OUTLINE_HTML}
 </section>
 </div>
 '''

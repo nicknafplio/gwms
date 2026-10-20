@@ -386,3 +386,9 @@
 @media (max-width: 51.99rem) {
   .hero__title .typed { display: block; min-height: 1.2em; }   /* the changing word sits on its own line so the headline never changes height */
 }
+
+/* Page banners: the same traced GW outline, larger and pushed off the right edge so only the top of the G shows */
+.hero--page .hero__outline svg { width: 83%; right: -38%; stroke-width: 0.045; transform: translateY(38%); }
+@media (max-width: 51.99rem) {
+  .hero--page .hero__outline svg { width: 135%; right: -52%; stroke-width: 0.09; transform: translateY(38%); }
+}
