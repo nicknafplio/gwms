@@ -48,7 +48,7 @@
 .about__photo::after { content: ""; position: absolute; inset: 0; background: linear-gradient(135deg, rgba(26, 61, 108, 0.18), rgba(6, 90, 167, 0)); }
 .about__label { display: flex; align-items: center; gap: var(--s-3); margin: 0 0 var(--s-5); }
 .about__label .motif { font-size: 0.7rem; margin-right: 0.15rem; }
-.about__statement { font-size: var(--step-3); line-height: 1.18; color: var(--ink); margin: 0 0 var(--s-5); font-weight: 400; }
+.about__statement { font-family: var(--font-serif); font-size: var(--step-3); line-height: 1.18; color: var(--ink); margin: 0 0 var(--s-5); font-weight: 400; }
 .about__text { max-width: 34rem; margin: 0 0 var(--s-6); }
 .text-link { display: inline-flex; align-items: center; gap: var(--s-3); font-weight: 600; color: var(--gw-blue); text-decoration: none; border-bottom: 2px solid currentColor; padding-bottom: 0.15rem; }
 .text-link::after { content: "\2192"; content: "\2192" / ""; }
@@ -315,3 +315,37 @@
 
 /* Region map above the contact cards */
 .region-map { display: block; width: 100%; max-width: none; height: auto; aspect-ratio: 14 / 5; object-fit: cover; object-position: center; margin: 0 0 var(--s-5); background: #f3f4f5; border: 1px solid var(--rule); border-radius: 10px; }
+
+/* Home carousel logos: 25% smaller than before (tablet/desktop); mobile sizes are set above */
+@media (min-width: 52rem) {
+  .funds .card__logo { height: 5.625rem; }
+  .funds .card__logo--oak img { height: 3.3rem; }
+  .funds .card__logo--epic img { height: 4.81rem; }
+}
+
+/* Meet the Team: each entry is a card (whole row is the link to the personal page) */
+.team { gap: var(--s-4); }
+.member {
+  position: relative; padding: var(--s-5); border: 1px solid transparent; border-bottom: 1px solid var(--rule); border-radius: 1rem;
+  transition: box-shadow 0.25s ease, border-color 0.25s ease, background-color 0.25s ease, transform 0.25s ease;
+}
+.member:last-child { border-bottom: 1px solid var(--rule); }
+.member:hover, .member:focus-within { background: #fff; border-color: var(--gw-blue); box-shadow: 0 8px 22px rgba(10, 30, 56, 0.14); transform: translateY(-2px); }
+.member__name a::after { content: ""; position: absolute; inset: 0; border-radius: 1rem; }
+.member__name a:focus-visible { outline: none; }
+.member:has(.member__name a:focus-visible) { outline: 3px solid var(--gw-blue); outline-offset: 2px; }
+
+/* Personal page: the whole business card is the vCard download */
+.bizcard { position: relative; transition: box-shadow 0.25s ease, border-color 0.25s ease, transform 0.25s ease; }
+.bizcard:hover, .bizcard:focus-within { border-color: var(--gw-blue); box-shadow: 0 8px 22px rgba(10, 30, 56, 0.14); transform: translateY(-2px); }
+.bizcard .member__vcard::after { content: ""; position: absolute; inset: 0; border-radius: 0.9rem; }
+.bizcard .member__vcard:focus-visible { outline: none; }
+.bizcard:has(.member__vcard:focus-visible) { outline: 3px solid var(--gw-blue); outline-offset: 2px; }
+.bizcard a:not(.member__vcard) { position: relative; z-index: 1; }   /* the e-mail link stays separately usable */
+.bizcard:hover .member__vcard { color: var(--gw-navy); }
+
+/* Contact: two columns on desktop */
+@media (min-width: 60rem) {
+  .page--single .people { grid-template-columns: repeat(2, minmax(0, 1fr)); max-width: none; }
+}
+.prose:has(> .people) { max-width: none; }   /* the card grid may use the full article width */

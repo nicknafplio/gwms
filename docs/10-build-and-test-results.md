@@ -103,3 +103,10 @@ Photos supplied by the owner added for David Parker, James Bottomley, Simon Voys
 - About GWMS: in the "Locations" paragraph the existing region names (Europe, Africa, Asia, The Middle East, Caribbean Islands, South America) are now links to the regional pages; wording unchanged (compare: identical). Caribbean Islands and South America both go to Americas & Caribbean.
 - Region maps cropped to a wide 14:5 band (centred crop, `object-fit: cover`) for a more panoramic look, as requested.
 - Region maps: the SVG files themselves are now cropped to 14:5 (not only via CSS) and span the full article width under the heading rule. CSS/JS/map URLs carry a ?v=<hash> so browsers pick up updates instead of showing a cached copy.
+
+## Update: home, team list, About banner, Contact, bio cards
+- Home: "Providing access to best of breed financial products since 2003." now in the serif heading font. Carousel logos 25% smaller on tablet/desktop (logo area 7.5rem to 5.625rem; 1OAK and EPIC scaled likewise); mobile sizes unchanged.
+- Meet the Team: vCard link removed from the list; each entry is a card (whole row links to the personal page, hover lift/border/shadow, photo fades to colour).
+- About GWMS: banner added (title is the existing h1 text).
+- Contact: two columns on desktop (>= 60rem), full article width.
+- Personal pages: the whole business card is the vCard download (stretched link) with hover/focus state; the e-mail link inside stays separately clickable.

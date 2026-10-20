@@ -540,7 +540,7 @@ CREDENTIALS = '''<aside class="credentials" aria-labelledby="cred-title">
   </ul>
 </aside>'''
 add("/about-gwms", "Exceptional wealth management solutions",
-    article("Exceptional wealth management solutions", ABOUT + "\n" + CREDENTIALS, ABOUT_SIDE("/about-gwms")), "about")
+    article("Exceptional wealth management solutions", ABOUT + "\n" + CREDENTIALS, ABOUT_SIDE("/about-gwms"), banner_title="Exceptional wealth management solutions"), "about")
 
 TEAM = [  # name, role, bio (verbatim), slug
     ("David Parker", "Chief Executive Officer", "David has 34 years of experience marketing wealth management products to institutions and professional intermediaries.", "david-parker"),
@@ -591,7 +591,6 @@ for name, role, bio, vc in TEAM:
     <h2 class="member__name"><a href="/team-{vc}">{e(name)}</a></h2>
     <p class="member__role">{e(role, quote=False)}</p>
     {f'<p class="member__bio">{e(bio, quote=False)}</p>' if bio else ""}
-    <a class="member__vcard" href="/vcards/{vc}.vcf" download>vCard<span class="sr-only"> for {e(short)}</span></a>
   </div>
 </li>''')
     mc = body_of("team-" + vc).replace('</ul></div>', f'</ul><a class="member__vcard" href="/vcards/{vc}.vcf" download>vCard<span class="sr-only"> for {e(short)}</span></a></div>')
