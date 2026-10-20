@@ -318,9 +318,9 @@
 
 /* Home carousel logos: 25% smaller than before (tablet/desktop); mobile sizes are set above */
 @media (min-width: 52rem) {
-  .funds .card__logo { height: 5.625rem; }
-  .funds .card__logo--oak img { height: 3.3rem; }
-  .funds .card__logo--epic img { height: 4.81rem; }
+  .funds .card__logo { height: 5.0625rem; }
+  .funds .card__logo--oak img { height: 2.97rem; }
+  .funds .card__logo--epic img { height: 4.33rem; }
 }
 
 /* Meet the Team: each entry is a card (whole row is the link to the personal page) */
