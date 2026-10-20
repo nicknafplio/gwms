@@ -323,8 +323,10 @@ CARDS = [  # (group, name as in menu, url, logo file, logo alt)
     ("Alternative Strategies", "Levendi Thornbridge Defined Return Fund", "/levendi-thornbridge-defined-return-fund", "levendi-thornbridge-white.svg", "Causeway Securities"),
     ("Alternative Strategies", "Pecora QMS", "/pecora-qms", "pecora-capital-white.svg", "Pecora Capital"),
 ]
+LOGO_DIMS = {"1oak-white.svg": (892, 368), "epic-white.svg": (515, 193), "ask-white.svg": (1000, 159),
+             "pecora-capital-white.svg": (761, 121), "levendi-thornbridge-white.svg": (287, 55)}   # intrinsic sizes, avoids layout shift
 cards_html = "\n".join(
-    f'''<li><a class="card" href="{u}"><span class="card__logo{' card__logo--mark' if lg.endswith('.svg') else ''}{' card__logo--oak' if lg.startswith('1oak') else ''}{' card__logo--epic' if lg.startswith('epic') else ''}"><img src="/img/funds/{lg}" alt="{e(alt)}" loading="lazy"></span>
+    f'''<li><a class="card" href="{u}"><span class="card__logo{' card__logo--mark' if lg.endswith('.svg') else ''}{' card__logo--oak' if lg.startswith('1oak') else ''}{' card__logo--epic' if lg.startswith('epic') else ''}"><img src="/img/funds/{lg}" width="{LOGO_DIMS[lg][0]}" height="{LOGO_DIMS[lg][1]}" alt="{e(alt)}" loading="lazy"></span>
 <span class="card__group">{e(g)}</span><span class="card__name">{e(n, quote=False)}</span></a></li>'''
     for g, n, u, lg, alt in CARDS)
 

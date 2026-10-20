@@ -134,3 +134,4 @@ Scores are performance / accessibility / best practices / SEO. Local-server numb
 | Meet the Team | 93 / 100 / 100 / 100 | 99 / 100 / 100 / 100 |
 | Europe | 91 / 100 / 100 / 100 | 98 / 100 / 100 / 100 |
 Open items from the reports (all minor): fund logo images on the home carousel lack width/height attributes; CSS is not minified and ~half unused per page (shared stylesheets); the home hero shifts layout slightly (CLS 0.07-0.08 on desktop, under the 0.1 "good" threshold); caching headers and compression depend on the host (not set by `.htaccess` yet). Not measured: real-device performance, other browsers, screen readers.
+- Home carousel fund logos now carry width/height attributes (Lighthouse 'unsized images'); displayed sizes unchanged. CSS deliberately left unminified (owner decision).
