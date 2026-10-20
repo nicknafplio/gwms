@@ -64,7 +64,7 @@ let fails = 0; const ok = (c, m) => { console.log((c ? 'PASS ' : 'FAIL ') + m); 
   for (const f of ALL) {
     const html = fs.readFileSync(path.join(DIST, f), 'utf8');
     for (const m of html.matchAll(/(?:href|src)="([^"#]+)"/g)) {
-      const u = m[1]; if (/^(https?:|mailto:|tel:|data:)/.test(u)) continue;
+      const u = m[1].split('?')[0]; if (/^(https?:|mailto:|tel:|data:)/.test(u)) continue;
       const base = f === '404.html' ? path.join(DIST, u.startsWith('/') ? u.slice(1) : u) : path.join(DIST, u);
       checked++; if (!fs.existsSync(base)) broken.push(f + ' -> ' + u);
     }

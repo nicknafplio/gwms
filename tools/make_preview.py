@@ -232,6 +232,20 @@ ASK = f'''<div class="container page">
 ASSET_DIRS = "css|js|img|fonts|vcards"
 
 
+def _asset_version():
+    """Short hash of the css/js/map files, appended as ?v= so browsers never show a stale copy after an update."""
+    import hashlib
+    h = hashlib.sha1()
+    for sub in ("css", "js", "img/regions"):
+        for f in sorted((OUT / sub).glob("*")):
+            if f.is_file():
+                h.update(f.read_bytes())
+    return h.hexdigest()[:8]
+
+
+ASSET_V = _asset_version()
+
+
 def page_href(url):
     """Internal page path -> flat file at the site root: '/about-gwms' -> 'about-gwms.html'."""
     return "index.html" if url == "/" else url.strip("/") + ".html"
@@ -243,7 +257,8 @@ def portable(content):
     def fix(m):
         attr, url = m.group(1), m.group(2)
         if re.match(rf"/({ASSET_DIRS})/", url):
-            return f'{attr}="{url[1:]}"'
+            bust = f"?v={ASSET_V}" if re.match(r"/(css|js|img/regions)/", url) else ""
+            return f'{attr}="{url[1:]}{bust}"'
         return f'{attr}="{page_href(url)}"'
     content = re.sub(r'\b(href|src)="(/[^"/][^"]*|/)"', fix, content)
     return re.sub(r'(/img/[^ ",]+)( \d+w)', lambda m: m.group(1)[1:] + m.group(2), content)
@@ -460,7 +475,7 @@ def banner(title):
 '''
 
 
-def article(h1, content, side=None, logo_html="", footnotes="", banner_title=None):
+def article(h1, content, side=None, logo_html="", footnotes="", banner_title=None, lead=""):
     """With banner_title the page title lives in the banner (h1) and the page header keeps only the logo."""
     if banner_title and logo_html:      # partner logo in a right-hand column on desktop (above the text on mobile)
         art = (f'<article>\n      <div class="split">\n        <div class="prose">\n{content}\n        </div>\n'
@@ -470,7 +485,7 @@ def article(h1, content, side=None, logo_html="", footnotes="", banner_title=Non
             head = ""
         else:
             head = f'<header class="page-header">\n        <h1>{e(h1, quote=False)}</h1>\n        {logo_html}\n      </header>\n      '
-        art = f'<article>\n      {head}<div class="prose">\n{content}\n      </div>{footnotes}\n    </article>'
+        art = f'<article>\n      {head}{lead}<div class="prose">\n{content}\n      </div>{footnotes}\n    </article>'
     if side:
         inner = f'<div class="container page">\n  <div class="page__layout">\n{side}\n    {art}\n  </div>\n</div>'
     else:
@@ -608,7 +623,7 @@ for slug, h1 in [("africa", "Africa"), ("americas-caribbean", "Americas & Caribb
     w_, h_ = float(vb[2]), float(vb[3])
     region_map = (f'<img class="region-map" src="/img/regions/{slug}.svg" width="{round(w_ * 2)}" '
                   f'height="{round(h_ * 2)}" alt="">\n')      # decorative: the page heading already names the region
-    add("/" + slug, h1, article(h1, region_map + people(body_of(slug)), ABOUT_SIDE("/" + slug)), "about")
+    add("/" + slug, h1, article(h1, people(body_of(slug)), ABOUT_SIDE("/" + slug), lead=region_map), "about")
 
 add("/platforms", "Platforms", article("Platforms", body_of("platforms"), None,
     logo("platforms/veritas-life.svg", "Veritas Life", 296, 114), banner_title="Platforms"), None)
