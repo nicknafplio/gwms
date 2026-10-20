@@ -314,4 +314,4 @@
 }
 
 /* Region map above the contact cards */
-.region-map { display: block; width: 100%; max-width: 44rem; height: auto; margin: 0 0 var(--s-5); background: #f3f4f5; border: 1px solid var(--rule); border-radius: 10px; }
+.region-map { display: block; width: 100%; max-width: 44rem; height: auto; aspect-ratio: 16 / 9; margin: 0 0 var(--s-5); background: #f3f4f5; border: 1px solid var(--rule); border-radius: 10px; }
