@@ -55,8 +55,10 @@ let fails = 0; const ok = (c, m) => { console.log((c ? 'PASS ' : 'FAIL ') + m); 
     }
   }
   ok([...hosts].every(h => h.startsWith('localhost')), 'no third-party requests: ' + [...hosts].join(', '));
-  const vcf = fs.readFileSync(path.join(DIST, 'vcards/mike-kew.vcf'), 'utf8');
-  ok(/^BEGIN:VCARD/.test(vcf) && /END:VCARD\s*$/.test(vcf) && vcf.includes('FN:Mike Kew') && vcf.includes('TITLE:UK Sales Consultant') && vcf.includes('+447802949751'), 'mike-kew.vcf is a valid-looking vCard with name, title, mobile');
+  for (const n of ['david-parker', 'mike-kew', 'james-bottomley', 'simon-voysey', 'sarah-crow', 'jessica-french']) {
+    const vcf = fs.readFileSync(path.join(DIST, 'vcards/' + n + '.vcf'), 'utf8');
+    ok(/^BEGIN:VCARD\r\nVERSION:3\.0/.test(vcf) && /END:VCARD\r\n$/.test(vcf) && /\nFN:.+/.test(vcf) && /\nTITLE:.+/.test(vcf) && /\nTEL;.*:\+44\d{10}\r/.test(vcf) && /\nEMAIL;.*:[a-z.]+@globalwms\.com\r/.test(vcf), n + '.vcf is a complete vCard (name, title, mobile, e-mail)');
+  }
   // --- link audit: every internal href/src in every page resolves to a file; every folder has a blank index.html
   const broken = []; let checked = 0;
   for (const f of ALL) {

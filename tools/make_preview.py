@@ -535,6 +535,35 @@ TEAM = [  # name, role, bio (verbatim), slug
     ("Sarah Crow - Partner", "Head of Commissions & Client Services", "", "sarah-crow"),
     ("Jessica French - Partner", "Head of Accounting & Audit", "", "jessica-french"),
 ]
+def make_vcard(fragment):
+    """vCard 3.0 built from the business-card details on the person's page (single source of truth)."""
+    def li(cls):
+        m = re.search(rf'<li class="bizcard__{cls}">(.*?)</li>', fragment)
+        return m.group(1) if m else ""
+    name = html.unescape(re.sub("<[^>]+>", "", li("name"))).strip()
+    job = html.unescape(re.sub("<[^>]+>", "", li("job"))).strip()
+    if not job:
+        job = html.unescape(re.search(r'<p class="member__role">(.*?)</p>', fragment).group(1))
+    lines = ["BEGIN:VCARD", "VERSION:3.0"]
+    first, _, last = name.partition(" ")
+    lines += [f"N:{last};{first};;;", f"FN:{name}", "ORG:Global Wealth Management Solutions", f"TITLE:{job}"]
+    for m in re.finditer(r'<li class="bizcard__detail">(.*?)</li>', fragment):
+        d_ = m.group(1)
+        mm = re.search(r'data-user="([^"]+)" data-domain="([^"]+)"', d_)
+        txt = html.unescape(re.sub("<[^>]+>", "", d_)).strip()
+        if mm:
+            lines.append("EMAIL;TYPE=INTERNET,WORK:" + f"{mm.group(1)}@{mm.group(2)}".lower())
+        elif txt.startswith("m:") or txt.startswith("t:"):
+            digits = re.sub(r"\D", "", txt[2:].replace("(0)", ""))
+            if digits.startswith("440"):
+                digits = "44" + digits[3:]
+            lines.append(f"TEL;TYPE={'CELL' if txt[0] == 'm' else 'WORK'},VOICE:+{digits}")
+        elif txt.startswith("w:"):
+            lines.append("URL:https://" + txt[2:].strip())
+    return "\r\n".join(lines + ["END:VCARD", ""])
+
+
+vcards_out = {}
 PHOTOS = {"mike-kew", "david-parker", "james-bottomley", "simon-voysey", "sarah-crow", "jessica-french"}   # others: placeholder
 team_items = []
 for name, role, bio, vc in TEAM:
@@ -553,7 +582,22 @@ for name, role, bio, vc in TEAM:
     mc = body_of("team-" + vc).replace('</ul></div>', f'</ul><a class="member__vcard" href="/vcards/{vc}.vcf" download>vCard<span class="sr-only"> for {e(short)}</span></a></div>')
     role_html, rest = mc.split("\n", 1)
     photo = f'<img class="page-header__photo" src="{page_img}" width="300" height="405" alt="">'
-    add("/team-" + vc, short, article(name, role_html + "\n" + rest, ABOUT_SIDE("/meet-the-team"), photo), "about")
+    add("/team-" + vc, short, f'''<div class="container page">
+  <div class="page__layout">
+{ABOUT_SIDE("/meet-the-team")}
+    <article>
+      <div class="member-layout">
+        <header class="page-header"><h1>{e(name)}</h1></header>
+        {photo}
+        <div class="prose">
+{role_html}
+{rest}
+        </div>
+      </div>
+    </article>
+  </div>
+</div>''', "about")
+    vcards_out[vc] = make_vcard(mc)
 TEAM_HTML = '<ul class="team">\n' + "\n".join(team_items) + "\n</ul>"
 add("/meet-the-team", "Meet the Team",
     banner("Meet the Team") + f'<div class="container page">\n  <div class="page__layout">\n{ABOUT_SIDE("/meet-the-team")}\n    <article>\n{TEAM_HTML}\n    </article>\n  </div>\n</div>', "about")
@@ -638,6 +682,8 @@ RewriteCond %{DOCUMENT_ROOT}/$1.html -f
 RewriteRule ^([A-Za-z0-9-]+)/?$ /$1.html [R=301,L]
 """, root=DIST, raw=True)
 
+for vc, card in vcards_out.items():      # real vCards replace the placeholders in the source folder
+    (OUT / "vcards" / f"{vc}.vcf").write_text(card, encoding="utf-8", newline="")
 # assets: css/js/fonts/vcards whole (small); images only if referenced
 for d in ("css", "js", "fonts", "vcards"):
     shutil.copytree(OUT / d, DIST / d)

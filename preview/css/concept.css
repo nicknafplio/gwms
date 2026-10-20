@@ -301,3 +301,14 @@
   .split__logo { order: 0; }
   .split__logo img { width: 80%; }
 }
+
+/* Team-member page: text left, portrait in a right-hand column (desktop); stacked on small screens */
+.member-layout { display: grid; gap: var(--s-5); }
+.member-layout .page-header { margin-bottom: 0; }
+.member-layout .page-header__photo { width: min(14rem, 100%); }
+@media (min-width: 60rem) {
+  .member-layout { grid-template-columns: minmax(0, 1fr) 14rem; grid-template-areas: "head photo" "prose photo"; column-gap: var(--s-8); row-gap: var(--s-6); align-items: start; }
+  .member-layout .page-header { grid-area: head; }
+  .member-layout .page-header__photo { grid-area: photo; width: 100%; }
+  .member-layout .prose { grid-area: prose; }
+}

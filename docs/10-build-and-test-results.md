@@ -90,3 +90,8 @@ Photos supplied by the owner added for David Parker, James Bottomley, Simon Voys
 ## Update: Mike Kew contact details; partner-logo column
 - Mike Kew: title "UK Sales Consultant" (list, page, card); mobile +44(0) 07802 949751 (as supplied); e-mail michael.kew [at] globalwms.com (same obfuscation as elsewhere); `vcards/mike-kew.vcf` is now a real vCard 3.0 (name, organisation, title, mobile, e-mail, website) and downloads from his card and the team list. Note: an address inside a downloadable .vcf is plain text. The other vCards are still blank placeholders.
 - Platforms and Investment Management Solutions: partner logo moved to a right-hand column on desktop (>= 60rem) at 80% of the column width; above the text on smaller screens.
+
+## Update: vCards for everyone, Simon Voysey's title in regions, personal-page layout
+- **vCards:** each person now has a real vCard 3.0 (`vcards/<name>.vcf`: name, organisation, job title, mobile, e-mail, website) generated at build time from the contact details on their page, so the two cannot drift apart. Phone numbers are normalised to +44 international form (the "(0)" is dropped). Dawn Parker's file was removed earlier. As noted, e-mail addresses inside a downloadable vCard are plain text.
+- **Regions:** Simon Voysey's "Partner" replaced by "International Sales Director" on the Europe and Middle East pages (Asia already used it). Held in `TEXT_EDITS` in `tools/extract_bodies.py`.
+- **Personal pages (desktop, >= 60rem):** text in the left column, portrait in a right-hand column; stacked on smaller screens as before.

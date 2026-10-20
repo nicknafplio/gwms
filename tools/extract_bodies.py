@@ -19,6 +19,10 @@ SLUGS = ["1oak-multi-asset-funds-guided-by-blackrock", "epic-investment-partners
          "africa", "americas-caribbean", "asia", "europe", "middle-east",
          "privacy-notice", "disclaimer", "cookie-information"]
 REMOVED_PEOPLE = {"contact": ["Dawn Parker", "Asma Choudhary", "Emily Karavla"]}
+TEXT_EDITS = {   # owner-requested wording corrections: Simon Voysey's title
+    "europe": [("Simon Voysey – Partner, Iberia", "Simon Voysey – International Sales Director, Iberia")],
+    "middle-east": [("Simon Voysey, Partner - Middle East", "Simon Voysey, International Sales Director - Middle East")],
+}
 d = lambda s: base64.b64decode(s).decode()
 
 
@@ -100,6 +104,9 @@ def clean(slug):
                 p_.decompose()
     h1 = soup.select_one(".page-header h1")
     html = body.decode_contents().replace("\xa0", " ")
+    for old, new in TEXT_EDITS.get(slug, []):
+        assert old in html, (slug, old)
+        html = html.replace(old, new)
     html = re.sub(r"\n{2,}", "\n", html).strip()
     return (h1.get_text(strip=True) if h1 else None), html
 

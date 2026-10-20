@@ -1,0 +1,10 @@
+BEGIN:VCARD
+VERSION:3.0
+N:Parker;David;;;
+FN:David Parker
+ORG:Global Wealth Management Solutions
+TITLE:Chief Executive Officer
+EMAIL;TYPE=INTERNET,WORK:david.parker@globalwms.com
+TEL;TYPE=CELL,VOICE:+447785231333
+URL:https://www.globalwms.com
+END:VCARD
