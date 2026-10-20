@@ -195,10 +195,9 @@ ASK = f'''<div class="container page">
   <div class="page__layout">
 {side_nav(ASK_PATH)}
     <article>
-      <header class="page-header">
-        <h1>ASK Indian Entrepreneur Fund</h1>
-        <img class="page-header__logo page-header__logo--wide" src="/img/funds/ask-dark.svg" width="1000" height="159" alt="ASK Investment Managers">
-      </header>
+      <div class="member-layout fund-layout">
+      <header class="page-header"><h1>ASK Indian Entrepreneur Fund</h1></header>
+      <img class="page-header__logo page-header__logo--wide" src="/img/funds/ask-dark.svg" width="1000" height="159" alt="ASK Investment Managers">
       <div class="prose">
 <p>ASK Capital, a subsidiary of ASK Investment Managers (“ASK”), is a boutique India-specialist investment manager. ASK is one of the leading asset and wealth management companies in India, with an AUM of ~USD 10.1 billion<a class="fn-ref" href="#_ftn1" id="_ftnref1"><sup>[1]</sup></a>. </p>
 <p>ASK is a portfolio company of Blackstone owned funds, who bought a majority stake in the firm in February 2022 <a href="https://www.blackstone.com/news/press/blackstone-acquires-a-majority-stake-in-ask-investment-managers-indias-leading-asset-and-wealth-management-company/" target="_blank" rel="noopener"><strong>(LINK).</strong><span class="sr-only"> External site: blackstone.com. Opens in a new tab.</span></a></p>
@@ -219,6 +218,7 @@ ASK = f'''<div class="container page">
 <li>Entrepreneur-run companies are among the largest wealth creators in India. This makes such a portfolio an excellent way to access the country’s growth potential.</li>
 <li>ASK Indian Entrepreneur Fund is a Dublin based daily dealing ICAV.</li>
 </ul>
+      </div>
       </div>
       <section class="footnotes" aria-labelledby="fn-title">
         <h2 class="sr-only" id="fn-title">Footnotes</h2>
@@ -477,7 +477,10 @@ def banner(title):
 
 def article(h1, content, side=None, logo_html="", footnotes="", banner_title=None, lead=""):
     """With banner_title the page title lives in the banner (h1) and the page header keeps only the logo."""
-    if banner_title and logo_html:      # partner logo in a right-hand column on desktop (above the text on mobile)
+    if side and logo_html and not banner_title:   # fund pages: title left (may wrap), logo in a right-hand column on desktop
+        art = (f'<article>\n      <div class="member-layout fund-layout">\n        <header class="page-header"><h1>{e(h1, quote=False)}</h1></header>\n'
+               f'        {logo_html}\n        <div class="prose">\n{content}\n        </div>\n      </div>{footnotes}\n    </article>')
+    elif banner_title and logo_html:      # partner logo in a right-hand column on desktop (above the text on mobile)
         art = (f'<article>\n      <div class="split">\n        <div class="prose">\n{content}\n        </div>\n'
                f'        <aside class="split__logo" aria-label="Partner">{logo_html}</aside>\n      </div>{footnotes}\n    </article>')
     else:

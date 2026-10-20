@@ -111,3 +111,4 @@ Photos supplied by the owner added for David Parker, James Bottomley, Simon Voys
 - Contact: two columns on desktop (>= 60rem), full article width.
 - Personal pages: the whole business card is the vCard download (stretched link) with hover/focus state; the e-mail link inside stays separately clickable.
 - Overlay fade animation 5% faster on the home hero, Funds panel and all banners (durations 20.9/24.7/28.5 s to 19.86/23.47/27.08 s).
+- Fund pages (all seven): title on the left (may wrap onto two lines), partner logo in a right-hand column on desktop (>= 60rem); stacked on smaller screens.
