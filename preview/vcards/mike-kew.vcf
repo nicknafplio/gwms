@@ -1,0 +1,10 @@
+BEGIN:VCARD
+VERSION:3.0
+N:Kew;Mike;;;
+FN:Mike Kew
+ORG:Global Wealth Management Solutions
+TITLE:UK Sales Consultant
+TEL;TYPE=CELL,VOICE:+447802949751
+EMAIL;TYPE=INTERNET,WORK:michael.kew@globalwms.com
+URL:https://www.globalwms.com
+END:VCARD

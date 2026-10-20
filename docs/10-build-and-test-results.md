@@ -86,3 +86,7 @@ Photos supplied by the owner added for David Parker, James Bottomley, Simon Voys
 ## Update: team thumbnails, personal-page photo, Mike Kew photo
 - Meet the Team thumbnails now mirror the GW icon (photo square over an offset grey `#C6C5C7` rounded square, via CSS `box-shadow`); they are grayscale (CSS `filter`) and fade to colour over 0.5 s on hover or keyboard focus within the row. Personal-page portraits are 75% larger (8rem to 14rem wide). Mike Kew's photo added (full portrait and square crop).
 - Team thumbnail grey offset reduced to 8px (all widths).
+
+## Update: Mike Kew contact details; partner-logo column
+- Mike Kew: title "UK Sales Consultant" (list, page, card); mobile +44(0) 07802 949751 (as supplied); e-mail michael.kew [at] globalwms.com (same obfuscation as elsewhere); `vcards/mike-kew.vcf` is now a real vCard 3.0 (name, organisation, title, mobile, e-mail, website) and downloads from his card and the team list. Note: an address inside a downloadable .vcf is plain text. The other vCards are still blank placeholders.
+- Platforms and Investment Management Solutions: partner logo moved to a right-hand column on desktop (>= 60rem) at 80% of the column width; above the text on smaller screens.

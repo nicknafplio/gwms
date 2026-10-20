@@ -462,11 +462,15 @@ def banner(title):
 
 def article(h1, content, side=None, logo_html="", footnotes="", banner_title=None):
     """With banner_title the page title lives in the banner (h1) and the page header keeps only the logo."""
-    if banner_title:
-        head = f'<header class="page-header page-header--logo">\n        {logo_html}\n      </header>\n      ' if logo_html else ""
+    if banner_title and logo_html:      # partner logo in a right-hand column on desktop (above the text on mobile)
+        art = (f'<article>\n      <div class="split">\n        <div class="prose">\n{content}\n        </div>\n'
+               f'        <aside class="split__logo" aria-label="Partner">{logo_html}</aside>\n      </div>{footnotes}\n    </article>')
     else:
-        head = f'<header class="page-header">\n        <h1>{e(h1, quote=False)}</h1>\n        {logo_html}\n      </header>\n      '
-    art = f'<article>\n      {head}<div class="prose">\n{content}\n      </div>{footnotes}\n    </article>'
+        if banner_title:
+            head = ""
+        else:
+            head = f'<header class="page-header">\n        <h1>{e(h1, quote=False)}</h1>\n        {logo_html}\n      </header>\n      '
+        art = f'<article>\n      {head}<div class="prose">\n{content}\n      </div>{footnotes}\n    </article>'
     if side:
         inner = f'<div class="container page">\n  <div class="page__layout">\n{side}\n    {art}\n  </div>\n</div>'
     else:
@@ -525,7 +529,7 @@ add("/about-gwms", "Exceptional wealth management solutions",
 
 TEAM = [  # name, role, bio (verbatim), slug
     ("David Parker", "Chief Executive Officer", "David has 34 years of experience marketing wealth management products to institutions and professional intermediaries.", "david-parker"),
-    ("Mike Kew", "International Sales Director", "", "mike-kew"),
+    ("Mike Kew", "UK Sales Consultant", "", "mike-kew"),
     ("James Bottomley", "Head of Institutional Sales Asia", "James has 30 years experience in the Financial Services sector.", "james-bottomley"),
     ("Simon Voysey", "International Sales Director", "As an IFA for 10 years in the Middle East I was initially attracted by the best of breed fund range, providing key client solutions for IFAs and Wealth Managers.", "simon-voysey"),
     ("Sarah Crow - Partner", "Head of Commissions & Client Services", "", "sarah-crow"),

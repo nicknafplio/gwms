@@ -291,3 +291,13 @@
 .bizcard__key { color: var(--gw-blue); font-weight: 600; display: inline-block; min-width: 1.4em; }
 .bizcard .member__vcard { margin-top: var(--s-3); }
 .page-header--logo { border-bottom: 0; padding-bottom: 0; margin-bottom: var(--s-5); justify-content: flex-start; }
+
+/* Partner logo column (Platforms, Investment Management Solutions) */
+.split { display: grid; gap: var(--s-6); }
+.split__logo { order: -1; }
+.split__logo img { display: block; width: min(16rem, 100%); height: auto; }
+@media (min-width: 60rem) {
+  .split { grid-template-columns: minmax(0, 7fr) minmax(0, 4fr); gap: var(--s-9); align-items: start; }
+  .split__logo { order: 0; }
+  .split__logo img { width: 80%; }
+}
