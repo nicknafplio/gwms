@@ -123,3 +123,14 @@ Photos supplied by the owner added for David Parker, James Bottomley, Simon Voys
 - Home Funds carousel: 1OAK logo set to 3rem (final sizes: area 4rem, 1OAK 3rem, EPIC 3.76rem).
 - Page banners (Funds, About, Meet the Team, Platforms, Investment Management Solutions, Structured Products, Contact): same traced GW outline animation as the home hero, larger and pushed off the right edge so only the top of the G shows (per the supplied layout).
 - Open Graph / Twitter card tags on every page: og:title 'Global Wealth Management Solutions — <page>' (home: '— Creating long-term value'), og:description = the existing site description, og:url, and a 1200x630 preview image (img/og-image.jpg: hero photo, white logo, strapline). URLs point at https://globalwms.com, so previews only work once the site is live on that domain.
+
+## Lighthouse (measured 20 Oct 2026, local server, headless Chromium, Lighthouse run via its Node API; 5 pages)
+Scores are performance / accessibility / best practices / SEO. Local-server numbers; production hosting (compression, caching headers, HTTP/2) will change performance.
+| Page | Mobile (simulated slow 4G, 4x CPU) | Desktop |
+|---|---|---|
+| Home | 90 / 100 / 100 / 100 (LCP 3.2 s, CLS 0.001) | 99 / 100 / 100 / 100 (LCP 0.8 s, CLS 0.073) |
+| Funds | 94 / 100 / 100 / 100 | 98 / 100 / 100 / 100 |
+| Levendi fund page | 99 / 100 / 100 / 100 | 99 / 100 / 100 / 100 |
+| Meet the Team | 93 / 100 / 100 / 100 | 99 / 100 / 100 / 100 |
+| Europe | 91 / 100 / 100 / 100 | 98 / 100 / 100 / 100 |
+Open items from the reports (all minor): fund logo images on the home carousel lack width/height attributes; CSS is not minified and ~half unused per page (shared stylesheets); the home hero shifts layout slightly (CLS 0.07-0.08 on desktop, under the 0.1 "good" threshold); caching headers and compression depend on the host (not set by `.htaccess` yet). Not measured: real-device performance, other browsers, screen readers.
