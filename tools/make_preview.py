@@ -308,7 +308,13 @@ CONCEPT = f'''<div class="frame">
     <img src="/img/hero-1280.webp" width="1280" height="928" alt="" fetchpriority="high">
   </picture>
   <div class="container hero__inner">
-    <h1 class="hero__title" id="home-title"><span class="motif" aria-hidden="true"></span>Creating <br>long-term value</h1>
+    <h1 class="hero__title" id="home-title"><span class="motif" aria-hidden="true"></span>Creating <br>long-term <span class="typed" data-words="value,relationships,objectives"><span class="sr-only">value</span><span class="typed__text" aria-hidden="true">value</span><span class="typed__caret" aria-hidden="true"></span></span></h1>
+  </div>
+  <div class="hero__outline" aria-hidden="true">
+    <svg viewBox="15 41 41 22" focusable="false">
+      <path pathLength="1" d="M31.8,61.2c-1.1,0.4-3.3,1.1-5.9,1.1c-2.9,0-5.3-0.7-7.2-2.6c-1.7-1.6-2.7-4.2-2.7-7.2c0-5.8,4-10,10.5-10c2.2,0,4,0.5,4.8,0.9l-0.6,2c-1-0.5-2.3-0.8-4.3-0.8c-4.7,0-7.8,2.9-7.8,7.8c0,4.9,3,7.8,7.5,7.8c1.6,0,2.8-0.2,3.3-0.5v-5.8h-3.9v-2h6.4V61.2z"/>
+      <path pathLength="1" d="M38.8,62l-4.9-19.3h2.6l2.3,9.8c0.6,2.4,1.1,4.8,1.4,6.7h0.1c0.3-1.9,0.9-4.2,1.6-6.7l2.6-9.8h2.6l2.4,9.8c0.5,2.3,1.1,4.6,1.3,6.6h0.1c0.4-2.1,0.9-4.3,1.6-6.7l2.6-9.8h2.6L52,62h-2.6L46.9,52c-0.6-2.5-1-4.4-1.3-6.3h-0.1c-0.3,1.9-0.8,3.8-1.5,6.3L41.4,62H38.8z"/>
+    </svg>
   </div>
   <a class="hero__next" href="#statement" aria-label="Skip to next section"><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true" focusable="false"><path d="M12 4v15M5.5 12.5 12 19l6.5-6.5" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="square"/></svg></a>
 </section>
@@ -647,7 +653,7 @@ if DIST.exists():
     shutil.rmtree(DIST)
 DIST.mkdir()
 FOOT_HEAD = '<link rel="stylesheet" href="/css/concept.css">\n'
-HOME_JS = '<script src="/js/carousel.js" defer></script>\n<script src="/js/photo-fade.js" defer></script>'
+HOME_JS = '<script src="/js/carousel.js" defer></script>\n<script src="/js/photo-fade.js" defer></script>\n<script src="/js/typed.js" defer></script>'
 
 for path, (title, html_, section) in PAGES.items():
     scripts = HOME_JS if path == "/" else ""

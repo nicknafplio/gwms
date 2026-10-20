@@ -113,3 +113,8 @@ Photos supplied by the owner added for David Parker, James Bottomley, Simon Voys
 - Overlay fade animation 5% faster on the home hero, Funds panel and all banners (durations 20.9/24.7/28.5 s to 19.86/23.47/27.08 s).
 - Fund pages (all seven): title on the left (may wrap onto two lines), partner logo in a right-hand column on desktop (>= 60rem); stacked on smaller screens.
 - Jessica French photos replaced with the colourised versions (square crop and full portrait).
+
+## Update: hero GW outline and typewriter word
+- **GW outline:** inline SVG tracing the logo's own G and W glyph outlines (paths from the supplied icon), stroke only, bottom-right of the home hero and cropped by the hero's bottom edge. CSS animation draws each outline slowly, holds, then undraws (17 s loop, the W starts 1.6 s after the G), echoing the line animation in the reference recording; it is original geometry and timing, not a copy of that site's artwork. Decorative (`aria-hidden`).
+- **Typewriter:** the last word of "Creating long-term value" types letter by letter (95 ms/letter), stays complete for 3 s, deletes letter by letter (55 ms/letter), then "relationships", then "objectives", then loops back to "value" (`js/typed.js`). Screen readers get the static headline "Creating long-term value"; the animated text is `aria-hidden`; without JavaScript the headline reads "Creating long-term value". On phones the changing word sits on its own line so the headline height never changes. The reduced-motion preference is not handled, as decided earlier.
+- **Content note:** "relationships" and "objectives" are new headline wording supplied by the owner; they are not on the live site.
