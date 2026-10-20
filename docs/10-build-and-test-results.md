@@ -122,3 +122,4 @@ Photos supplied by the owner added for David Parker, James Bottomley, Simon Voys
 - Home Funds carousel logos (tablet/desktop): logo area 4rem; 1OAK 2.7rem (+15% on the proportional size); EPIC 3.76rem (+10%).
 - Home Funds carousel: 1OAK logo set to 3rem (final sizes: area 4rem, 1OAK 3rem, EPIC 3.76rem).
 - Page banners (Funds, About, Meet the Team, Platforms, Investment Management Solutions, Structured Products, Contact): same traced GW outline animation as the home hero, larger and pushed off the right edge so only the top of the G shows (per the supplied layout).
+- Open Graph / Twitter card tags on every page: og:title 'Global Wealth Management Solutions — <page>' (home: '— Creating long-term value'), og:description = the existing site description, og:url, and a 1200x630 preview image (img/og-image.jpg: hero photo, white logo, strapline). URLs point at https://globalwms.com, so previews only work once the site is live on that domain.

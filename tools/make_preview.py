@@ -113,6 +113,32 @@ FOOTER = f'''<footer class="site-footer on-dark">
 </footer>'''
 
 
+SITE_NAME = "Global Wealth Management Solutions"
+
+
+def og_tags(title, path):
+    """Open Graph / Twitter card tags so links shared in social and messaging apps show a title,
+    the existing site description and a preview image. URLs are absolute (the live domain)."""
+    t = f"{SITE_NAME} — " + ("Creating long-term value" if path == "/" else title)
+    url = SITE + ("/" if path == "/" else path + ".html")
+    return "\n".join([
+        '<meta property="og:type" content="website">',
+        f'<meta property="og:site_name" content="{SITE_NAME}">',
+        f'<meta property="og:title" content="{e(t)}">',
+        f'<meta property="og:description" content="{e(DESC)}">',
+        f'<meta property="og:url" content="{url}">',
+        f'<meta property="og:image" content="{SITE}/img/og-image.jpg">',
+        '<meta property="og:image:width" content="1200">',
+        '<meta property="og:image:height" content="630">',
+        f'<meta property="og:image:alt" content="{SITE_NAME}: Creating long-term value">',
+        '<meta property="og:locale" content="en_GB">',
+        '<meta name="twitter:card" content="summary_large_image">',
+        f'<meta name="twitter:title" content="{e(t)}">',
+        f'<meta name="twitter:description" content="{e(DESC)}">',
+        f'<meta name="twitter:image" content="{SITE}/img/og-image.jpg">',
+    ])
+
+
 def page(title, path, body, section=None, extra_head="", footer=None, extra_scripts="", notice=False, robots=None):
     return f'''<!doctype html>
 <html lang="en-GB" class="no-js">
@@ -121,6 +147,7 @@ def page(title, path, body, section=None, extra_head="", footer=None, extra_scri
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>{title}</title>
 <meta name="description" content="{e(DESC)}">
+{og_tags(title, path)}
 {"" if robots else f'<link rel="canonical" href="{SITE}{"/" if path == "/" else path + ".html"}">'}
 {f'<meta name="robots" content="{robots}">' if robots else ""}
 <link rel="icon" type="image/png" sizes="32x32" href="/img/gw-icon.png">
@@ -720,7 +747,7 @@ for vc, card in vcards_out.items():      # real vCards replace the placeholders 
 for d in ("css", "js", "fonts", "vcards"):
     shutil.copytree(OUT / d, DIST / d)
 text = "".join(f.read_text(encoding="utf-8", errors="ignore") for f in DIST.rglob("*") if f.suffix in (".html", ".css", ".js"))
-used = sorted(set(re.findall(r"img/[A-Za-z0-9_\-./]+\.(?:webp|png|jpg|svg)", text)))
+used = sorted(set(["img/og-image.jpg"] + re.findall(r"img/[A-Za-z0-9_\-./]+\.(?:webp|png|jpg|svg)", text)))
 for rel in used:
     src = OUT / rel
     if src.exists():
