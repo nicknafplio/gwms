@@ -319,7 +319,7 @@
 /* Home carousel logos: 25% smaller than before (tablet/desktop); mobile sizes are set above */
 @media (min-width: 52rem) {
   .funds .card__logo { height: 4rem; }
-  .funds .card__logo--oak img { height: 2.7rem; }
+  .funds .card__logo--oak img { height: 3rem; }
   .funds .card__logo--epic img { height: 3.76rem; }
 }
 

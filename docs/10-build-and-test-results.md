@@ -120,3 +120,4 @@ Photos supplied by the owner added for David Parker, James Bottomley, Simon Voys
 - **Content note:** "relationships" and "objectives" are new headline wording supplied by the owner; they are not on the live site.
 - Home Funds carousel logos a further 10% smaller on tablet/desktop (logo area 5.0625rem, 1OAK 2.97rem, EPIC 4.33rem).
 - Home Funds carousel logos (tablet/desktop): logo area 4rem; 1OAK 2.7rem (+15% on the proportional size); EPIC 3.76rem (+10%).
+- Home Funds carousel: 1OAK logo set to 3rem (final sizes: area 4rem, 1OAK 3rem, EPIC 3.76rem).
