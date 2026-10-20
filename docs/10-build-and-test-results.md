@@ -82,3 +82,6 @@ Hero text centred; decorative square on its own line; arrow anchor link (`#state
 
 ## Update: team photos
 Photos supplied by the owner added for David Parker, James Bottomley, Simon Voysey, Sarah Crow and Jessica French (matched to the live-site portraits by image comparison). The Meet the Team list uses a square crop to face and shoulders (`img/team/<name>-square.jpg`); each personal page uses the full 3:4 portrait (`img/team/<name>.jpg`). Mike Kew still uses the placeholder. Crops were set by eye; tell me if any should be re-framed.
+
+## Update: team thumbnails, personal-page photo, Mike Kew photo
+- Meet the Team thumbnails now mirror the GW icon (photo square over an offset grey `#C6C5C7` rounded square, via CSS `box-shadow`); they are grayscale (CSS `filter`) and fade to colour over 0.5 s on hover or keyboard focus within the row. Personal-page portraits are 75% larger (8rem to 14rem wide). Mike Kew's photo added (full portrait and square crop).

@@ -531,7 +531,7 @@ TEAM = [  # name, role, bio (verbatim), slug
     ("Sarah Crow - Partner", "Head of Commissions & Client Services", "", "sarah-crow"),
     ("Jessica French - Partner", "Head of Accounting & Audit", "", "jessica-french"),
 ]
-PHOTOS = {"david-parker", "james-bottomley", "simon-voysey", "sarah-crow", "jessica-french"}   # others: placeholder
+PHOTOS = {"mike-kew", "david-parker", "james-bottomley", "simon-voysey", "sarah-crow", "jessica-french"}   # others: placeholder
 team_items = []
 for name, role, bio, vc in TEAM:
     list_img = f"/img/team/{vc}-square.jpg" if vc in PHOTOS else "/img/team/duffprofile.jpg"

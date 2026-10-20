@@ -246,9 +246,16 @@
 .team { list-style: none; margin: 0; padding: 0; display: grid; gap: var(--s-5); max-width: 52rem; }
 .member { display: grid; grid-template-columns: 6.5rem minmax(0, 1fr); gap: var(--s-5); align-items: start; margin: 0; padding-bottom: var(--s-5); border-bottom: 1px solid var(--rule); }
 .member:last-child { border-bottom: 0; }
-/* Portrait style: soft rounded corners, hairline edge and a gentle drop shadow (no coloured border) */
-.member__photo, .page-header__photo {
+/* Team-list thumbnail: mirrors the GW icon (photo square over an offset grey rounded square), grayscale until hovered */
+.member__photo {
   display: block; width: 100%; aspect-ratio: 1 / 1; object-fit: cover; background: var(--mist);
+  border-radius: 0.8rem; box-shadow: 0.8rem 0.8rem 0 #c6c5c7; margin-bottom: 0.8rem;
+  filter: grayscale(1); transition: filter 0.5s ease;
+}
+.member:hover .member__photo, .member:focus-within .member__photo { filter: grayscale(0); }
+/* Personal-page portrait */
+.page-header__photo {
+  display: block; object-fit: cover; background: var(--mist);
   border-radius: 0.75rem; border: 1px solid rgba(0, 0, 0, 0.18); box-shadow: 2px 3px 7px rgba(0, 0, 0, 0.35);
 }
 .member__text { padding: 0; }
@@ -258,7 +265,7 @@
 .member__vcard { display: inline-block; margin-top: var(--s-3); font-size: 0.875rem; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase; color: var(--gw-blue); text-decoration: none; border-bottom: 1px solid currentColor; }
 .member__vcard::before { content: "\2193\00a0"; content: "\2193\00a0" / ""; }
 .member__vcard:hover { color: var(--gw-navy); }
-@media (min-width: 40rem) { .member { grid-template-columns: 9rem minmax(0, 1fr); gap: var(--s-6); } }
+@media (min-width: 40rem) { .member { grid-template-columns: 9rem minmax(0, 1fr); gap: var(--s-6); } .member__photo { border-radius: 1rem; box-shadow: 1.1rem 1.1rem 0 #c6c5c7; margin-bottom: 1.1rem; } }
 
 .people { display: grid; gap: var(--s-4); grid-template-columns: repeat(auto-fill, minmax(min(100%, 20rem), 1fr)); max-width: 56rem; margin-top: var(--s-4); }
 .prose h2 + .people { margin-top: var(--s-4); }
@@ -274,7 +281,7 @@
 /* Team member pages */
 .member__name a { color: inherit; text-decoration: none; }
 .member__name a:hover { color: var(--gw-blue); text-decoration: underline; text-underline-offset: 0.2em; }
-.page-header__photo { width: 8rem; aspect-ratio: 3 / 4; flex: none; }
+.page-header__photo { width: min(14rem, 100%); aspect-ratio: 3 / 4; flex: none; }   /* 8rem x 1.75 */
 .prose .member__role { margin: 0 0 var(--s-5); color: var(--gw-blue); font-weight: 600; font-size: var(--step-1); }
 .bizcard { max-width: 28rem; background: #fff; border: 1px solid var(--rule); border-left: 4px solid var(--gw-blue); border-radius: 0.9rem; padding: var(--s-4) var(--s-5); margin: var(--s-4) 0 var(--s-5); }
 .bizcard ul { list-style: none; margin: 0; padding: 0; }
