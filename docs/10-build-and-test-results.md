@@ -85,3 +85,4 @@ Photos supplied by the owner added for David Parker, James Bottomley, Simon Voys
 
 ## Update: team thumbnails, personal-page photo, Mike Kew photo
 - Meet the Team thumbnails now mirror the GW icon (photo square over an offset grey `#C6C5C7` rounded square, via CSS `box-shadow`); they are grayscale (CSS `filter`) and fade to colour over 0.5 s on hover or keyboard focus within the row. Personal-page portraits are 75% larger (8rem to 14rem wide). Mike Kew's photo added (full portrait and square crop).
+- Team thumbnail grey offset reduced to 8px (all widths).

@@ -249,7 +249,7 @@
 /* Team-list thumbnail: mirrors the GW icon (photo square over an offset grey rounded square), grayscale until hovered */
 .member__photo {
   display: block; width: 100%; aspect-ratio: 1 / 1; object-fit: cover; background: var(--mist);
-  border-radius: 0.8rem; box-shadow: 0.8rem 0.8rem 0 #c6c5c7; margin-bottom: 0.8rem;
+  border-radius: 0.8rem; box-shadow: 8px 8px 0 #c6c5c7; margin-bottom: 8px;
   filter: grayscale(1); transition: filter 0.5s ease;
 }
 .member:hover .member__photo, .member:focus-within .member__photo { filter: grayscale(0); }
@@ -265,7 +265,7 @@
 .member__vcard { display: inline-block; margin-top: var(--s-3); font-size: 0.875rem; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase; color: var(--gw-blue); text-decoration: none; border-bottom: 1px solid currentColor; }
 .member__vcard::before { content: "\2193\00a0"; content: "\2193\00a0" / ""; }
 .member__vcard:hover { color: var(--gw-navy); }
-@media (min-width: 40rem) { .member { grid-template-columns: 9rem minmax(0, 1fr); gap: var(--s-6); } .member__photo { border-radius: 1rem; box-shadow: 1.1rem 1.1rem 0 #c6c5c7; margin-bottom: 1.1rem; } }
+@media (min-width: 40rem) { .member { grid-template-columns: 9rem minmax(0, 1fr); gap: var(--s-6); } .member__photo { border-radius: 1rem; box-shadow: 8px 8px 0 #c6c5c7; margin-bottom: 8px; } }
 
 .people { display: grid; gap: var(--s-4); grid-template-columns: repeat(auto-fill, minmax(min(100%, 20rem), 1fr)); max-width: 56rem; margin-top: var(--s-4); }
 .prose h2 + .people { margin-top: var(--s-4); }
