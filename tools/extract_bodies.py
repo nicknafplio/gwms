@@ -23,6 +23,10 @@ TEXT_EDITS = {   # owner-requested wording corrections: Simon Voysey's title
     "europe": [("Simon Voysey – Partner, Iberia", "Simon Voysey – International Sales Director, Iberia")],
     "middle-east": [("Simon Voysey, Partner - Middle East", "Simon Voysey, International Sales Director - Middle East")],
 }
+ADDED_PARAS = {   # owner-requested additions (new team member)
+    "europe": ['<p>Mike Kew, UK Sales Consultant - United Kingdom<br/>Mobile +44(0) 07802 949751<br/>'
+               '<span class="mail" data-user="michael.kew" data-domain="globalwms.com">michael.kew [at] globalwms.com</span></p>'],
+}
 d = lambda s: base64.b64decode(s).decode()
 
 
@@ -104,6 +108,8 @@ def clean(slug):
                 p_.decompose()
     h1 = soup.select_one(".page-header h1")
     html = body.decode_contents().replace("\xa0", " ")
+    for extra in ADDED_PARAS.get(slug, []):
+        html += "\n" + extra
     for old, new in TEXT_EDITS.get(slug, []):
         assert old in html, (slug, old)
         html = html.replace(old, new)

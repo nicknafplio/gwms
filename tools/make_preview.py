@@ -604,7 +604,11 @@ add("/meet-the-team", "Meet the Team",
 
 for slug, h1 in [("africa", "Africa"), ("americas-caribbean", "Americas & Caribbean"), ("asia", "Asia"),
                  ("europe", "Europe"), ("middle-east", "Middle East")]:
-    add("/" + slug, h1, article(h1, people(body_of(slug)), ABOUT_SIDE("/" + slug)), "about")
+    vb = re.search(r'viewBox="([\d. ]+)"', (OUT / "img/regions" / f"{slug}.svg").read_text(encoding="utf-8")).group(1).split()
+    w_, h_ = float(vb[2]), float(vb[3])
+    region_map = (f'<img class="region-map" src="/img/regions/{slug}.svg" width="{round(w_ * 2)}" '
+                  f'height="{round(h_ * 2)}" alt="">\n')      # decorative: the page heading already names the region
+    add("/" + slug, h1, article(h1, region_map + people(body_of(slug)), ABOUT_SIDE("/" + slug)), "about")
 
 add("/platforms", "Platforms", article("Platforms", body_of("platforms"), None,
     logo("platforms/veritas-life.svg", "Veritas Life", 296, 114), banner_title="Platforms"), None)
