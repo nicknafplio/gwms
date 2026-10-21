@@ -536,6 +536,8 @@ def article(h1, content, side=None, logo_html="", footnotes="", banner_title=Non
         inner = f'<div class="container page">\n  <div class="page__layout">\n{side}\n    {art}\n  </div>\n</div>'
     else:
         inner = f'<div class="container page page--single">\n  {art}\n</div>'
+    if banner_title and not side:       # no left-hand menu: content is offset to line up with the banner heading
+        inner = inner.replace('class="container page page--single"', 'class="container page page--single page--aligned"', 1)
     return (banner(banner_title) if banner_title else "") + inner
 
 
@@ -679,8 +681,9 @@ add("/investment-management-solutions", "Investment Management Solutions",
 add("/structured-products", "Structured Products", article("Structured Products", body_of("structured-products"), banner_title="Structured Products",
             aside_html='<p class="pullquote">Connecting expertise with investment opportunity.</p>'), None)
 add("/contact", "Contact", article("Contact", people(body_of("contact")), banner_title="Contact"), None)
+LEGAL_MENU = [("Legal", [("Privacy Notice", "/privacy-notice"), ("Disclaimer", "/disclaimer"), ("Cookie Information", "/cookie-information")])]
 for slug, h1 in [("privacy-notice", "Privacy Notice"), ("disclaimer", "Disclaimer"), ("cookie-information", "Cookie Information")]:
-    add("/" + slug, h1, article(h1, body_of(slug)), None)
+    add("/" + slug, h1, article(h1, body_of(slug), side_nav("/" + slug, LEGAL_MENU, "Legal")), None)
 
 # =======================================================================================
 # DEPLOYABLE SITE  ->  dist/   Every page is a plain .html file at the site root; assets live

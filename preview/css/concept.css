@@ -400,3 +400,9 @@
   font-size: clamp(1.75rem, 0.9rem + 1.8vw, 3.25rem);
 }
 @media (min-width: 60rem) { .split__quote { position: sticky; top: calc(var(--header-h) + var(--s-6)); align-self: start; } }
+
+/* Pages without a left-hand menu: content is offset so its left edge lines up with the banner heading
+   (gutter + the heading's marker, which is 0.39 x the banner title size) */
+@media (min-width: 52rem) {
+  .page--aligned > article { padding-left: calc(var(--gutter) + 0.39 * clamp(2.5rem, 1.6rem + 3.2vw, 4.75rem)); }
+}
