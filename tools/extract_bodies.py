@@ -18,6 +18,7 @@ SLUGS = ["1oak-multi-asset-funds-guided-by-blackrock", "epic-investment-partners
          "investment-management-solutions", "structured-products", "platforms", "contact",
          "africa", "americas-caribbean", "asia", "europe", "middle-east",
          "privacy-notice", "disclaimer", "cookie-information"]
+OWNER_SUPPLIED = {"structured-products"}   # tools/content/structured-products.html replaces the live wording
 REMOVED_PEOPLE = {"contact": ["Dawn Parker", "Asma Choudhary", "Emily Karavla"]}
 TEXT_EDITS = {   # owner-requested wording corrections: Simon Voysey's title
     "europe": [("Simon Voysey – Partner, Iberia", "Simon Voysey – International Sales Director, Iberia")],
@@ -120,6 +121,8 @@ def clean(slug):
 if __name__ == "__main__":
     OUT.mkdir(exist_ok=True)
     for slug in SLUGS:
+        if slug in OWNER_SUPPLIED:      # text written/supplied by the owner; not re-extracted from the live site
+            continue
         h1, html = clean(slug)
         (OUT / f"{slug}.html").write_text(html + "\n", encoding="utf-8")
         print(f"{slug}: h1={h1!r} {len(html)} bytes")

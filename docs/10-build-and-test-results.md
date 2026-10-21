@@ -137,3 +137,6 @@ Open items from the reports (all minor): fund logo images on the home carousel l
 - Home carousel fund logos now carry width/height attributes (Lighthouse 'unsized images'); displayed sizes unchanged. CSS deliberately left unminified (owner decision).
 - Diagonal-stripe/overlay drift 10% faster on the home hero, Funds carousel panel and all banners (19.86/23.47/27.08 s to 17.87/21.12/24.37 s). The GW outline animation (17 s) is unchanged.
 - Overlay stripe/fade animations now start at the midpoint position and run B-A-B (animation-direction: alternate-reverse) on the home hero, Funds carousel panel and all banners; the GW outline is unchanged.
+
+## Update: Structured Products content
+Page text replaced with owner-supplied copy (four headed sections plus the closing line); the live wording ('GWMS have partnered with key structured product providers who focus on providing the very best outcome...') no longer appears, so the word-for-word comparison against the live page is intentionally retired for this page. Same 640 px text column as Platforms (measured). The copy contains risk wording ('capital remains at risk', issuer obligations) that belongs in the policy/compliance review. Held in tools/content/structured-products.html (not re-extracted).
