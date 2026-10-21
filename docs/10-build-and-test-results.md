@@ -147,3 +147,6 @@ Page text replaced with owner-supplied copy (four headed sections plus the closi
 - Privacy Notice, Disclaimer and Cookie Information now have a left-hand 'Legal' menu listing the three pages (so are excluded from the offset). 'Legal' as the group label is new (it matches the footer list's accessible name).
 - Legal pages (Privacy Notice, Disclaimer, Cookie Information): heading and rule moved to their own row offset by the menu column, so the Legal menu and the text start level (both at the same top, measured); the menu stays sticky on scroll (measured: sits 112 px from the viewport top).
 - Meet the Team: Mike Kew's list card shows a short edited bio line (owner-supplied wording); his full bio stays on his own page.
+
+## Update: mobile section menu
+All left-hand menus (Funds, About us/Regions/Team, Legal) become, below 52rem, a sticky, collapsed-by-default disclosure labelled 'Explore this section' (button with aria-expanded/aria-controls, Esc and tap-outside close it, panel scrolls if taller than the screen). Groups are preserved and the current page stays highlighted. Desktop sidebar unchanged (measured: toggle hidden, panel visible, same position). Without JavaScript the full list shows. Measured on a 390 px viewport: collapsed on load, opens on tap, Esc closes, bar stays at the top while scrolling.

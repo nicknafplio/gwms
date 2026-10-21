@@ -415,3 +415,18 @@
   .page__layout--headed .side-nav { grid-area: side; }
   .page__layout--headed > article { grid-area: main; }
 }
+
+/* ==========================================================================
+   Section menu: collapsible, sticky disclosure on small screens
+   ========================================================================== */
+.side-nav__toggle { display: none; }
+@media (max-width: 51.99rem) {
+  .side-nav { position: sticky; top: var(--header-h); z-index: 20; background: #fff; margin-inline: calc(var(--gutter) * -1); padding-inline: var(--gutter); border-bottom: 1px solid var(--rule); }
+  .js .side-nav__toggle {
+    display: flex; align-items: center; justify-content: space-between; gap: var(--s-3); width: 100%; min-height: 3rem;
+    padding: 0; background: none; border: 0; cursor: pointer; font: inherit; font-weight: 700; color: var(--gw-navy); text-align: left;
+  }
+  .js .side-nav:not(.is-open) .side-nav__panel { display: none; }
+  .side-nav__panel { max-height: calc(100vh - var(--header-h) - 3.5rem); max-height: calc(100dvh - var(--header-h) - 3.5rem); overflow-y: auto; padding-bottom: var(--s-4); }
+  .side-nav__toggle:focus-visible { outline: 3px solid var(--gw-blue); outline-offset: 2px; }
+}

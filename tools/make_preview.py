@@ -165,7 +165,7 @@ def page(title, path, body, section=None, extra_head="", footer=None, extra_scri
 {footer or FOOTER}
 <script src="/js/nav.js" defer></script>
 <script src="/js/header-hide.js" defer></script>
-{extra_scripts}
+{'<script src="/js/side-nav.js" defer></script>' + chr(10) if 'class="side-nav"' in body else ''}{extra_scripts}
 {NOTICE_HTML + chr(10) + '<script src="/js/notice.js" defer></script>' if notice else ""}
 </body>
 </html>
@@ -211,10 +211,15 @@ HOME = '''<section class="hero on-dark" aria-labelledby="home-title">
 
 
 def side_nav(current, groups=None, label="Funds"):
+    """Left-hand section menu. Desktop: always-visible sidebar. Mobile (with JS): a sticky, collapsed
+    'Explore this section' disclosure (see js/side-nav.js and the .side-nav rules in concept.css);
+    without JS the full list simply shows."""
     parts = []
     for glabel, items in (groups or SIDE_NAV):
         parts.append(f'<p class="side-nav__label"><span class="motif" aria-hidden="true"></span>{e(glabel)}</p>\n<ul>\n{links(items, current)}\n</ul>')
-    return f'<nav class="side-nav" aria-label="{label}">\n' + "\n".join(parts) + "\n</nav>"
+    return (f'<nav class="side-nav" aria-label="{label}">\n'
+            f'<button type="button" class="side-nav__toggle" aria-expanded="false" aria-controls="side-nav-panel"><span>Explore this section</span><span class="chev" aria-hidden="true"></span></button>\n'
+            f'<div class="side-nav__panel" id="side-nav-panel">\n' + "\n".join(parts) + "\n</div>\n</nav>")
 
 
 ASK_PATH = "/ask-capital-india-entrepreneur-fund"
