@@ -515,8 +515,12 @@ def banner(title):
 '''
 
 
-def article(h1, content, side=None, logo_html="", footnotes="", banner_title=None, lead="", aside_html=""):
+def article(h1, content, side=None, logo_html="", footnotes="", banner_title=None, lead="", aside_html="", head_above=False):
     """With banner_title the page title lives in the banner (h1) and the page header keeps only the logo."""
+    if side and head_above and not banner_title:    # heading + rule in their own row, offset so the menu and the text start level
+        return (f'<div class="container page">\n  <div class="page__layout page__layout--headed">\n'
+                f'    <header class="page-header page__head"><h1>{e(h1, quote=False)}</h1></header>\n{side}\n'
+                f'    <article>\n      <div class="prose">\n{content}\n      </div>{footnotes}\n    </article>\n  </div>\n</div>')
     if side and logo_html and not banner_title:   # fund pages: title left (may wrap), logo in a right-hand column on desktop
         art = (f'<article>\n      <div class="member-layout fund-layout">\n        <header class="page-header"><h1>{e(h1, quote=False)}</h1></header>\n'
                f'        {logo_html}\n        <div class="prose">\n{content}\n        </div>\n      </div>{footnotes}\n    </article>')
@@ -683,7 +687,7 @@ add("/structured-products", "Structured Products", article("Structured Products"
 add("/contact", "Contact", article("Contact", people(body_of("contact")), banner_title="Contact"), None)
 LEGAL_MENU = [("Legal", [("Privacy Notice", "/privacy-notice"), ("Disclaimer", "/disclaimer"), ("Cookie Information", "/cookie-information")])]
 for slug, h1 in [("privacy-notice", "Privacy Notice"), ("disclaimer", "Disclaimer"), ("cookie-information", "Cookie Information")]:
-    add("/" + slug, h1, article(h1, body_of(slug), side_nav("/" + slug, LEGAL_MENU, "Legal")), None)
+    add("/" + slug, h1, article(h1, body_of(slug), side_nav("/" + slug, LEGAL_MENU, "Legal"), head_above=True), None)
 
 # =======================================================================================
 # DEPLOYABLE SITE  ->  dist/   Every page is a plain .html file at the site root; assets live

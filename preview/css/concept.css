@@ -406,3 +406,12 @@
 @media (min-width: 52rem) {
   .page--aligned > article { padding-left: calc(var(--gutter) + 0.39 * clamp(2.5rem, 1.6rem + 3.2vw, 4.75rem)); }
 }
+
+/* Legal pages: heading and rule sit in their own row, offset by the menu column, so the menu and the text start level */
+.page__layout--headed .page-header { margin-bottom: 0; }
+@media (min-width: 52rem) {
+  .page__layout--headed { grid-template-columns: 16.5rem minmax(0, 1fr); grid-template-areas: ". head" "side main"; row-gap: var(--s-6); }
+  .page__layout--headed .page__head { grid-area: head; }
+  .page__layout--headed .side-nav { grid-area: side; }
+  .page__layout--headed > article { grid-area: main; }
+}
