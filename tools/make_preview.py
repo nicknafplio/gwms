@@ -604,8 +604,8 @@ TEAM = [  # name, role, bio (verbatim), slug
     ("Mike Kew", "UK Sales Consultant", "Mike has over 40 years' experience across stockbroking, private wealth, fund management, and alternative investments.", "mike-kew"),
     ("James Bottomley", "Head of Institutional Sales Asia", "James has 30 years experience in the Financial Services sector.", "james-bottomley"),
     ("Simon Voysey", "International Sales Director", "As an IFA for 10 years in the Middle East I was initially attracted by the best of breed fund range, providing key client solutions for IFAs and Wealth Managers.", "simon-voysey"),
-    ("Sarah Crow - Partner", "Head of Commissions & Client Services", "", "sarah-crow"),
-    ("Jessica French - Partner", "Head of Accounting & Audit", "", "jessica-french"),
+    ("Sarah Crow", "Head of Commissions & Client Services", "", "sarah-crow"),
+    ("Jessica French", "Head of Accounting & Audit", "", "jessica-french"),
 ]
 def make_vcard(fragment):
     """vCard 3.0 built from the business-card details on the person's page (single source of truth)."""
