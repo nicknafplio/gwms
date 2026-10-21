@@ -20,7 +20,9 @@ SLUGS = ["1oak-multi-asset-funds-guided-by-blackrock", "epic-investment-partners
          "privacy-notice", "disclaimer", "cookie-information"]
 OWNER_SUPPLIED = {"structured-products"}   # tools/content/structured-products.html replaces the live wording
 REMOVED_PEOPLE = {"contact": ["Dawn Parker", "Asma Choudhary", "Emily Karavla"]}
-TEXT_EDITS = {   # owner-requested wording corrections: Simon Voysey's title
+TEXT_EDITS = {   # owner-requested wording corrections: Simon Voysey's title; Contact page job titles follow the bios
+    "contact": [("Sarah Crow - Partner", "Sarah Crow"),
+                ("Jessica French - Partner<br/>Audit and Accounting", "Jessica French<br/>Head of Accounting &amp; Audit")],
     "europe": [("Simon Voysey – Partner, Iberia", "Simon Voysey – International Sales Director, Iberia")],
     "middle-east": [("Simon Voysey, Partner - Middle East", "Simon Voysey, International Sales Director - Middle East")],
 }
