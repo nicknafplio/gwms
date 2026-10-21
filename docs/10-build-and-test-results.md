@@ -150,3 +150,4 @@ Page text replaced with owner-supplied copy (four headed sections plus the closi
 
 ## Update: mobile section menu
 All left-hand menus (Funds, About us/Regions/Team, Legal) become, below 52rem, a sticky, collapsed-by-default disclosure labelled 'Explore this section' (button with aria-expanded/aria-controls, Esc and tap-outside close it, panel scrolls if taller than the screen). Groups are preserved and the current page stays highlighted. Desktop sidebar unchanged (measured: toggle hidden, panel visible, same position). Without JavaScript the full list shows. Measured on a 390 px viewport: collapsed on load, opens on tap, Esc closes, bar stays at the top while scrolling.
+- Mobile section menu now slides open and closed (row-height transition, 0.3 s; measured heights animate 0 to 389 px and back; closed content is hidden from keyboard and screen readers).

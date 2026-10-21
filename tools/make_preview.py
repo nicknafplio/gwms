@@ -219,7 +219,7 @@ def side_nav(current, groups=None, label="Funds"):
         parts.append(f'<p class="side-nav__label"><span class="motif" aria-hidden="true"></span>{e(glabel)}</p>\n<ul>\n{links(items, current)}\n</ul>')
     return (f'<nav class="side-nav" aria-label="{label}">\n'
             f'<button type="button" class="side-nav__toggle" aria-expanded="false" aria-controls="side-nav-panel"><span>Explore this section</span><span class="chev" aria-hidden="true"></span></button>\n'
-            f'<div class="side-nav__panel" id="side-nav-panel">\n' + "\n".join(parts) + "\n</div>\n</nav>")
+            f'<div class="side-nav__panel" id="side-nav-panel"><div class="side-nav__inner">\n' + "\n".join(parts) + "\n</div></div>\n</nav>")
 
 
 ASK_PATH = "/ask-capital-india-entrepreneur-fund"
