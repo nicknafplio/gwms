@@ -515,11 +515,14 @@ def banner(title):
 '''
 
 
-def article(h1, content, side=None, logo_html="", footnotes="", banner_title=None, lead=""):
+def article(h1, content, side=None, logo_html="", footnotes="", banner_title=None, lead="", aside_html=""):
     """With banner_title the page title lives in the banner (h1) and the page header keeps only the logo."""
     if side and logo_html and not banner_title:   # fund pages: title left (may wrap), logo in a right-hand column on desktop
         art = (f'<article>\n      <div class="member-layout fund-layout">\n        <header class="page-header"><h1>{e(h1, quote=False)}</h1></header>\n'
                f'        {logo_html}\n        <div class="prose">\n{content}\n        </div>\n      </div>{footnotes}\n    </article>')
+    elif banner_title and aside_html:           # text left, pull quote in a right-hand column
+        art = (f'<article>\n      <div class="split">\n        <div class="prose">\n{content}\n        </div>\n'
+               f'        <aside class="split__quote" aria-label="Pull quote">{aside_html}</aside>\n      </div>{footnotes}\n    </article>')
     elif banner_title and logo_html:      # partner logo in a right-hand column on desktop (above the text on mobile)
         art = (f'<article>\n      <div class="split">\n        <div class="prose">\n{content}\n        </div>\n'
                f'        <aside class="split__logo" aria-label="Partner">{logo_html}</aside>\n      </div>{footnotes}\n    </article>')
@@ -673,7 +676,8 @@ add("/investment-management-solutions", "Investment Management Solutions",
     article("Investment Management Solutions", body_of("investment-management-solutions"), None,
             logo("investment/resilience-asset-management.svg", "Resilience Asset Management", 1024, 229),
             banner_title="Investment Management Solutions"), None)
-add("/structured-products", "Structured Products", article("Structured Products", body_of("structured-products"), banner_title="Structured Products"), None)
+add("/structured-products", "Structured Products", article("Structured Products", body_of("structured-products"), banner_title="Structured Products",
+            aside_html='<p class="pullquote">Connecting expertise with investment opportunity.</p>'), None)
 add("/contact", "Contact", article("Contact", people(body_of("contact")), banner_title="Contact"), None)
 for slug, h1 in [("privacy-notice", "Privacy Notice"), ("disclaimer", "Disclaimer"), ("cookie-information", "Cookie Information")]:
     add("/" + slug, h1, article(h1, body_of(slug)), None)

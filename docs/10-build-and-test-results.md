@@ -140,3 +140,4 @@ Open items from the reports (all minor): fund logo images on the home carousel l
 
 ## Update: Structured Products content
 Page text replaced with owner-supplied copy (four headed sections plus the closing line); the live wording ('GWMS have partnered with key structured product providers who focus on providing the very best outcome...') no longer appears, so the word-for-word comparison against the live page is intentionally retired for this page. Same 640 px text column as Platforms (measured). The copy contains risk wording ('capital remains at risk', issuer obligations) that belongs in the policy/compliance review. Held in tools/content/structured-products.html (not re-extracted).
+- Structured Products: closing line 'Connecting expertise with investment opportunity.' moved to a right-hand pull quote (serif, dark blue, font-size clamp(1.75rem, 0.9rem + 1.8vw, 3.25rem), blue left rule, sticky on desktop; below the text on small screens).

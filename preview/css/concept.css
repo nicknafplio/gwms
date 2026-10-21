@@ -392,3 +392,11 @@
 @media (max-width: 51.99rem) {
   .hero--page .hero__outline svg { width: 135%; right: -52%; stroke-width: 0.09; transform: translateY(38%); }
 }
+
+/* Pull quote (Structured Products): right-hand column on desktop, below the text on small screens */
+.pullquote {
+  margin: 0; padding-left: var(--s-5); border-left: 4px solid var(--gw-blue);
+  font-family: var(--font-serif); font-weight: 400; color: var(--gw-navy); line-height: 1.2;
+  font-size: clamp(1.75rem, 0.9rem + 1.8vw, 3.25rem);
+}
+@media (min-width: 60rem) { .split__quote { position: sticky; top: calc(var(--header-h) + var(--s-6)); align-self: start; } }
