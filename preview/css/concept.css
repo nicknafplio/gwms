@@ -216,10 +216,10 @@
 @keyframes band2-drift { from { clip-path: polygon(78% 0, 100% 0, 100% 100%, 62% 100%); } to { clip-path: polygon(68% 0, 96% 0, 100% 100%, 56% 100%); } }
 @keyframes veil-drift  { from { background-position: 0% 50%; } to { background-position: 100% 50%; } }
 
-.hero--framed::before, .funds__panel::before { animation: band-drift 17.87s ease-in-out infinite alternate; }
-.hero--framed::after,  .funds__panel::after  { animation: band2-drift 21.12s ease-in-out infinite alternate; }
-.hero--framed .hero__media::after { background-size: 150% 100%; animation: veil-drift 24.37s ease-in-out infinite alternate; }
-.funds__panel { background-size: 150% 100%; animation: veil-drift 24.37s ease-in-out infinite alternate; }
+.hero--framed::before, .funds__panel::before { animation: band-drift 17.87s ease-in-out infinite alternate-reverse; }
+.hero--framed::after,  .funds__panel::after  { animation: band2-drift 21.12s ease-in-out infinite alternate-reverse; }
+.hero--framed .hero__media::after { background-size: 150% 100%; animation: veil-drift 24.37s ease-in-out infinite alternate-reverse; }
+.funds__panel { background-size: 150% 100%; animation: veil-drift 24.37s ease-in-out infinite alternate-reverse; }
 
 /* ---- Mobile home refinements (desktop untouched) ------------------------- */
 .hero__next { display: none; }
