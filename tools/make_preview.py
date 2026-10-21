@@ -596,7 +596,7 @@ add("/about-gwms", "Exceptional wealth management solutions",
 
 TEAM = [  # name, role, bio (verbatim), slug
     ("David Parker", "Chief Executive Officer", "David has 34 years of experience marketing wealth management products to institutions and professional intermediaries.", "david-parker"),
-    ("Mike Kew", "UK Sales Consultant", "", "mike-kew"),
+    ("Mike Kew", "UK Sales Consultant", "Mike has over 40 years' experience across stockbroking, private wealth, fund management, and alternative investments.", "mike-kew"),
     ("James Bottomley", "Head of Institutional Sales Asia", "James has 30 years experience in the Financial Services sector.", "james-bottomley"),
     ("Simon Voysey", "International Sales Director", "As an IFA for 10 years in the Middle East I was initially attracted by the best of breed fund range, providing key client solutions for IFAs and Wealth Managers.", "simon-voysey"),
     ("Sarah Crow - Partner", "Head of Commissions & Client Services", "", "sarah-crow"),
