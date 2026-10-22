@@ -153,3 +153,4 @@ All left-hand menus (Funds, About us/Regions/Team, Legal) become, below 52rem, a
 - Mobile section menu now slides open and closed (row-height transition, 0.3 s; measured heights animate 0 to 389 px and back; closed content is hidden from keyboard and screen readers).
 - Contact: Sarah Crow and Jessica French no longer shown as 'Partner'; Jessica's title now 'Head of Accounting & Audit' to match her bio (Sarah's already matched).
 - 'Partner' removed from Sarah Crow's and Jessica French's names on Meet the Team and their personal pages.
+- Jessica French: new photo (grey studio background) cropped to a 3:4 portrait for her page and a square face-and-shoulders crop for Meet the Team (both saved at 2x).
