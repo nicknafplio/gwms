@@ -2,7 +2,7 @@
 """Generate the two representative preview pages from one shared definition of
 header / navigation / footer. All page text below is copied verbatim from the
 live site (audit/baseline/text/*.txt); tools/verify_preview.py checks that."""
-import html, pathlib, re, sys
+import html, os, pathlib, re, sys
 
 OUT = pathlib.Path(__file__).resolve().parent.parent / "preview"
 SITE = "https://globalwms.com"
@@ -303,13 +303,21 @@ def portable(content):
     return re.sub(r'(/img/[^ ",]+)( \d+w)', lambda m: m.group(1)[1:] + m.group(2), content)
 
 
+# Deploying in a sub-folder (https://example.com/gwms/): build with  SITE_BASE=/gwms python3 tools/make_preview.py
+# so the 404 page, its asset links and the .htaccess ErrorDocument/redirect targets point at that folder.
+BASE = os.environ.get("SITE_BASE", "").rstrip("/")
+
+
 def absolute(content):
-    """For 404.html, which a host serves at any URL: keep root-absolute paths, add '.html' to page links."""
+    """For 404.html, which a host serves at any URL depth: root-absolute paths (prefixed with SITE_BASE if the
+    site lives in a sub-folder), with '.html' added to page links."""
     def fix(m):
         attr, url = m.group(1), m.group(2)
-        if re.match(rf"/({ASSET_DIRS})/", url) or url == "/":
-            return m.group(0)
-        return f'{attr}="/{page_href(url)}"'
+        if re.match(rf"/({ASSET_DIRS})/", url):
+            return f'{attr}="{BASE}{url}"'
+        if url == "/":
+            return f'{attr}="{BASE}/"'
+        return f'{attr}="{BASE}/{page_href(url)}"'
     return re.sub(r'\b(href|src)="(/[^"/][^"]*|/)"', fix, content)
 
 
@@ -733,38 +741,39 @@ write("404.html", page("404 Not Found", "/404", NOT_FOUND, extra_head=FOOT_HEAD,
 write("robots.txt", "User-agent: *\nAllow: /\n\nSitemap: " + SITE + "/sitemap.xml\n", root=DIST, raw=True)
 urls = "".join(f"  <url><loc>{SITE}{'/' if u == '/' else u + '.html'}</loc></url>\n" for u in PAGES)
 write("sitemap.xml", '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' + urls + "</urlset>\n", root=DIST, raw=True)
-write(".htaccess", """# Apache (SiteGround). Plain static site: no PHP/CMS is required.
+HTACCESS = """# Apache (SiteGround). Plain static site: no PHP/CMS is required.
 Options -Indexes
 DirectoryIndex index.html
-ErrorDocument 404 /404.html
+ErrorDocument 404 @BASE@/404.html
 AddType image/svg+xml .svg
 AddType font/woff2 .woff2
 AddType text/vcard .vcf
 
 RewriteEngine On
 # Joomla-era duplicates of the home page and of every page
-RewriteRule ^index\\.php/?$ / [R=301,L]
-RewriteRule ^home/?$ / [R=301,L]
-RewriteRule ^index\\.php/(.+)$ /$1 [R=301,L]
+RewriteRule ^index\\.php/?$ @BASE@/ [R=301,L]
+RewriteRule ^home/?$ @BASE@/ [R=301,L]
+RewriteRule ^index\\.php/(.+)$ @BASE@/$1 [R=301,L]
 # Retired (owner decision): Investment Notification page and its PDF, Joomla login and feeds
 RewriteRule ^investment-notification-form/?$ - [G]
 RewriteRule ^images/documents/ - [G]
 RewriteRule ^component/ - [G]
 # Individual team-member pages (old Joomla URLs); Dawn Parker's page is retired (owner decision)
-RewriteRule ^meet-the-team/25-david-parker/?$ /team-david-parker.html [R=301,L]
-RewriteRule ^meet-the-team/61-james-bottomley/?$ /team-james-bottomley.html [R=301,L]
-RewriteRule ^meet-the-team/28-simon-voysey/?$ /team-simon-voysey.html [R=301,L]
-RewriteRule ^meet-the-team/32-sarah-crow-partner/?$ /team-sarah-crow.html [R=301,L]
-RewriteRule ^meet-the-team/34-jessica-french/?$ /team-jessica-french.html [R=301,L]
+RewriteRule ^meet-the-team/25-david-parker/?$ @BASE@/team-david-parker.html [R=301,L]
+RewriteRule ^meet-the-team/61-james-bottomley/?$ @BASE@/team-james-bottomley.html [R=301,L]
+RewriteRule ^meet-the-team/28-simon-voysey/?$ @BASE@/team-simon-voysey.html [R=301,L]
+RewriteRule ^meet-the-team/32-sarah-crow-partner/?$ @BASE@/team-sarah-crow.html [R=301,L]
+RewriteRule ^meet-the-team/34-jessica-french/?$ @BASE@/team-jessica-french.html [R=301,L]
 RewriteRule ^meet-the-team/57-dawn-parker/?$ - [G]
 # Old extensionless page URLs -> the same page as <name>.html
-RewriteRule ^about/?$ /about-gwms.html [R=301,L]
-RewriteRule ^cookie-information\\.$ /cookie-information.html [R=301,L]
+RewriteRule ^about/?$ @BASE@/about-gwms.html [R=301,L]
+RewriteRule ^cookie-information\\.$ @BASE@/cookie-information.html [R=301,L]
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
-RewriteCond %{DOCUMENT_ROOT}/$1.html -f
-RewriteRule ^([A-Za-z0-9-]+)/?$ /$1.html [R=301,L]
-""", root=DIST, raw=True)
+RewriteCond %{REQUEST_FILENAME}.html -f
+RewriteRule ^([A-Za-z0-9-]+)/?$ @BASE@/$1.html [R=301,L]
+""".replace("@BASE@", BASE)
+write(".htaccess", HTACCESS, root=DIST, raw=True)
 
 for vc, card in vcards_out.items():      # real vCards replace the placeholders in the source folder
     (OUT / "vcards" / f"{vc}.vcf").write_text(card, encoding="utf-8", newline="")

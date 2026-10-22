@@ -14,6 +14,12 @@ Every page is a flat `.html` file in the web root (`about-gwms.html`, `funds.htm
 3. Old extensionless URLs (`/funds`, `/about-gwms`, `/about`, …) are 301-redirected to `<name>.html` by the last rules in `.htaccess`.
 4. HTTPS and `www` → non-`www` redirects are host settings (SiteGround → Site Tools → Security → HTTPS Enforce); not part of this folder.
 
+## If the 404 page does not show ("an ErrorDocument ... 404")
+Apache shows *"Additionally, a 404 Not Found error was encountered while trying to use an ErrorDocument"* when the file named in `ErrorDocument 404` cannot be found **at that URL path**. Two causes:
+1. `404.html` was not uploaded next to `index.html`. Upload it.
+2. The site is in a **sub-folder** (e.g. `https://example.com/gwms/`) but `.htaccess` says `/404.html` (the domain root). Either edit line 4 of `.htaccess` to `ErrorDocument 404 /gwms/404.html`, or build for that folder: `SITE_BASE=/gwms python3 tools/make_preview.py` (this also prefixes the 404 page's CSS/links and the redirect targets). On a domain or sub-domain root nothing needs changing.
+The extension-less redirects now test for `<name>.html` next to the requested path, so they work in a sub-folder too.
+
 ## Portability
 | Host | What to use |
 |---|---|

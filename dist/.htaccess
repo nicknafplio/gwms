@@ -27,5 +27,5 @@ RewriteRule ^about/?$ /about-gwms.html [R=301,L]
 RewriteRule ^cookie-information\.$ /cookie-information.html [R=301,L]
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
-RewriteCond %{DOCUMENT_ROOT}/$1.html -f
+RewriteCond %{REQUEST_FILENAME}.html -f
 RewriteRule ^([A-Za-z0-9-]+)/?$ /$1.html [R=301,L]

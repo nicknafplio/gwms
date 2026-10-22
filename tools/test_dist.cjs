@@ -83,6 +83,8 @@ let fails = 0; const ok = (c, m) => { console.log((c ? 'PASS ' : 'FAIL ') + m); 
     const vcf = fs.readFileSync(path.join(DIST, 'vcards/' + n + '.vcf'), 'utf8');
     ok(/^BEGIN:VCARD\r\nVERSION:3\.0/.test(vcf) && /END:VCARD\r\n$/.test(vcf) && /\nFN:.+/.test(vcf) && /\nTITLE:.+/.test(vcf) && /\nTEL;.*:\+44\d{10}\r/.test(vcf) && /\nEMAIL;.*:[a-z.]+@globalwms\.com\r/.test(vcf), n + '.vcf is a complete vCard (name, title, mobile, e-mail)');
   }
+  const ht = fs.readFileSync(path.join(DIST, '.htaccess'), 'utf8'); const ed = (ht.match(/^ErrorDocument 404 (\S+)/m) || [])[1];
+  ok(!!ed && fs.existsSync(path.join(DIST, ed.replace(/^\//, ''))), '.htaccess ErrorDocument target exists in dist: ' + ed);
   // --- link audit: every internal href/src in every page resolves to a file; every folder has a blank index.html
   const broken = []; let checked = 0;
   for (const f of ALL) {
