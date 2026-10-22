@@ -27,7 +27,11 @@ TEXT_EDITS = {   # owner-requested wording corrections: Simon Voysey's title; Co
     "middle-east": [("Simon Voysey, Partner - Middle East", "Simon Voysey, International Sales Director - Middle East")],
 }
 TEXT_EDITS_MORE = {   # owner-requested policy/text corrections (see docs/10-build-and-test-results.md)
-    "privacy-notice": [("registered at Wrest Park, Silsoe, Bedfordshire MK45 4HR, United Kingdom", "registered at 2 Furl Close, Maids Moreton, Buckingham, MK18 1EF")],
+    "privacy-notice": [("registered at Wrest Park, Silsoe, Bedfordshire MK45 4HR, United Kingdom", "registered at 2 Furl Close, Maids Moreton, Buckingham, MK18 1EF"),
+                       ('Some of this information may be collected using cookies and similar tracking technology, as explained further under the heading "Cookies and similar tracking technology" below.',
+                        'The cookies used on this Website do not collect any of this information, as explained further under the heading "Cookies and similar tracking technology" below.'),
+                       ('We use cookies and similar tracking technology (collectively, "<strong>Cookies</strong>") to collect and use personal information about you. For further information about the types of Cookies we use, why, and how you can control Cookies, please see our Cookie Policy ',
+                        'We use cookies (collectively, "<strong>Cookies</strong>") only to remember your choices on this Website: whether you have accepted our notice and whether you have accepted or declined Cookies. They do not collect personal information about you. For further information about the Cookies we use, why, and how you can control them, please see our Cookie Policy ')],
     "cookie-information": [("<h2>Content Management System Session Cookie</h2>\n<p>The cookie performs a custom session function for this website. The cookie is created by this (globalwms.com) website’s content management system upon a visitor's arrival. The purpose of the cookie is so that viewing behaviour can be collected in an anonymous form and statistics are displayed in the administrator area.</p>\n<p>This cookie is then removed when a user closes their browser.</p>\n", ""),
                            ("<p>We use a disclaimer in line with compliance to make sure that you agree to the Disclaimer of using darwinpim.com</p>\n", "")],
 }
