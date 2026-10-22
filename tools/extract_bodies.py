@@ -21,10 +21,14 @@ SLUGS = ["1oak-multi-asset-funds-guided-by-blackrock", "epic-investment-partners
 OWNER_SUPPLIED = {"structured-products"}   # tools/content/structured-products.html replaces the live wording
 REMOVED_PEOPLE = {"contact": ["Dawn Parker", "Asma Choudhary", "Emily Karavla"]}
 TEXT_EDITS = {   # owner-requested wording corrections: Simon Voysey's title; Contact page job titles follow the bios
-    "contact": [("Sarah Crow - Partner", "Sarah Crow"),
-                ("Jessica French - Partner<br/>Audit and Accounting", "Jessica French<br/>Head of Accounting &amp; Audit")],
+    "contact": [("Sarah Crow - Partner<br/>Head of Commissions &amp; Client Services<br/>T: +44 (0)1525 863772", "Sarah Crow<br/>Head of Commissions &amp; Client Services<br/>M: +44 (0)7876 757253"),
+                ("Jessica French - Partner<br/>Audit and Accounting<br/>T: +44 (0)1525 863772", "Jessica French<br/>Head of Accounts<br/>M: +44 (0)7788 205487")],
     "europe": [("Simon Voysey – Partner, Iberia", "Simon Voysey – International Sales Director, Iberia")],
     "middle-east": [("Simon Voysey, Partner - Middle East", "Simon Voysey, International Sales Director - Middle East")],
+}
+TEXT_EDITS_MORE = {   # owner-requested policy/text corrections (see docs/10-build-and-test-results.md)
+    "privacy-notice": [("registered at Wrest Park, Silsoe, Bedfordshire MK45 4HR, United Kingdom", "registered at 2 Furl Close, Maids Moreton, Buckingham, MK18 1EF")],
+    "cookie-information": [("<p>We use a disclaimer in line with compliance to make sure that you agree to the Disclaimer of using darwinpim.com</p>\n", "")],
 }
 ADDED_PARAS = {   # owner-requested additions (new team member)
     "europe": ['<p>Mike Kew, UK Sales Consultant - United Kingdom<br/>Mobile +44(0) 07802 949751<br/>'
@@ -113,7 +117,7 @@ def clean(slug):
     html = body.decode_contents().replace("\xa0", " ")
     for extra in ADDED_PARAS.get(slug, []):
         html += "\n" + extra
-    for old, new in TEXT_EDITS.get(slug, []):
+    for old, new in TEXT_EDITS.get(slug, []) + TEXT_EDITS_MORE.get(slug, []):
         assert old in html, (slug, old)
         html = html.replace(old, new)
     html = re.sub(r"\n{2,}", "\n", html).strip()
@@ -140,7 +144,7 @@ MEMBER_EDITS = {
     "simon-voysey": [('<li class="bizcard__job">Partner</li>', '<li class="bizcard__job">International Sales Director</li>'),
                      ('<li class="bizcard__detail"><span class="bizcard__key">t:</span> +44 (0) 1525 863774</li>', "")],
     "sarah-crow": [("+44 (01525) 62420", "+44(0)7876 757253")],
-    "jessica-french": [("+44 (01525) 863780", "+44(0)7788 205487")],
+    "jessica-french": [("+44 (01525) 863780", "+44(0)7788 205487"), ("Head of Accounting & Audit", "Head of Accounts")],
 }
 
 

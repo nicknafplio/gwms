@@ -154,3 +154,10 @@ All left-hand menus (Funds, About us/Regions/Team, Legal) become, below 52rem, a
 - Contact: Sarah Crow and Jessica French no longer shown as 'Partner'; Jessica's title now 'Head of Accounting & Audit' to match her bio (Sarah's already matched).
 - 'Partner' removed from Sarah Crow's and Jessica French's names on Meet the Team and their personal pages.
 - Jessica French: new photo (grey studio background) cropped to a 3:4 portrait for her page and a square face-and-shoulders crop for Meet the Team (both saved at 2x).
+
+## Update: policy text corrections, titles, numbers (owner instructions)
+- **Cookie Information:** removed the sentence "We use a disclaimer in line with compliance to make sure that you agree to the Disclaimer of using darwinpim.com" (it named a different domain). Policy wording change by the owner; to be recorded in the policy review (docs/04).
+- **Privacy Notice:** registered address changed from "Wrest Park, Silsoe, Bedfordshire MK45 4HR, United Kingdom" to "2 Furl Close, Maids Moreton, Buckingham, MK18 1EF" (the trailing "United Kingdom" is dropped because the new address was supplied without it). The notice's other contact detail is the privacy e-mail address (obfuscated); no other postal address appears on the site.
+- **Addresses found elsewhere, not changed:** the retired Investment Tracking Form PDF (not on the new site) carries "Sunnyhill House, Little Horwood Road, Great Horwood, MK17 0NZ · t: +44 (0)1525 862420" (docs/01). The live Joomla site's own footer is not reproduced in the new build.
+- **Jessica French:** job title is now "Head of Accounts" on Meet the Team, her page, the Contact page and her vCard.
+- **Contact numbers:** landlines replaced by mobiles, shown as "M: +44 (0)7876 757253" (Sarah) and "M: +44 (0)7788 205487" (Jessica); label changed from T: to M:.
