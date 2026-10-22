@@ -3,7 +3,7 @@ const BASE = process.env.BASE || 'http://localhost:8766';
 (async () => {
   const b = await chromium.launch();
   for (const [name, w, h, touch] of [['desktop',1440,900,false],['mobile',390,844,true]]) {
-    const c = await b.newContext({ viewport:{width:w,height:h}, hasTouch:touch, isMobile:touch }); await c.addInitScript(() => document.cookie = 'gwms_notice=1; path=/');
+    const c = await b.newContext({ viewport:{width:w,height:h}, hasTouch:touch, isMobile:touch }); await c.addInitScript(() => document.cookie = 'gwms_notice=1; path=/'; document.cookie = 'gwms_cookies=accepted; path=/');
     const p = await c.newPage();
     for (const [slug, url] of [['home','/'],['funds','/funds/'],['ask','/ask-capital-india-entrepreneur-fund/']]) {
       await p.goto(BASE + url, { waitUntil:'networkidle' });

@@ -162,3 +162,17 @@ All left-hand menus (Funds, About us/Regions/Team, Legal) become, below 52rem, a
 - **Jessica French:** job title is now "Head of Accounts" on Meet the Team, her page, the Contact page and her vCard.
 - **Contact numbers:** landlines replaced by mobiles, shown as "M: +44 (0)7876 757253" (Sarah) and "M: +44 (0)7788 205487" (Jessica); label changed from T: to M:.
 - Cookie Information: removed the 'Content Management System Session Cookie' section (heading and its two paragraphs) because the new site has no CMS. The page still describes a Google Analytics cookie, which the new site does not use, and does not yet mention the site's one first-party cookie (gwms_notice, which remembers acceptance of the entry notice for 30 days); both are for the policy review.
+
+## Update: cookie bar and cookie choices (DRAFT for policy review - not legal advice, not approved)
+**What the site does now** (measured, 94 checks): nothing is set before the visitor chooses. After the entry notice is accepted a dark-blue cookie bar appears at the bottom with **Accept**, **Decline** (equal weight) and **More info** (links to Cookie Information).
+- **Accept:** stores `gwms_cookies=accepted` (12 months) and `gwms_notice=1` (30 days, remembers acceptance of the entry notice). First-party, SameSite=Lax, Secure on https.
+- **Decline:** stores only `gwms_cookies=declined` (12 months), deletes any `gwms_notice`; acceptance of the entry notice is then remembered for the browser tab only (sessionStorage), so a new visit shows the notice again.
+- **Change of mind:** the Cookie Information page has a "Review your cookie choice" button that reopens the bar (needs JavaScript; without JavaScript no cookie is ever set).
+- No analytics, advertising or third-party cookies exist on the site. If an optional script is ever added it must load only after `gwms_cookies=accepted`.
+- Bar appears only after the notice is closed (no stacked dialogs); axe: 0 violations with the bar visible.
+
+**Wording changes (all mine, for review):**
+1. Entry notice: the "Cookie Statement" heading and paragraph were removed (as instructed).
+2. Cookie bar text: "We use a cookie to remember that you have accepted our notice, so you are not asked again on every visit. Accept to allow it, or decline to be asked each visit. We do not use analytics or advertising cookies."  (Your reference bar used "By browsing this website, you agree to our use of cookies"; I did not copy that because consent by browsing is not valid consent for non-essential cookies under UK PECR/UK GDPR guidance. The retention periods 30 days / 12 months are my choices, not GWMS facts.)
+3. Cookie Information rewritten: kept the existing sentences about the pop-up cookie and the allaboutcookies.org paragraph; removed the Analytics section and the CMS section; replaced the "By continuing to browse... you are agreeing" line (implied consent); added the two cookie names and durations, a "no analytics or advertising cookies" statement and the review button.
+**Open for the policy review:** the Privacy Notice still says Cookies are used "to collect and use personal information about you" and refers to the cookie page; it should be aligned with the above. Whether the notice-acceptance cookie needs consent at all (it may count as strictly necessary) is a legal question for your adviser; the build is conservative (opt-in for the 30-day cookie).

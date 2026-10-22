@@ -18,7 +18,7 @@ SLUGS = ["1oak-multi-asset-funds-guided-by-blackrock", "epic-investment-partners
          "investment-management-solutions", "structured-products", "platforms", "contact",
          "africa", "americas-caribbean", "asia", "europe", "middle-east",
          "privacy-notice", "disclaimer", "cookie-information"]
-OWNER_SUPPLIED = {"structured-products"}   # tools/content/structured-products.html replaces the live wording
+OWNER_SUPPLIED = {"structured-products", "cookie-information"}   # tools/content/structured-products.html replaces the live wording
 REMOVED_PEOPLE = {"contact": ["Dawn Parker", "Asma Choudhary", "Emily Karavla"]}
 TEXT_EDITS = {   # owner-requested wording corrections: Simon Voysey's title; Contact page job titles follow the bios
     "contact": [("Sarah Crow - Partner<br/>Head of Commissions &amp; Client Services<br/>T: +44 (0)1525 863772", "Sarah Crow<br/>Head of Commissions &amp; Client Services<br/>M: +44 (0)7876 757253"),

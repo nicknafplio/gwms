@@ -1,23 +1,24 @@
-/* Entry notice: modal <dialog>, shown until ACCEPT is pressed. Acceptance is remembered in a cookie
-   (gwms_notice, 30 days, this site only), as described on the Cookie Information page: "a cookie is
-   created that tells whether or not to display the popup". If cookies are unavailable (blocked, or the
-   page is opened from disk) it falls back to sessionStorage for the browser session.
-   DECLINE is an ordinary link to https://google.com and sets nothing.
-   Escape does not dismiss it (it is an acceptance gate, as on the previous site). */
+/* Entry notice: modal <dialog>, shown until ACCEPT is pressed. DECLINE is an ordinary link to
+   https://google.com and sets nothing. Escape does not dismiss it (it is an acceptance gate).
+
+   Remembering the acceptance depends on the visitor's cookie choice (see cookie-bar.js):
+   - always: kept in sessionStorage (this browser tab/session only, not a cookie);
+   - only if cookies were accepted: also stored in the cookie gwms_notice for 30 days. */
 (function () {
   "use strict";
   var dlg = document.getElementById("entry-notice");
   if (!dlg || typeof dlg.showModal !== "function") return;
   var KEY = "gwms_notice", DAYS = 30;
 
+  function hasCookie(name, value) { return document.cookie.split("; ").indexOf(name + "=" + value) !== -1; }
   function accepted() {
-    if (document.cookie.split("; ").indexOf(KEY + "=1") !== -1) return true;
+    if (hasCookie(KEY, "1")) return true;
     try { return window.sessionStorage.getItem(KEY) === "1"; } catch (e) { return false; }
   }
   function remember() {
-    document.cookie = KEY + "=1; max-age=" + DAYS * 86400 + "; path=/; SameSite=Lax" + (location.protocol === "https:" ? "; Secure" : "");
-    if (document.cookie.split("; ").indexOf(KEY + "=1") === -1) {
-      try { window.sessionStorage.setItem(KEY, "1"); } catch (e) { /* shown again next page */ }
+    try { window.sessionStorage.setItem(KEY, "1"); } catch (e) { /* ignore */ }
+    if (hasCookie("gwms_cookies", "accepted")) {
+      document.cookie = KEY + "=1; max-age=" + DAYS * 86400 + "; path=/; SameSite=Lax" + (location.protocol === "https:" ? "; Secure" : "");
     }
   }
   if (accepted()) return;
@@ -27,6 +28,7 @@
     remember();
     dlg.close();
     document.documentElement.classList.remove("notice-open");
+    document.dispatchEvent(new CustomEvent("gwms:notice-closed"));
   });
   document.documentElement.classList.add("notice-open");
   dlg.showModal();

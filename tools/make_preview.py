@@ -166,7 +166,7 @@ def page(title, path, body, section=None, extra_head="", footer=None, extra_scri
 <script src="/js/nav.js" defer></script>
 <script src="/js/header-hide.js" defer></script>
 {'<script src="/js/side-nav.js" defer></script>' + chr(10) if 'class="side-nav"' in body else ''}{extra_scripts}
-{NOTICE_HTML + chr(10) + '<script src="/js/notice.js" defer></script>' if notice else ""}
+{NOTICE_HTML + chr(10) + COOKIE_BAR + chr(10) + '<script src="/js/notice.js" defer></script>' + chr(10) + '<script src="/js/cookie-bar.js" defer></script>' if notice else ""}
 </body>
 </html>
 '''
@@ -179,14 +179,21 @@ NOTICE_HTML = '''<dialog class="notice" id="entry-notice" aria-labelledby="notic
     <h2 id="notice-title">Notice</h2>
     <p>Global Wealth Management Solutions deals exclusively with Intermediaries.</p>
     <p>It does not provide advice to Private Clients or the Public in general; therefore in the event of any part or all of the website being accessed by or coming into the hands of Private Clients or the Public in general, none of its content should be construed as explicit or implicit advice of any kind.</p>
-    <h3>Cookie Statement</h3>
-    <p>Please note that this site uses cookies for the essential running of the website. Please make sure to read the cookie statement to find out how globalwms.com uses cookies.</p>
     <div class="notice__actions">
       <button type="button" class="notice__accept" data-notice-accept autofocus>ACCEPT</button>
       <a class="notice__decline" href="https://google.com">DECLINE</a>
     </div>
   </div>
 </dialog>'''
+
+COOKIE_BAR = '''<div class="cookie-bar" id="cookie-bar" role="region" aria-label="Cookies" hidden>
+  <p class="cookie-bar__text">We use a cookie to remember that you have accepted our notice, so you are not asked again on every visit. Accept to allow it, or decline to be asked each visit. We do not use analytics or advertising cookies.</p>
+  <div class="cookie-bar__actions">
+    <button type="button" class="cookie-bar__btn" data-cookie-accept>Accept</button>
+    <button type="button" class="cookie-bar__btn" data-cookie-decline>Decline</button>
+    <a class="cookie-bar__more" href="/cookie-information">More info</a>
+  </div>
+</div>'''
 
 HOME = '''<section class="hero on-dark" aria-labelledby="home-title">
   <picture class="hero__media">
