@@ -28,7 +28,8 @@ TEXT_EDITS = {   # owner-requested wording corrections: Simon Voysey's title; Co
 }
 TEXT_EDITS_MORE = {   # owner-requested policy/text corrections (see docs/10-build-and-test-results.md)
     "privacy-notice": [("registered at Wrest Park, Silsoe, Bedfordshire MK45 4HR, United Kingdom", "registered at 2 Furl Close, Maids Moreton, Buckingham, MK18 1EF")],
-    "cookie-information": [("<p>We use a disclaimer in line with compliance to make sure that you agree to the Disclaimer of using darwinpim.com</p>\n", "")],
+    "cookie-information": [("<h2>Content Management System Session Cookie</h2>\n<p>The cookie performs a custom session function for this website. The cookie is created by this (globalwms.com) website’s content management system upon a visitor's arrival. The purpose of the cookie is so that viewing behaviour can be collected in an anonymous form and statistics are displayed in the administrator area.</p>\n<p>This cookie is then removed when a user closes their browser.</p>\n", ""),
+                           ("<p>We use a disclaimer in line with compliance to make sure that you agree to the Disclaimer of using darwinpim.com</p>\n", "")],
 }
 ADDED_PARAS = {   # owner-requested additions (new team member)
     "europe": ['<p>Mike Kew, UK Sales Consultant - United Kingdom<br/>Mobile +44(0) 07802 949751<br/>'
