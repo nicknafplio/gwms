@@ -17,7 +17,7 @@ async function axe(p, label) {
   // Suppress the entry-notice dialog in tests that are not about it
   if (!process.env.SHOW_NOTICE) {
     const nc = b.newContext.bind(b);
-    b.newContext = async o => { const c = await nc(o); await c.addInitScript(() => { try { document.cookie = 'gwms_notice=1; path=/'; document.cookie = 'gwms_cookies=accepted; path=/'; } catch (e) {} }); return c; };
+    b.newContext = async o => { const c = await nc(o); await c.addInitScript(() => { try { document.cookie = 'gwms_notice=1; path=/'; document.cookie = 'gwms_cookies=declined; path=/'; } catch (e) {} }); return c; };
     b.newPage = async o => { const c = await b.newContext(o); return c.newPage(); };
   }
   for (const [name, w, h, touch] of [['desktop',1440,900,false],['mobile',390,844,true]]) {

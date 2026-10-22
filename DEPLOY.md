@@ -25,7 +25,7 @@ Every page is a flat `.html` file in the web root (`about-gwms.html`, `funds.htm
 Pages use **relative** URLs (they open straight from disk) except `404.html`, which uses root-absolute paths because hosts serve it at any URL depth; if the site is ever served from a sub-folder rather than a domain root, only `404.html` needs its paths adjusted.
 
 ## What the site does and does not do
-No analytics, trackers, cookies, external fonts, CDNs or third-party requests (measured). The entry notice uses `sessionStorage` (cleared when the tab closes). Outbound links only: LinkedIn, the Blackstone press release (ASK page) and `https://google.com` (Decline).
+No third-party requests until a visitor clicks Accept in the cookie bar; then Google Analytics 4 (G-4F1S9L903X) loads from googletagmanager.com. No external fonts or CDNs. First-party cookies: `gwms_cookies` (choice, 12 months) and `gwms_notice` (notice acceptance, 30 days, only if accepted). Google Analytics sets `_ga` and `_ga_4F1S9L903X` only after Accept. Outbound links: LinkedIn, the Blackstone press release (ASK page) and `https://google.com` (Decline on the entry notice).
 
 ## Rebuild
 `python3 tools/extract_bodies.py` (only if the captured live text is re-extracted) and `python3 tools/make_preview.py` regenerate `dist/` from one shared definition (nav, footer, pages) plus `tools/content/*.html` (page text) and the asset sources in `preview/css|js|img|fonts|vcards`. Not needed to deploy; only to change the site.

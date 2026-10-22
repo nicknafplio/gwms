@@ -3,6 +3,7 @@
 | Date | Item | Decision |
 |---|---|---|
 | 2026-10-16 | Analytics (D5) | **Dropped.** No Google Analytics/GTM in the new site. |
+| 2026-10-22 | Analytics (D5) | **Reinstated by the owner:** Google Analytics 4, ID G-4F1S9L903X, loaded only after the visitor accepts cookies (cookie bar). Privacy Notice and Cookie Information amended (draft wording for review). |
 | | Entry notice (D6) | **Kept.** Text unchanged; **Decline → https://google.com**. Acceptance remembered per browser session only (`sessionStorage`, no cookie) — to be covered in the policy review. |
 | | Contact e-mail handling (D9) | Left for now (default: plain `mailto:` links). |
 | | Policy facts / approver (04 §3, B5) | Left for now. Existing policy wording stays unchanged in the build. |

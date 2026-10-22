@@ -187,7 +187,7 @@ NOTICE_HTML = '''<dialog class="notice" id="entry-notice" aria-labelledby="notic
 </dialog>'''
 
 COOKIE_BAR = '''<div class="cookie-bar" id="cookie-bar" role="region" aria-label="Cookies" hidden>
-  <p class="cookie-bar__text">We use a cookie to remember that you have accepted our notice, so you are not asked again on every visit. Accept to allow it, or decline to be asked each visit. We do not use analytics or advertising cookies.</p>
+  <p class="cookie-bar__text">We use cookies to remember that you have accepted our notice and, if you accept, Google Analytics cookies to see how the site is used. If you decline, we set only a cookie that records your choice.</p>
   <div class="cookie-bar__actions">
     <button type="button" class="cookie-bar__btn" data-cookie-accept>Accept</button>
     <button type="button" class="cookie-bar__btn" data-cookie-decline>Decline</button>
