@@ -589,7 +589,7 @@ MORE_INFO = {   # slug -> (phrase, website)   owner-supplied links
 def more_info(slug):
     phrase, url = MORE_INFO[slug]
     host = re.sub(r"^https?://(www\.)?", "", url).split("/")[0]
-    return (f'<p class="more-info">For more information on {e(phrase, quote=False)} link to the website '
+    return (f'<p class="more-info">For more information on {e(phrase, quote=False)}, click '
             f'<a class="ext-link" href="{url}" target="_blank" rel="noopener">HERE<span class="ext-link__icon" aria-hidden="true">{ARROW_SVG}</span>'
             f'<span class="sr-only"> External site: {host}. Opens in a new tab.</span></a>.</p>')
 
