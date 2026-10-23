@@ -591,7 +591,7 @@ def more_info(slug):
     host = re.sub(r"^https?://(www\.)?", "", url).split("/")[0]
     return (f'<p class="more-info">For more information on {e(phrase, quote=False)}, click '
             f'<a class="ext-link" href="{url}" target="_blank" rel="noopener">HERE<span class="ext-link__icon" aria-hidden="true">{ARROW_SVG}</span>'
-            f'<span class="sr-only"> External site: {host}. Opens in a new tab.</span></a>.</p>')
+            f'<span class="sr-only"> External site: {host}. Opens in a new tab.</span></a></p>')
 
 
 ABOUT_SIDE = lambda cur: side_nav(cur, ABOUT_MENU, "About us")

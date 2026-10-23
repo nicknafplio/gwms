@@ -202,3 +202,4 @@ Review points: (1) EPIC has been rebranded to WH Ireland per your note, but the 
 ## Update: Platforms
 Added 'For more information on Veritas Life Guernsey link to the website HERE.' (same format, arrow icon and hover as the fund pages) and the Veritas Life logo is now a link, both to https://veritaslifeguernsey.com/about-us/ (new tab, with screen-reader text). Sentence wording is mine following the fund-page template.
 - 'link to the website' removed from the 'For more information' lines on every page: they now read 'For more information on X, click HERE →.' (one-word choice, easy to change). For 1OAK this edits an existing live sentence, so its word-for-word comparison with the live page now differs by that phrase (intentional).
+- Full stop removed after the arrow on every 'For more information ... click HERE' line (the icon keeps a little room on the right so it does not run to the edge when it drifts).
