@@ -582,6 +582,7 @@ MORE_INFO = {   # slug -> (phrase, website)   owner-supplied links
     "pecora-qms": ("Pecora QMS", "https://www.pecoracapital.com/"),
     "ask-capital-india-entrepreneur-fund": ("the ASK Indian Entrepreneur Fund", "https://www.askfinancials.com/ask-capital/home"),
     "investment-management-solutions": ("Resilience Asset Management", "https://resilience.im/"),
+    "platforms": ("Veritas Life Guernsey", "https://veritaslifeguernsey.com/about-us/"),
 }
 
 
@@ -721,8 +722,11 @@ for slug, h1 in [("africa", "Africa"), ("americas-caribbean", "Americas & Caribb
                   f'height="{round(h_ * 2)}" alt="">\n')      # decorative: the page heading already names the region
     add("/" + slug, h1, article(h1, people(body_of(slug)), ABOUT_SIDE("/" + slug), lead=region_map), "about")
 
-add("/platforms", "Platforms", article("Platforms", body_of("platforms"), None,
-    logo("platforms/veritas-life.svg", "Veritas Life", 296, 114), banner_title="Platforms"), None)
+VERITAS_LOGO = (f'<a href="{MORE_INFO["platforms"][1]}" target="_blank" rel="noopener">'
+                + logo("platforms/veritas-life.svg", "Veritas Life", 296, 114)
+                + '<span class="sr-only"> External site: veritaslifeguernsey.com. Opens in a new tab.</span></a>')
+add("/platforms", "Platforms", article("Platforms", body_of("platforms") + "\n" + more_info("platforms"), None,
+    VERITAS_LOGO, banner_title="Platforms"), None)
 add("/investment-management-solutions", "Investment Management Solutions",
     article("Investment Management Solutions", body_of("investment-management-solutions") + "\n" + more_info("investment-management-solutions"), None,
             logo("investment/resilience-asset-management.svg", "Resilience Asset Management", 1024, 229),

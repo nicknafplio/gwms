@@ -437,6 +437,7 @@
 /* "For more information ... link to the website HERE" with an arrow icon that greys and drifts right on hover */
 .more-info { margin-top: var(--s-5); }
 .ext-link { font-weight: 700; }
-.ext-link__icon { display: inline-block; width: 1em; height: 1em; margin-left: 0.3em; margin-right: 0.5em; vertical-align: -0.12em; transition: transform 0.7s ease, color 0.7s ease; }
+.ext-link__icon { display: inline-block; width: 1em; height: 1em; margin-left: 0.3em; margin-right: 0.25em; vertical-align: -0.12em; transition: transform 0.7s ease, color 0.7s ease; }
 .ext-link__icon svg { display: block; width: 100%; height: 100%; }
-.ext-link:hover .ext-link__icon, .ext-link:focus-visible .ext-link__icon { color: var(--gw-grey); transform: translateX(0.5em); }
+.ext-link:hover .ext-link__icon, .ext-link:focus-visible .ext-link__icon { color: var(--gw-grey); transform: translateX(0.3em); }
+.split__logo a { display: block; }
