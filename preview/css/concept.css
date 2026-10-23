@@ -148,7 +148,7 @@
 .card__logo--mark { background: none; padding: 0; border-radius: 0; justify-items: start; }
 .card__logo--mark img { width: 100%; height: 100%; max-height: none; object-fit: contain; object-position: left center; }
 .card__logo--oak img { width: auto; height: 4.4rem; }  /* the 1OAK mark is tall and dense; scaled so it does not outweigh the others */
-.card__logo--epic img { width: auto; height: 6.41rem; }  /* 10% then a further 5% smaller than the 7.5rem logo area */
+.card__logo--wh img { width: 80%; height: auto; max-height: none; align-self: center; }  /* wide wordmark: sized by the card width like the other logos */
 
 /* ---- Second-section index: arrow in a blue square (silver arrow); hover reverses colours and slides left ---- */
 .statement--plain .index a::after,
@@ -232,7 +232,6 @@
   .funds__head { margin-bottom: var(--s-4); }
   .card__logo { height: 4.5rem; margin-bottom: var(--s-3); }
   .card__logo--oak img { height: 2.64rem; }
-  .card__logo--epic img { height: 3.85rem; }
 }
 
 /* ==========================================================================
@@ -320,7 +319,6 @@
 @media (min-width: 52rem) {
   .funds .card__logo { height: 4rem; }
   .funds .card__logo--oak img { height: 3rem; }
-  .funds .card__logo--epic img { height: 3.76rem; }
 }
 
 /* Meet the Team: each entry is a card (whole row is the link to the personal page) */

@@ -337,17 +337,17 @@ def write(rel, content, root=None, raw=False):
 # ---------------------------------------------------------------------------------------
 CARDS = [  # (group, name as in menu, url, logo file, logo alt)
     ("Multi Asset", "1OAK Multi Asset (MA80) Fund (Growth)", "/1oak-multi-asset-funds-guided-by-blackrock", "1oak-white.svg", "1OAK"),
-    ("Multi Asset", "EPIC Wealth Fund (Balanced)", "/epic-investment-partners", "epic-white.svg", "EPIC Investment Partners"),
+    ("Multi Asset", "EPIC Wealth Fund (Balanced)", "/epic-investment-partners", "wh-ireland-white.svg", "WH Ireland"),
     ("Equities", "ASK Indian Entrepreneur Fund", "/ask-capital-india-entrepreneur-fund", "ask-white.svg", "ASK Investment Managers"),
     ("Equities", "Pecora Chatrier Equity (Value)", "/pecora-chatrier-equity-value", "pecora-capital-white.svg", "Pecora Capital"),
     ("Fixed Interest", "Pecora Manning & Napier High Yield Bond Strategy", "/pecora-manning-napier-high-yield-bond-strategy", "pecora-capital-white.svg", "Pecora Capital"),
     ("Alternative Strategies", "Levendi Thornbridge Defined Return Fund", "/levendi-thornbridge-defined-return-fund", "levendi-thornbridge-white.svg", "Causeway Securities"),
     ("Alternative Strategies", "Pecora QMS", "/pecora-qms", "pecora-capital-white.svg", "Pecora Capital"),
 ]
-LOGO_DIMS = {"1oak-white.svg": (892, 368), "epic-white.svg": (515, 193), "ask-white.svg": (1000, 159),
+LOGO_DIMS = {"1oak-white.svg": (892, 368), "wh-ireland-white.svg": (711, 71), "ask-white.svg": (1000, 159),
              "pecora-capital-white.svg": (761, 121), "levendi-thornbridge-white.svg": (287, 55)}   # intrinsic sizes, avoids layout shift
 cards_html = "\n".join(
-    f'''<li><a class="card" href="{u}"><span class="card__logo{' card__logo--mark' if lg.endswith('.svg') else ''}{' card__logo--oak' if lg.startswith('1oak') else ''}{' card__logo--epic' if lg.startswith('epic') else ''}"><img src="/img/funds/{lg}" width="{LOGO_DIMS[lg][0]}" height="{LOGO_DIMS[lg][1]}" alt="{e(alt)}" loading="lazy"></span>
+    f'''<li><a class="card" href="{u}"><span class="card__logo{' card__logo--mark' if lg.endswith('.svg') else ''}{' card__logo--oak' if lg.startswith('1oak') else ''}{' card__logo--wh' if lg.startswith('wh-ireland') else ''}"><img src="/img/funds/{lg}" width="{LOGO_DIMS[lg][0]}" height="{LOGO_DIMS[lg][1]}" alt="{e(alt)}" loading="lazy"></span>
 <span class="card__group">{e(g)}</span><span class="card__name">{e(n, quote=False)}</span></a></li>'''
     for g, n, u, lg, alt in CARDS)
 
@@ -465,7 +465,7 @@ CONCEPT_FOOTER = f'''<footer class="site-footer site-footer--wide on-dark">
 # FUNDS INDEX PAGE (new page: lists the existing funds, existing group names only)
 # ---------------------------------------------------------------------------------------
 def fund_card(g, n, u, lg, alt):
-    cls = "card__logo card__logo--mark" + (" card__logo--oak" if lg.startswith("1oak") else "") + (" card__logo--epic" if lg.startswith("epic") else "")
+    cls = "card__logo card__logo--mark" + (" card__logo--oak" if lg.startswith("1oak") else "") + (" card__logo--wh" if lg.startswith("wh-ireland") else "")
     return (f'<li><a class="card card--solid" href="{u}"><span class="{cls}"><img src="/img/funds/{lg}" alt="{e(alt)}" loading="lazy"></span>'
             f'<span class="card__group">{e(g)}</span><span class="card__name">{e(n, quote=False)}</span></a></li>')
 
@@ -597,7 +597,7 @@ def more_info(slug):
 ABOUT_SIDE = lambda cur: side_nav(cur, ABOUT_MENU, "About us")
 FUND_PAGES = [  # slug, h1, header logo
     ("1oak-multi-asset-funds-guided-by-blackrock", "1OAK Multi Asset (MA80) Fund", logo("funds/1oak-dark.svg", "1OAK", 515, 193, wide=False)),
-    ("epic-investment-partners", "EPIC Investment Partners", logo("funds/epic-dark.svg", "EPIC Investment Partners", 515, 193, wide=False)),
+    ("epic-investment-partners", "EPIC Investment Partners", logo("funds/wh-ireland-dark.svg", "WH Ireland", 711, 71)),
     ("levendi-thornbridge-defined-return-fund", "Levendi Thornbridge Defined Return Fund", logo("funds/causeway-dark.svg", "Causeway Securities", 1000, 193)),
     ("pecora-chatrier-equity-value", "Pecora Chatrier Equity (Value)", logo("funds/pecora-capital-dark.svg", "Pecora Capital", 761, 121)),
     ("pecora-manning-napier-high-yield-bond-strategy", "Pecora Manning & Napier High Yield Bond Strategy", logo("funds/pecora-capital-dark.svg", "Pecora Capital", 761, 121)),
