@@ -257,6 +257,7 @@ ASK = f'''<div class="container page">
 <li>Entrepreneur-run companies are among the largest wealth creators in India. This makes such a portfolio an excellent way to access the country’s growth potential.</li>
 <li>ASK Indian Entrepreneur Fund is a Dublin based daily dealing ICAV.</li>
 </ul>
+@@ASK_MORE@@
       </div>
       </div>
       <section class="footnotes" aria-labelledby="fn-title">
@@ -571,6 +572,27 @@ def people(content):
     return (m.group(1) or "") + '<div class="people">\n' + m.group(2) + "\n</div>"
 
 
+ARROW_SVG = '<svg viewBox="0 0 24 24" width="1em" height="1em" focusable="false"><path d="M4 12h15M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="square"/></svg>'
+MORE_INFO = {   # slug -> (phrase, website)   owner-supplied links
+    "1oak-multi-asset-funds-guided-by-blackrock": ("the 1OAK Multi Asset Fund strategies", "https://www.1oakgroup.com"),
+    "epic-investment-partners": ("the EPIC Wealth Fund", "https://www.whirelandplc.com/funds/multi-asset/whi-wealth-fund/"),
+    "levendi-thornbridge-defined-return-fund": ("the Levendi Thornbridge Defined Return Fund", "https://causeway-securities.com/funds/levendi-thornbridge-defined-return-fund/"),
+    "pecora-chatrier-equity-value": ("Pecora Chatrier Equity (Value)", "https://www.pecoracapital.com/"),
+    "pecora-manning-napier-high-yield-bond-strategy": ("the Pecora Manning & Napier High Yield Bond Strategy", "https://www.pecoracapital.com/"),
+    "pecora-qms": ("Pecora QMS", "https://www.pecoracapital.com/"),
+    "ask-capital-india-entrepreneur-fund": ("the ASK Indian Entrepreneur Fund", "https://www.askfinancials.com/ask-capital/home"),
+    "investment-management-solutions": ("Resilience Asset Management", "https://resilience.im/"),
+}
+
+
+def more_info(slug):
+    phrase, url = MORE_INFO[slug]
+    host = re.sub(r"^https?://(www\.)?", "", url).split("/")[0]
+    return (f'<p class="more-info">For more information on {e(phrase, quote=False)} link to the website '
+            f'<a class="ext-link" href="{url}" target="_blank" rel="noopener">HERE<span class="ext-link__icon" aria-hidden="true">{ARROW_SVG}</span>'
+            f'<span class="sr-only"> External site: {host}. Opens in a new tab.</span></a>.</p>')
+
+
 ABOUT_SIDE = lambda cur: side_nav(cur, ABOUT_MENU, "About us")
 FUND_PAGES = [  # slug, h1, header logo
     ("1oak-multi-asset-funds-guided-by-blackrock", "1OAK Multi Asset (MA80) Fund", logo("funds/1oak-dark.svg", "1OAK", 515, 193, wide=False)),
@@ -590,10 +612,13 @@ def add(path, title, html, section=None):
 
 add("/", "Home page", CONCEPT)
 add("/funds", "Funds", FUNDS_PAGE, "funds")
+ASK = ASK.replace("@@ASK_MORE@@", more_info("ask-capital-india-entrepreneur-fund"))
 add(ASK_PATH, "ASK Indian Entrepreneur Fund", ASK, "funds")
 for slug, h1, lg in FUND_PAGES:
     path = "/" + slug
-    add(path, h1, article(h1, body_of(slug), side_nav(path), lg), "funds")
+    body = body_of(slug)
+    body = re.sub(r'<p>\s*For more information on the 1OAK.*?</p>', '', body, flags=re.S)   # re-issued below with the arrow icon
+    add(path, h1, article(h1, body + "\n" + more_info(slug), side_nav(path), lg), "funds")
 
 ABOUT = '''<p>Established in 2003, Global Wealth Management Solutions (GWMS) provides access to a suite of best of breed financial products. We are trusted by banks, institutions, captives, trust companies, family offices and boutique fund managers, who value our exceptional market knowledge, excellent service levels and strong track record.</p>
 <p>Our management team has over 150 years of financial services experience and provides the highest levels of support, professionalism and integrity. Most of our Partners and senior staff have been with us for more than 10 years. As a result, we have developed a sustainable and successful business, based on longevity, experience, security and value.</p>
@@ -699,7 +724,7 @@ for slug, h1 in [("africa", "Africa"), ("americas-caribbean", "Americas & Caribb
 add("/platforms", "Platforms", article("Platforms", body_of("platforms"), None,
     logo("platforms/veritas-life.svg", "Veritas Life", 296, 114), banner_title="Platforms"), None)
 add("/investment-management-solutions", "Investment Management Solutions",
-    article("Investment Management Solutions", body_of("investment-management-solutions"), None,
+    article("Investment Management Solutions", body_of("investment-management-solutions") + "\n" + more_info("investment-management-solutions"), None,
             logo("investment/resilience-asset-management.svg", "Resilience Asset Management", 1024, 229),
             banner_title="Investment Management Solutions"), None)
 add("/structured-products", "Structured Products", article("Structured Products", body_of("structured-products"), banner_title="Structured Products",
