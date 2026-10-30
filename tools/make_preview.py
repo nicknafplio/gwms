@@ -17,7 +17,8 @@ FUNDS_MENU = [  # group order: Multi Asset, Equities, Fixed Interest, Alternativ
         ("ASK Indian Entrepreneur Fund", "/ask-capital-india-entrepreneur-fund"),
         ("Pecora Chatrier Equity (Value)", "/pecora-chatrier-equity-value")]),
     ("Fixed Interest", [
-        ("Pecora Manning & Napier High Yield Bond Strategy", "/pecora-manning-napier-high-yield-bond-strategy")]),
+        ("Pecora Manning & Napier High Yield Bond Strategy", "/pecora-manning-napier-high-yield-bond-strategy"),
+        ("Pecora Arena Capital Strategic Short Duration Fund", "/pecora-arena-capital-strategic-short-duration-fund")]),
     ("Alternative Strategies", [
         ("Levendi Thornbridge Defined Return Fund", "/levendi-thornbridge-defined-return-fund"),
         ("Pecora QMS", "/pecora-qms")]),
@@ -33,7 +34,8 @@ SIDE_NAV = [
                      ("EPIC Wealth Fund (Balanced)", "/epic-investment-partners")]),
     ("Equities", [("ASK Indian Entrepreneur Fund", "/ask-capital-india-entrepreneur-fund"),
                   ("Pecora Chatrier Equity (Value)", "/pecora-chatrier-equity-value")]),
-    ("Fixed Interest", [("Pecora Manning & Napier High Yield Bond Strategy", "/pecora-manning-napier-high-yield-bond-strategy")]),
+    ("Fixed Interest", [("Pecora Manning & Napier High Yield Bond Strategy", "/pecora-manning-napier-high-yield-bond-strategy"),
+                        ("Pecora Arena Capital Strategic Short Duration Fund", "/pecora-arena-capital-strategic-short-duration-fund")]),
     ("Alternative Strategies", [("Levendi Thornbridge Defined Return Fund", "/levendi-thornbridge-defined-return-fund"),
                                 ("Pecora QMS", "/pecora-qms")]),
 ]
@@ -342,6 +344,7 @@ CARDS = [  # (group, name as in menu, url, logo file, logo alt)
     ("Equities", "ASK Indian Entrepreneur Fund", "/ask-capital-india-entrepreneur-fund", "ask-white.svg", "ASK Investment Managers"),
     ("Equities", "Pecora Chatrier Equity (Value)", "/pecora-chatrier-equity-value", "pecora-capital-white.svg", "Pecora Capital"),
     ("Fixed Interest", "Pecora Manning & Napier High Yield Bond Strategy", "/pecora-manning-napier-high-yield-bond-strategy", "pecora-capital-white.svg", "Pecora Capital"),
+    ("Fixed Interest", "Pecora Arena Capital Strategic Short Duration Fund", "/pecora-arena-capital-strategic-short-duration-fund", "pecora-capital-white.svg", "Pecora Capital"),
     ("Alternative Strategies", "Levendi Thornbridge Defined Return Fund", "/levendi-thornbridge-defined-return-fund", "levendi-thornbridge-white.svg", "Causeway Securities"),
     ("Alternative Strategies", "Pecora QMS", "/pecora-qms", "pecora-capital-white.svg", "Pecora Capital"),
 ]
@@ -580,6 +583,7 @@ MORE_INFO = {   # slug -> (phrase, website)   owner-supplied links
     "levendi-thornbridge-defined-return-fund": ("the Levendi Thornbridge Defined Return Fund", "https://causeway-securities.com/funds/levendi-thornbridge-defined-return-fund/"),
     "pecora-chatrier-equity-value": ("Pecora Chatrier Equity (Value)", "https://www.pecoracapital.com/"),
     "pecora-manning-napier-high-yield-bond-strategy": ("the Pecora Manning & Napier High Yield Bond Strategy", "https://www.pecoracapital.com/"),
+    "pecora-arena-capital-strategic-short-duration-fund": ("the Pecora Arena Capital Strategic Short Duration Fund", "https://www.pecoracapital.com/"),
     "pecora-qms": ("Pecora QMS", "https://www.pecoracapital.com/"),
     "ask-capital-india-entrepreneur-fund": ("the ASK Indian Entrepreneur Fund", "https://www.askfinancials.com/ask-capital/home"),
     "investment-management-solutions": ("Resilience Asset Management", "https://resilience.im/"),
@@ -602,6 +606,7 @@ FUND_PAGES = [  # slug, h1, header logo
     ("levendi-thornbridge-defined-return-fund", "Levendi Thornbridge Defined Return Fund", logo("funds/causeway-dark.svg", "Causeway Securities", 1000, 193)),
     ("pecora-chatrier-equity-value", "Pecora Chatrier Equity (Value)", logo("funds/pecora-capital-dark.svg", "Pecora Capital", 761, 121)),
     ("pecora-manning-napier-high-yield-bond-strategy", "Pecora Manning & Napier High Yield Bond Strategy", logo("funds/pecora-capital-dark.svg", "Pecora Capital", 761, 121)),
+    ("pecora-arena-capital-strategic-short-duration-fund", "Pecora Arena Capital Strategic Short Duration Fund", logo("funds/pecora-capital-dark.svg", "Pecora Capital", 761, 121)),
     ("pecora-qms", "Pecora QMS", logo("funds/pecora-capital-dark.svg", "Pecora Capital", 761, 121)),
 ]
 
