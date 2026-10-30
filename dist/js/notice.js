@@ -32,4 +32,5 @@
   });
   document.documentElement.classList.add("notice-open");
   dlg.showModal();
+  dlg.scrollTop = 0;   // on small screens the autofocused button must not scroll the heading out of view
 })();

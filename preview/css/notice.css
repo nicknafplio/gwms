@@ -40,3 +40,7 @@ html.cookie-bar-open body { padding-bottom: var(--cookie-bar-h, 0px); }
 }
 .cookie-reopen:hover { background: var(--mist); }
 .cookie-reopen[hidden] { display: none; }
+@media (max-width: 40rem) {
+  .notice__body { padding: var(--s-5); }
+  .notice h2 { font-size: var(--step-1); line-height: 1.25; }
+}

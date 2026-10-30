@@ -173,12 +173,13 @@ def page(title, path, body, section=None, extra_head="", footer=None, extra_scri
 
 
 
-# Entry notice: wording copied verbatim from the live site's modal (audit/baseline/pages/home.html).
+# Entry notice: wording supplied by the client (October 2026 feedback), replacing the live site's original text.
 NOTICE_HTML = '''<dialog class="notice" id="entry-notice" aria-labelledby="notice-title">
   <div class="notice__body">
-    <h2 id="notice-title">Notice</h2>
-    <p>Global Wealth Management Solutions deals exclusively with Intermediaries.</p>
-    <p>It does not provide advice to Private Clients or the Public in general; therefore in the event of any part or all of the website being accessed by or coming into the hands of Private Clients or the Public in general, none of its content should be construed as explicit or implicit advice of any kind.</p>
+    <h2 id="notice-title">Important notice — for financial intermediaries and eligible professional investors only</h2>
+    <p>Global Wealth Management Solutions LLP (“GWMS”) deals with financial intermediaries and investors who meet the applicable eligibility and client-classification requirements. GWMS does not provide advice or services directly to retail clients.</p>
+    <p>This website is intended solely for financial intermediaries acting in a professional capacity and eligible professional investors. Its content is provided for information only and does not constitute investment, legal or tax advice, or a personal recommendation to invest in any product or strategy.</p>
+    <p>The information is not intended for distribution to, or reliance upon by, retail clients. Retail clients should seek advice from an appropriately authorised adviser regarding their own circumstances.</p>
     <div class="notice__actions">
       <button type="button" class="notice__accept" data-notice-accept autofocus>ACCEPT</button>
       <a class="notice__decline" href="https://google.com">DECLINE</a>

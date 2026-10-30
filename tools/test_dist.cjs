@@ -12,7 +12,7 @@ let fails = 0; const ok = (c, m) => { console.log((c ? 'PASS ' : 'FAIL ') + m); 
   await p.goto(BASE + '/', { waitUntil: 'networkidle' });
   ok(await p.isVisible('#entry-notice'), 'entry notice shown on first visit');
   ok(await p.evaluate(() => document.activeElement && document.activeElement.hasAttribute('data-notice-accept')), 'focus starts on ACCEPT');
-  ok((await p.textContent('#entry-notice')).includes('deals exclusively with Intermediaries'), 'notice wording present (verbatim from live site)');
+  ok((await p.textContent('#entry-notice')).includes('GWMS does not provide advice or services directly to retail clients') && (await p.textContent('#entry-notice')).includes('Important notice'), 'notice wording present (client-supplied text)');
   await p.evaluate(AXE); let r = await p.evaluate(() => axe.run(document, { runOnly: ['wcag2a','wcag2aa','wcag21a','wcag21aa','wcag22aa','best-practice'] }));
   ok(r.violations.length === 0, 'axe with notice open: ' + (r.violations.map(v => v.id).join(',') || '0 violations'));
   await p.keyboard.press('Escape'); ok(await p.isVisible('#entry-notice'), 'Escape does not dismiss the notice');
