@@ -154,7 +154,12 @@ def page(title, path, body, section=None, extra_head="", footer=None, extra_scri
 {'<meta name="robots" content="noindex">' if STAGING and not robots else ""}
 {"" if robots else f'<link rel="canonical" href="{SITE}{"/" if path == "/" else path + ".html"}">'}
 {f'<meta name="robots" content="{robots}">' if robots else ""}
-<link rel="icon" type="image/png" sizes="32x32" href="/img/gw-icon.png">
+<link rel="icon" href="/favicon.ico" sizes="48x48">
+<link rel="icon" type="image/png" sizes="32x32" href="/img/icons/favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/img/icons/favicon-16.png">
+<link rel="apple-touch-icon" href="/img/icons/apple-touch-icon.png">
+<link rel="manifest" href="/site.webmanifest">
+<meta name="theme-color" content="#1a3d6c">
 <link rel="stylesheet" href="/css/tokens.css">
 <link rel="stylesheet" href="/css/base.css">
 <link rel="stylesheet" href="/css/components.css">
@@ -296,11 +301,16 @@ def page_href(url):
     return "index.html" if url == "/" else url.strip("/") + ".html"
 
 
+PLAIN_FILE = re.compile(r"\.(ico|webmanifest|xml|txt|pdf)$")
+
+
 def portable(content):
     """Pages sit at the site root, so every internal URL becomes a plain relative path and the
     site opens straight from disk (file://) as well as on any host."""
     def fix(m):
         attr, url = m.group(1), m.group(2)
+        if PLAIN_FILE.search(url):
+            return f'{attr}="{url[1:]}"'
         if re.match(rf"/({ASSET_DIRS})/", url):
             bust = f"?v={ASSET_V}" if re.match(r"/(css|js|img/regions)/", url) else ""
             return f'{attr}="{url[1:]}{bust}"'
@@ -319,7 +329,7 @@ def absolute(content):
     site lives in a sub-folder), with '.html' added to page links."""
     def fix(m):
         attr, url = m.group(1), m.group(2)
-        if re.match(rf"/({ASSET_DIRS})/", url):
+        if PLAIN_FILE.search(url) or re.match(rf"/({ASSET_DIRS})/", url):
             return f'{attr}="{BASE}{url}"'
         if url == "/":
             return f'{attr}="{BASE}/"'
@@ -796,7 +806,41 @@ AddType image/svg+xml .svg
 AddType font/woff2 .woff2
 AddType text/vcard .vcf
 
+# --- Security headers (need mod_headers; harmless if it is missing)
+<IfModule mod_headers.c>
+Header always set X-Content-Type-Options "nosniff"
+Header always set X-Frame-Options "SAMEORIGIN"
+Header always set Referrer-Policy "strict-origin-when-cross-origin"
+Header always set Permissions-Policy "geolocation=(), microphone=(), camera=(), payment=(), usb=()"
+Header always set Content-Security-Policy "default-src 'self'; script-src 'self' https://www.googletagmanager.com; connect-src 'self' https://www.google-analytics.com https://*.google-analytics.com https://*.analytics.google.com https://*.googletagmanager.com; img-src 'self' data: https://www.google-analytics.com https://*.google-analytics.com https://www.googletagmanager.com; style-src 'self'; font-src 'self'; frame-ancestors 'self'; base-uri 'self'; form-action 'self'; object-src 'none'"
+# HSTS: enable ONLY once https works on every page and on the www and non-www address (it cannot be undone quickly).
+# Header always set Strict-Transport-Security "max-age=31536000; includeSubDomains"
+</IfModule>
+
+# --- Compression and browser caching (css/js/map links carry a ?v= version tag, so long caching is safe)
+<IfModule mod_deflate.c>
+AddOutputFilterByType DEFLATE text/html text/css application/javascript image/svg+xml application/manifest+json text/xml text/plain
+</IfModule>
+<IfModule mod_expires.c>
+ExpiresActive On
+ExpiresByType text/html "access plus 0 seconds"
+ExpiresByType text/css "access plus 1 year"
+ExpiresByType application/javascript "access plus 1 year"
+ExpiresByType font/woff2 "access plus 1 year"
+ExpiresByType image/webp "access plus 1 month"
+ExpiresByType image/jpeg "access plus 1 month"
+ExpiresByType image/png "access plus 1 month"
+ExpiresByType image/svg+xml "access plus 1 month"
+ExpiresByType image/x-icon "access plus 1 week"
+ExpiresByType image/vnd.microsoft.icon "access plus 1 week"
+ExpiresByType application/manifest+json "access plus 1 week"
+</IfModule>
+AddType application/manifest+json .webmanifest
+
 RewriteEngine On
+# --- Force https (uncomment once the certificate is active; replace www handling to suit your chosen address)
+# RewriteCond %{HTTPS} !=on
+# RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [R=301,L]
 # Joomla-era duplicates of the home page and of every page
 RewriteRule ^index\\.php/?$ @BASE@/ [R=301,L]
 RewriteRule ^home/?$ @BASE@/ [R=301,L]
@@ -825,9 +869,11 @@ write(".htaccess", HTACCESS, root=DIST, raw=True)
 for vc, card in vcards_out.items():      # real vCards replace the placeholders in the source folder
     (OUT / "vcards" / f"{vc}.vcf").write_text(card, encoding="utf-8", newline="")
 # assets: css/js/fonts/vcards whole (small); images only if referenced
+for f_ in ("favicon.ico", "site.webmanifest"):
+    shutil.copy2(OUT / f_, DIST / f_)
 for d in ("css", "js", "fonts", "vcards"):
     shutil.copytree(OUT / d, DIST / d)
-text = "".join(f.read_text(encoding="utf-8", errors="ignore") for f in DIST.rglob("*") if f.suffix in (".html", ".css", ".js"))
+text = "".join(f.read_text(encoding="utf-8", errors="ignore") for f in DIST.rglob("*") if f.suffix in (".html", ".css", ".js", ".webmanifest"))
 used = sorted(set(["img/og-image.jpg"] + re.findall(r"img/[A-Za-z0-9_\-./]+\.(?:webp|png|jpg|svg)", text)))
 for rel in used:
     src = OUT / rel

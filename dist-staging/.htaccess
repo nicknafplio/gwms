@@ -6,7 +6,41 @@ AddType image/svg+xml .svg
 AddType font/woff2 .woff2
 AddType text/vcard .vcf
 
+# --- Security headers (need mod_headers; harmless if it is missing)
+<IfModule mod_headers.c>
+Header always set X-Content-Type-Options "nosniff"
+Header always set X-Frame-Options "SAMEORIGIN"
+Header always set Referrer-Policy "strict-origin-when-cross-origin"
+Header always set Permissions-Policy "geolocation=(), microphone=(), camera=(), payment=(), usb=()"
+Header always set Content-Security-Policy "default-src 'self'; script-src 'self' https://www.googletagmanager.com; connect-src 'self' https://www.google-analytics.com https://*.google-analytics.com https://*.analytics.google.com https://*.googletagmanager.com; img-src 'self' data: https://www.google-analytics.com https://*.google-analytics.com https://www.googletagmanager.com; style-src 'self'; font-src 'self'; frame-ancestors 'self'; base-uri 'self'; form-action 'self'; object-src 'none'"
+# HSTS: enable ONLY once https works on every page and on the www and non-www address (it cannot be undone quickly).
+# Header always set Strict-Transport-Security "max-age=31536000; includeSubDomains"
+</IfModule>
+
+# --- Compression and browser caching (css/js/map links carry a ?v= version tag, so long caching is safe)
+<IfModule mod_deflate.c>
+AddOutputFilterByType DEFLATE text/html text/css application/javascript image/svg+xml application/manifest+json text/xml text/plain
+</IfModule>
+<IfModule mod_expires.c>
+ExpiresActive On
+ExpiresByType text/html "access plus 0 seconds"
+ExpiresByType text/css "access plus 1 year"
+ExpiresByType application/javascript "access plus 1 year"
+ExpiresByType font/woff2 "access plus 1 year"
+ExpiresByType image/webp "access plus 1 month"
+ExpiresByType image/jpeg "access plus 1 month"
+ExpiresByType image/png "access plus 1 month"
+ExpiresByType image/svg+xml "access plus 1 month"
+ExpiresByType image/x-icon "access plus 1 week"
+ExpiresByType image/vnd.microsoft.icon "access plus 1 week"
+ExpiresByType application/manifest+json "access plus 1 week"
+</IfModule>
+AddType application/manifest+json .webmanifest
+
 RewriteEngine On
+# --- Force https (uncomment once the certificate is active; replace www handling to suit your chosen address)
+# RewriteCond %{HTTPS} !=on
+# RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [R=301,L]
 # Joomla-era duplicates of the home page and of every page
 RewriteRule ^index\.php/?$ /gwms-new/ [R=301,L]
 RewriteRule ^home/?$ /gwms-new/ [R=301,L]
