@@ -5,7 +5,7 @@ live site (audit/baseline/text/*.txt); tools/verify_preview.py checks that."""
 import html, os, pathlib, re, sys
 
 OUT = pathlib.Path(__file__).resolve().parent.parent / "preview"
-SITE = "https://globalwms.com"
+SITE = os.environ.get("SITE_URL", "https://globalwms.com").rstrip("/")   # public address used in canonical, og:url, og:image, sitemap
 DESC = "Global investors deserve better - now you can provide it"  # existing, unchanged
 
 # --- navigation (labels verbatim from the live menus) -------------------------------------

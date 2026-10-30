@@ -20,6 +20,10 @@ Apache shows *"Additionally, a 404 Not Found error was encountered while trying 
 2. The site is in a **sub-folder** (e.g. `https://example.com/gwms/`) but `.htaccess` says `/404.html` (the domain root). Either edit line 4 of `.htaccess` to `ErrorDocument 404 /gwms/404.html`, or build for that folder: `SITE_BASE=/gwms python3 tools/make_preview.py` (this also prefixes the 404 page's CSS/links and the redirect targets). On a domain or sub-domain root nothing needs changing.
 The extension-less redirects now test for `<name>.html` next to the requested path, so they work in a sub-folder too.
 
+## Link previews (WhatsApp, Facebook, LinkedIn, Slack ...)
+The page's Open Graph tags (`og:url`, `og:image`, `canonical`, the sitemap) contain **absolute addresses**, `https://globalwms.com` by default. Chat apps fetch the page, then follow `og:url` to the "official" address and read the tags *there*. So on a staging site (or before launch, while globalwms.com is still the old site) the preview comes out empty: the tags point at an address that does not carry them or the image. For a staging check, build with the staging address:
+`SITE_URL=https://staging.example.com python3 tools/make_preview.py` (add the folder if it is in one: `SITE_URL=https://example.com/gwms`; use `SITE_BASE=/gwms` as well for the 404 page and .htaccess). For launch, build with the default and upload that. WhatsApp and Facebook cache previews hard: after fixing, test with a *new* link (add `?v=2`) or use Facebook's Sharing Debugger (developers.facebook.com/tools/debug) to re-scrape.
+
 ## Portability
 | Host | What to use |
 |---|---|
