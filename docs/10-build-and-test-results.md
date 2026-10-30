@@ -233,3 +233,4 @@ Tags are present and valid on every page (title, description, 1200x630 image of 
 
 ## Update: pre-launch hardening
 Added favicons, touch icons and web manifest (`favicon.ico`, `site.webmanifest`, `img/icons/`), `theme-color`; `.htaccess` security headers (nosniff, X-Frame-Options SAMEORIGIN, Referrer-Policy, Permissions-Policy, Content-Security-Policy for this site + Google Analytics), compression and caching rules, commented https redirect and HSTS lines. `tools/test_csp.cjs` serves all 32 pages with the policy (first visit and accepted-cookies visit) and finds no violations; Google requests were stubbed. See docs/11-launch-checklist.md. Not testable here: Apache behaviour of the new rules, real Google Analytics under the policy.
+- Disclaimer page: the client-supplied 'Important notice' text (bold heading + three paragraphs, same wording as the entry notice) added after the first paragraph; the existing terms follow unchanged.
