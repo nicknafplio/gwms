@@ -1,0 +1,46 @@
+/* Entry notice (existing function, kept): modal dialog, shown once per browser session. */
+.notice { border: 0; border-radius: 1rem; padding: 0; width: min(36rem, calc(100vw - 2rem)); max-height: calc(100vh - 2rem); overflow: auto;
+  color: var(--text); background: var(--paper); box-shadow: 0 30px 80px -20px rgba(8, 18, 32, 0.6); }
+.notice::backdrop { background: rgba(10, 30, 56, 0.78); }
+.notice__body { padding: var(--s-6); }
+.notice h2 { font-size: var(--step-2); margin: 0 0 var(--s-3); }
+.notice h3 { font-size: var(--step-1); margin: var(--s-5) 0 var(--s-2); }
+.notice p { margin: 0 0 var(--s-3); }
+.notice__actions { display: flex; flex-wrap: wrap; gap: var(--s-3); margin-top: var(--s-5); }
+.notice__accept, .notice__decline {
+  font: inherit; font-size: 0.8125rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase;
+  padding: 0.8rem 1.5rem; border-radius: 0.25rem; border: 2px solid var(--gw-blue); cursor: pointer; text-decoration: none; line-height: 1.2;
+}
+.notice__accept { background: var(--gw-blue); color: #fff; }
+.notice__accept:hover { background: var(--gw-navy); border-color: var(--gw-navy); }
+.notice__decline { background: transparent; color: var(--gw-blue); }
+.notice__decline:hover { background: var(--mist); }
+html.notice-open { overflow: hidden; }
+
+/* Cookie bar: fixed at the bottom, dark blue with white text. */
+.cookie-bar {
+  position: fixed; left: 0; right: 0; bottom: 0; z-index: 900; background: var(--navy-900); color: #fff;
+  display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: var(--s-3) var(--s-6);
+  padding: var(--s-4) var(--gutter); border-top: 1px solid rgba(255, 255, 255, 0.25); font-size: 0.9375rem; line-height: 1.5;
+}
+.cookie-bar[hidden] { display: none; }
+.cookie-bar__text { margin: 0; flex: 1 1 28rem; max-width: 62rem; }
+.cookie-bar__actions { display: flex; flex-wrap: wrap; align-items: center; gap: var(--s-3); }
+.cookie-bar__btn {
+  font: inherit; font-size: 0.8125rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; line-height: 1.2;
+  padding: 0.65rem 1.25rem; border-radius: 0.25rem; border: 2px solid #fff; background: transparent; color: #fff; cursor: pointer;
+}
+.cookie-bar__btn:hover { background: #fff; color: var(--navy-900); }
+.cookie-bar__more { color: #fff; font-weight: 600; text-underline-offset: 0.25em; }
+.cookie-bar :focus-visible { outline: 3px solid #fff; outline-offset: 3px; }
+html.cookie-bar-open body { padding-bottom: var(--cookie-bar-h, 0px); }
+.cookie-reopen {
+  font: inherit; font-size: 0.8125rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; cursor: pointer;
+  padding: 0.65rem 1.25rem; border-radius: 0.25rem; border: 2px solid var(--gw-blue); background: transparent; color: var(--gw-blue);
+}
+.cookie-reopen:hover { background: var(--mist); }
+.cookie-reopen[hidden] { display: none; }
+@media (max-width: 40rem) {
+  .notice__body { padding: var(--s-5); }
+  .notice h2 { font-size: var(--step-1); line-height: 1.25; }
+}

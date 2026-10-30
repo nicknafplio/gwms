@@ -1,0 +1,31 @@
+# Apache (SiteGround). Plain static site: no PHP/CMS is required.
+Options -Indexes
+DirectoryIndex index.html
+ErrorDocument 404 /gwms-new/404.html
+AddType image/svg+xml .svg
+AddType font/woff2 .woff2
+AddType text/vcard .vcf
+
+RewriteEngine On
+# Joomla-era duplicates of the home page and of every page
+RewriteRule ^index\.php/?$ /gwms-new/ [R=301,L]
+RewriteRule ^home/?$ /gwms-new/ [R=301,L]
+RewriteRule ^index\.php/(.+)$ /gwms-new/$1 [R=301,L]
+# Retired (owner decision): Investment Notification page and its PDF, Joomla login and feeds
+RewriteRule ^investment-notification-form/?$ - [G]
+RewriteRule ^images/documents/ - [G]
+RewriteRule ^component/ - [G]
+# Individual team-member pages (old Joomla URLs); Dawn Parker's page is retired (owner decision)
+RewriteRule ^meet-the-team/25-david-parker/?$ /gwms-new/team-david-parker.html [R=301,L]
+RewriteRule ^meet-the-team/61-james-bottomley/?$ /gwms-new/team-james-bottomley.html [R=301,L]
+RewriteRule ^meet-the-team/28-simon-voysey/?$ /gwms-new/team-simon-voysey.html [R=301,L]
+RewriteRule ^meet-the-team/32-sarah-crow-partner/?$ /gwms-new/team-sarah-crow.html [R=301,L]
+RewriteRule ^meet-the-team/34-jessica-french/?$ /gwms-new/team-jessica-french.html [R=301,L]
+RewriteRule ^meet-the-team/57-dawn-parker/?$ - [G]
+# Old extensionless page URLs -> the same page as <name>.html
+RewriteRule ^about/?$ /gwms-new/about-gwms.html [R=301,L]
+RewriteRule ^cookie-information\.$ /gwms-new/cookie-information.html [R=301,L]
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME}.html -f
+RewriteRule ^([A-Za-z0-9-]+)/?$ /gwms-new/$1.html [R=301,L]

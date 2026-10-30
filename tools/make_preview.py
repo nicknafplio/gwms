@@ -115,6 +115,7 @@ FOOTER = f'''<footer class="site-footer on-dark">
 </footer>'''
 
 
+STAGING = bool(os.environ.get("STAGING"))   # STAGING=1: add <meta name="robots" content="noindex"> (keeps link previews working)
 SITE_NAME = "Global Wealth Management Solutions"
 
 
@@ -150,6 +151,7 @@ def page(title, path, body, section=None, extra_head="", footer=None, extra_scri
 <title>{title}</title>
 <meta name="description" content="{e(DESC)}">
 {og_tags(title, path)}
+{'<meta name="robots" content="noindex">' if STAGING and not robots else ""}
 {"" if robots else f'<link rel="canonical" href="{SITE}{"/" if path == "/" else path + ".html"}">'}
 {f'<meta name="robots" content="{robots}">' if robots else ""}
 <link rel="icon" type="image/png" sizes="32x32" href="/img/gw-icon.png">
@@ -758,7 +760,7 @@ for slug, h1 in [("privacy-notice", "Privacy Notice"), ("disclaimer", "Disclaime
 # DEPLOYABLE SITE  ->  dist/   Every page is a plain .html file at the site root; assets live
 # in their own folders (css, js, fonts, img/*, vcards), each with a blank index.html.
 # =======================================================================================
-DIST = OUT.parent / "dist"
+DIST = OUT.parent / os.environ.get("DIST_DIR", "dist")   # DIST_DIR=dist-staging for a separate staging build
 if DIST.exists():
     shutil.rmtree(DIST)
 DIST.mkdir()

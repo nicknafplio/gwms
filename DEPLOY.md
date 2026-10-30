@@ -22,7 +22,7 @@ The extension-less redirects now test for `<name>.html` next to the requested pa
 
 ## Link previews (WhatsApp, Facebook, LinkedIn, Slack ...)
 The page's Open Graph tags (`og:url`, `og:image`, `canonical`, the sitemap) contain **absolute addresses**, `https://globalwms.com` by default. Chat apps fetch the page, then follow `og:url` to the "official" address and read the tags *there*. So on a staging site (or before launch, while globalwms.com is still the old site) the preview comes out empty: the tags point at an address that does not carry them or the image. For a staging check, build with the staging address:
-`SITE_URL=https://staging.example.com python3 tools/make_preview.py` (add the folder if it is in one: `SITE_URL=https://example.com/gwms`; use `SITE_BASE=/gwms` as well for the 404 page and .htaccess). For launch, build with the default and upload that. WhatsApp and Facebook cache previews hard: after fixing, test with a *new* link (add `?v=2`) or use Facebook's Sharing Debugger (developers.facebook.com/tools/debug) to re-scrape.
+`SITE_URL=https://staging.example.com python3 tools/make_preview.py` (add `STAGING=1` to mark the pages noindex, and `DIST_DIR=dist-staging` to write to a separate folder; add the folder if it is in one: `SITE_URL=https://example.com/gwms`; use `SITE_BASE=/gwms` as well for the 404 page and .htaccess). For launch, build with the default and upload that. WhatsApp and Facebook cache previews hard: after fixing, test with a *new* link (add `?v=2`) or use Facebook's Sharing Debugger (developers.facebook.com/tools/debug) to re-scrape.
 
 ## Portability
 | Host | What to use |
@@ -39,3 +39,6 @@ No third-party requests until a visitor clicks Accept in the cookie bar; then Go
 
 ## Rebuild
 `python3 tools/extract_bodies.py` (only if the captured live text is re-extracted) and `python3 tools/make_preview.py` regenerate `dist/` from one shared definition (nav, footer, pages) plus `tools/content/*.html` (page text) and the asset sources in `preview/css|js|img|fonts|vcards`. Not needed to deploy; only to change the site.
+
+### Staging build for https://dev.anemos-creative.com/gwms-new/
+`STAGING=1 SITE_URL=https://dev.anemos-creative.com/gwms-new SITE_BASE=/gwms-new DIST_DIR=dist-staging python3 tools/make_preview.py` produces `dist-staging/` (committed to the repository on the same branch for convenience; delete it once launched). Upload its contents to the `gwms-new` folder. It is identical to `dist/` except for the absolute addresses (canonical, og:url, og:image, sitemap, robots, 404 page, .htaccess) and a `noindex` tag.
