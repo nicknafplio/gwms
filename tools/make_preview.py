@@ -25,7 +25,7 @@ FUNDS_MENU = [  # group order: Multi Asset, Equities, Fixed Interest, Alternativ
 ABOUT_MENU = [
     ("About GWMS", [("About GWMS", "/about-gwms"), ("Meet the team", "/meet-the-team")]),
     ("Regions", [("Africa", "/africa"), ("Americas & Caribbean", "/americas-caribbean"), ("Asia", "/asia"),
-                 ("Europe", "/europe"), ("Middle East", "/middle-east")]),
+                 ("Europe", "/europe"), ("Middle East", "/middle-east"), ("United Kingdom", "/united-kingdom")]),
 ]
 # Fund-page side navigation (labels verbatim from the live side menu)
 SIDE_NAV = [
@@ -270,7 +270,7 @@ ASK = f'''<div class="container page">
 </div>'''
 
 
-ASSET_DIRS = "css|js|img|fonts|vcards"
+ASSET_DIRS = "css|js|img|fonts|vcards|documents"
 
 
 def _asset_version():
@@ -642,7 +642,7 @@ add("/about-gwms", "Exceptional wealth management solutions",
     article("Exceptional wealth management solutions", ABOUT + "\n" + CREDENTIALS, ABOUT_SIDE("/about-gwms"), banner_title="Exceptional wealth management solutions"), "about")
 
 TEAM = [  # name, role, bio (verbatim), slug
-    ("David Parker", "Chief Executive Officer", "David has 34 years of experience marketing wealth management products to institutions and professional intermediaries.", "david-parker"),
+    ("David Parker", "Chief Executive Officer", "David has 40 years of experience marketing wealth management products to institutions and professional intermediaries.", "david-parker"),
     ("Mike Kew", "UK Sales Consultant", "Mike has over 40 years' experience across stockbroking, private wealth, fund management, and alternative investments.", "mike-kew"),
     ("James Bottomley", "Head of Institutional Sales Asia", "James has 30 years experience in the Financial Services sector.", "james-bottomley"),
     ("Simon Voysey", "International Sales Director", "As an IFA for 10 years in the Middle East I was initially attracted by the best of breed fund range, providing key client solutions for IFAs and Wealth Managers.", "simon-voysey"),
@@ -716,7 +716,7 @@ add("/meet-the-team", "Meet the Team",
     banner("Meet the Team") + f'<div class="container page">\n  <div class="page__layout">\n{ABOUT_SIDE("/meet-the-team")}\n    <article>\n{TEAM_HTML}\n    </article>\n  </div>\n</div>', "about")
 
 for slug, h1 in [("africa", "Africa"), ("americas-caribbean", "Americas & Caribbean"), ("asia", "Asia"),
-                 ("europe", "Europe"), ("middle-east", "Middle East")]:
+                 ("europe", "Europe"), ("middle-east", "Middle East"), ("united-kingdom", "United Kingdom")]:
     vb = re.search(r'viewBox="([\d. ]+)"', (OUT / "img/regions" / f"{slug}.svg").read_text(encoding="utf-8")).group(1).split()
     w_, h_ = float(vb[2]), float(vb[3])
     region_map = (f'<img class="region-map" src="/img/regions/{slug}.svg" width="{round(w_ * 2)}" '
@@ -726,7 +726,11 @@ for slug, h1 in [("africa", "Africa"), ("americas-caribbean", "Americas & Caribb
 VERITAS_LOGO = (f'<a href="{MORE_INFO["platforms"][1]}" target="_blank" rel="noopener">'
                 + logo("platforms/veritas-life.svg", "Veritas Life", 296, 114)
                 + '<span class="sr-only"> External site: veritaslifeguernsey.com. Opens in a new tab.</span></a>')
-add("/platforms", "Platforms", article("Platforms", body_of("platforms") + "\n" + more_info("platforms"), None,
+VERITAS_CARD = ('<a class="doc-card" href="/documents/VeritasLife_G_PPB.pdf" target="_blank" rel="noopener">'
+                '<img class="doc-card__thumb" src="/img/platforms/veritas-life-brochure.jpg" width="900" height="507" alt="" loading="lazy">'
+                '<span class="doc-card__body"><span class="doc-card__title">More about Veritas Life Guernsey</span>'
+                '<span class="doc-card__meta">PDF presentation<span class="sr-only"> (opens in a new tab)</span></span></span></a>')
+add("/platforms", "Platforms", article("Platforms", body_of("platforms") + "\n" + VERITAS_CARD + "\n" + more_info("platforms"), None,
     VERITAS_LOGO, banner_title="Platforms"), None)
 add("/investment-management-solutions", "Investment Management Solutions",
     article("Investment Management Solutions", body_of("investment-management-solutions") + "\n" + more_info("investment-management-solutions"), None,
@@ -734,7 +738,17 @@ add("/investment-management-solutions", "Investment Management Solutions",
             banner_title="Investment Management Solutions"), None)
 add("/structured-products", "Structured Products", article("Structured Products", body_of("structured-products"), banner_title="Structured Products",
             aside_html='<p class="pullquote">Connecting expertise with investment opportunity.</p>'), None)
-add("/contact", "Contact", article("Contact", people(body_of("contact")), banner_title="Contact"), None)
+SALES = [  # name, title, regions (from the region pages), phone line, e-mail user
+    ("David Parker", "Chief Executive Officer", "Africa, Americas &amp; Caribbean, Europe, Middle East, United Kingdom", "Mobile +44 (0)7785 231 333", "david.parker"),
+    ("James Bottomley", "Head of Institutional Sales Asia", "Asia", "UK Mobile +44 (0)7714 932320", "james.bottomley"),
+    ("Simon Voysey", "International Sales Director", "Asia, Europe, Middle East", "UK Mobile +44 (0)7833 674 188", "simon.voysey"),
+    ("Mike Kew", "UK Sales Consultant", "United Kingdom", "Mobile +44(0) 07802 949751", "michael.kew"),
+]
+sales_cards = "\n".join(
+    f'<p>{n}<br/>{t} ({r})<br/>{ph}<br/><span class="mail" data-domain="globalwms.com" data-user="{u}">{u} [at] globalwms.com</span></p>'
+    for n, t, r, ph, u in SALES)
+contact_html = '<h2>Sales Team</h2>\n<div class="people">\n' + sales_cards + '\n</div>\n' + people(body_of("contact"))
+add("/contact", "Contact", article("Contact", contact_html, banner_title="Contact"), None)
 LEGAL_MENU = [("Legal", [("Privacy Notice", "/privacy-notice"), ("Disclaimer", "/disclaimer"), ("Cookie Information", "/cookie-information")])]
 for slug, h1 in [("privacy-notice", "Privacy Notice"), ("disclaimer", "Disclaimer"), ("cookie-information", "Cookie Information")]:
     add("/" + slug, h1, article(h1, body_of(slug), side_nav("/" + slug, LEGAL_MENU, "Legal"), head_above=True), None)
@@ -808,7 +822,7 @@ write(".htaccess", HTACCESS, root=DIST, raw=True)
 for vc, card in vcards_out.items():      # real vCards replace the placeholders in the source folder
     (OUT / "vcards" / f"{vc}.vcf").write_text(card, encoding="utf-8", newline="")
 # assets: css/js/fonts/vcards whole (small); images only if referenced
-for d in ("css", "js", "fonts", "vcards"):
+for d in ("css", "js", "fonts", "vcards", "documents"):
     shutil.copytree(OUT / d, DIST / d)
 text = "".join(f.read_text(encoding="utf-8", errors="ignore") for f in DIST.rglob("*") if f.suffix in (".html", ".css", ".js"))
 used = sorted(set(["img/og-image.jpg"] + re.findall(r"img/[A-Za-z0-9_\-./]+\.(?:webp|png|jpg|svg)", text)))

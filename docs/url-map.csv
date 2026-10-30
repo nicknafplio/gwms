@@ -40,3 +40,5 @@ old_url,new_url,action,redirect_type,note
 /meet-the-team/32-sarah-crow-partner,/team-sarah-crow.html,redirect-301,permanent,"Team-member page, rebuilt as a flat .html file."
 /meet-the-team/34-jessica-french,/team-jessica-french.html,redirect-301,permanent,"Team-member page, rebuilt as a flat .html file."
 /meet-the-team/57-dawn-parker,(none),retire-410,n/a,Dawn Parker removed from the team (owner decision).
+(new),/united-kingdom.html,new-page,n/a,"United Kingdom region page (David Parker, Mike Kew)."
+(new),/documents/VeritasLife_G_PPB.pdf,new-document,n/a,Veritas Life Guernsey presentation linked from Platforms.

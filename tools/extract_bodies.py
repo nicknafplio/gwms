@@ -23,7 +23,7 @@ REMOVED_PEOPLE = {"contact": ["Dawn Parker", "Asma Choudhary", "Emily Karavla"]}
 TEXT_EDITS = {   # owner-requested wording corrections: Simon Voysey's title; Contact page job titles follow the bios
     "contact": [("Sarah Crow - Partner<br/>Head of Commissions &amp; Client Services<br/>T: +44 (0)1525 863772", "Sarah Crow<br/>Head of Commissions &amp; Client Services<br/>M: +44 (0)7876 757253"),
                 ("Jessica French - Partner<br/>Audit and Accounting<br/>T: +44 (0)1525 863772", "Jessica French<br/>Head of Accounts<br/>M: +44 (0)7788 205487")],
-    "europe": [("Simon Voysey – Partner, Iberia", "Simon Voysey – International Sales Director, Iberia")],
+    "europe": [("Simon Voysey – Partner, Iberia, Channel Islands &amp; UK", "Simon Voysey – International Sales Director, Iberia")],
     "middle-east": [("Simon Voysey, Partner - Middle East", "Simon Voysey, International Sales Director - Middle East")],
 }
 TEXT_EDITS_MORE = {   # owner-requested policy/text corrections (see docs/10-build-and-test-results.md)
@@ -35,10 +35,7 @@ TEXT_EDITS_MORE = {   # owner-requested policy/text corrections (see docs/10-bui
     "cookie-information": [("<h2>Content Management System Session Cookie</h2>\n<p>The cookie performs a custom session function for this website. The cookie is created by this (globalwms.com) website’s content management system upon a visitor's arrival. The purpose of the cookie is so that viewing behaviour can be collected in an anonymous form and statistics are displayed in the administrator area.</p>\n<p>This cookie is then removed when a user closes their browser.</p>\n", ""),
                            ("<p>We use a disclaimer in line with compliance to make sure that you agree to the Disclaimer of using darwinpim.com</p>\n", "")],
 }
-ADDED_PARAS = {   # owner-requested additions (new team member)
-    "europe": ['<p>Mike Kew, UK Sales Consultant - United Kingdom<br/>Mobile +44(0) 07802 949751<br/>'
-               '<span class="mail" data-user="michael.kew" data-domain="globalwms.com">michael.kew [at] globalwms.com</span></p>'],
-}
+ADDED_PARAS = {}   # (Mike Kew now lives on the United Kingdom page, tools/content/united-kingdom.html)
 d = lambda s: base64.b64decode(s).decode()
 
 
@@ -145,7 +142,7 @@ MEMBERS = {"david-parker": "25-david-parker", "james-bottomley": "61-james-botto
 
 # Owner-requested edits to the captured member pages (applied after extraction so a re-run keeps them).
 MEMBER_EDITS = {
-    "david-parker": [('<li class="bizcard__detail"><span class="bizcard__key">t:</span> +44(0)1525 862420</li>', "")],
+    "david-parker": [("34 years of experience", "40 years of experience"), ('<li class="bizcard__detail"><span class="bizcard__key">t:</span> +44(0)1525 862420</li>', "")],
     "simon-voysey": [('<li class="bizcard__job">Partner</li>', '<li class="bizcard__job">International Sales Director</li>'),
                      ('<li class="bizcard__detail"><span class="bizcard__key">t:</span> +44 (0) 1525 863774</li>', "")],
     "sarah-crow": [("+44 (01525) 62420", "+44(0)7876 757253")],
