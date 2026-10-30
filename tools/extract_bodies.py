@@ -27,7 +27,8 @@ TEXT_EDITS = {   # owner-requested wording corrections: Simon Voysey's title; Co
     "middle-east": [("Simon Voysey, Partner - Middle East", "Simon Voysey, International Sales Director - Middle East")],
 }
 TEXT_EDITS_MORE = {   # owner-requested policy/text corrections (see docs/10-build-and-test-results.md)
-    "privacy-notice": [("registered at Wrest Park, Silsoe, Bedfordshire MK45 4HR, United Kingdom", "registered at 2 Furl Close, Maids Moreton, Buckingham, MK18 1EF"),
+    "privacy-notice": [("<strong> 25 May 2018</strong>", "<strong> September 2026</strong>"),
+                       ("registered at Wrest Park, Silsoe, Bedfordshire MK45 4HR, United Kingdom", "registered at 2 Furl Close, Maids Moreton, Buckingham, MK18 1EF"),
                        ('Some of this information may be collected using cookies and similar tracking technology, as explained further under the heading "Cookies and similar tracking technology" below.',
                         'If you accept cookies, some of this information is collected using Google Analytics cookies, as explained further under the heading "Cookies and similar tracking technology" below.'),
                        ('We use cookies and similar tracking technology (collectively, "<strong>Cookies</strong>") to collect and use personal information about you. For further information about the types of Cookies we use, why, and how you can control Cookies, please see our Cookie Policy ',
