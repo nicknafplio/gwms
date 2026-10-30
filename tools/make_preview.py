@@ -270,7 +270,7 @@ ASK = f'''<div class="container page">
 </div>'''
 
 
-ASSET_DIRS = "css|js|img|fonts|vcards|documents"
+ASSET_DIRS = "css|js|img|fonts|vcards"
 
 
 def _asset_version():
@@ -726,11 +726,7 @@ for slug, h1 in [("africa", "Africa"), ("americas-caribbean", "Americas & Caribb
 VERITAS_LOGO = (f'<a href="{MORE_INFO["platforms"][1]}" target="_blank" rel="noopener">'
                 + logo("platforms/veritas-life.svg", "Veritas Life", 296, 114)
                 + '<span class="sr-only"> External site: veritaslifeguernsey.com. Opens in a new tab.</span></a>')
-VERITAS_CARD = ('<a class="doc-card" href="/documents/VeritasLife_G_PPB.pdf" target="_blank" rel="noopener">'
-                '<img class="doc-card__thumb" src="/img/platforms/veritas-life-brochure.jpg" width="900" height="507" alt="" loading="lazy">'
-                '<span class="doc-card__body"><span class="doc-card__title">More about Veritas Life Guernsey</span>'
-                '<span class="doc-card__meta">PDF presentation<span class="sr-only"> (opens in a new tab)</span></span></span></a>')
-add("/platforms", "Platforms", article("Platforms", body_of("platforms") + "\n" + VERITAS_CARD + "\n" + more_info("platforms"), None,
+add("/platforms", "Platforms", article("Platforms", body_of("platforms") + "\n" + more_info("platforms"), None,
     VERITAS_LOGO, banner_title="Platforms"), None)
 add("/investment-management-solutions", "Investment Management Solutions",
     article("Investment Management Solutions", body_of("investment-management-solutions") + "\n" + more_info("investment-management-solutions"), None,
@@ -822,7 +818,7 @@ write(".htaccess", HTACCESS, root=DIST, raw=True)
 for vc, card in vcards_out.items():      # real vCards replace the placeholders in the source folder
     (OUT / "vcards" / f"{vc}.vcf").write_text(card, encoding="utf-8", newline="")
 # assets: css/js/fonts/vcards whole (small); images only if referenced
-for d in ("css", "js", "fonts", "vcards", "documents"):
+for d in ("css", "js", "fonts", "vcards"):
     shutil.copytree(OUT / d, DIST / d)
 text = "".join(f.read_text(encoding="utf-8", errors="ignore") for f in DIST.rglob("*") if f.suffix in (".html", ".css", ".js"))
 used = sorted(set(["img/og-image.jpg"] + re.findall(r"img/[A-Za-z0-9_\-./]+\.(?:webp|png|jpg|svg)", text)))

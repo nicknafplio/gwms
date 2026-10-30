@@ -439,16 +439,3 @@
 .ext-link__icon svg { display: block; width: 100%; height: 100%; }
 .ext-link:hover .ext-link__icon, .ext-link:focus-visible .ext-link__icon { color: var(--gw-grey); transform: translateX(0.3em); }
 .split__logo a { display: block; }
-
-/* Document card (Platforms): thumbnail of the PDF + title, whole card is the link */
-.doc-card {
-  display: grid; grid-template-columns: minmax(0, 11rem) minmax(0, 1fr); gap: var(--s-5); align-items: center; margin: var(--s-6) 0 var(--s-5);
-  padding: var(--s-4); background: #fff; border: 1px solid var(--rule); border-radius: 10px; text-decoration: none; color: inherit;
-  transition: box-shadow 0.25s ease, border-color 0.25s ease, transform 0.25s ease;
-}
-.doc-card:hover, .doc-card:focus-visible { border-color: var(--gw-blue); box-shadow: 0 8px 22px rgba(10, 30, 56, 0.14); transform: translateY(-2px); }
-.doc-card__thumb { display: block; width: 100%; height: auto; aspect-ratio: 16 / 9; object-fit: cover; border-radius: 6px; border: 1px solid var(--rule); }
-.doc-card__body { display: grid; gap: var(--s-1); }
-.doc-card__title { font-family: var(--font-serif); font-size: var(--step-1); color: var(--gw-navy); line-height: 1.25; }
-.doc-card__meta { font-size: 0.8125rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--gw-blue); }
-@media (max-width: 30rem) { .doc-card { grid-template-columns: 1fr; } }
